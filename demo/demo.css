@@ -1,0 +1,64 @@
+/* line 1, ../sass/demo.scss */
+html, body {
+  font-family: 'Slabo 27px', serif;
+  padding: 0;
+  margin: 0;
+  background: #ffffff;
+}
+
+/* line 8, ../sass/demo.scss */
+* {
+  box-sizing: border-box;
+}
+
+/* line 12, ../sass/demo.scss */
+a {
+  color: #4ab19a;
+}
+
+/* line 16, ../sass/demo.scss */
+.clear {
+  clear: both;
+  float: none;
+  width: 100%;
+}
+
+/* line 22, ../sass/demo.scss */
+.container {
+  width: 1170px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* line 31, ../sass/demo.scss */
+.container .gallery a img {
+  float: left;
+  width: 20%;
+  height: auto;
+  border: 2px solid #fff;
+  -webkit-transition: -webkit-transform .15s ease;
+  -moz-transition: -moz-transform .15s ease;
+  -o-transition: -o-transform .15s ease;
+  -ms-transition: -ms-transform .15s ease;
+  transition: transform .15s ease;
+  position: relative;
+}
+/* line 45, ../sass/demo.scss */
+.container .gallery a:hover img {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  transform: scale(1.05);
+  z-index: 5;
+}
+/* line 56, ../sass/demo.scss */
+.container .gallery a.big img {
+  width: 40%;
+}
+
+/* line 64, ../sass/demo.scss */
+.align-center {
+  text-align: center;
+}
