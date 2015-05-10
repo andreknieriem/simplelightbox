@@ -8,7 +8,7 @@ bower install simplelightbox
 
 ### Usage
 Simple include simplelightbox.css and simple-lightbox.js to your page
-```javascript````
+```javascript
 var lightbox = $('.gallery a').simpleLightbox(options);
 ```
 
