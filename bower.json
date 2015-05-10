@@ -1,0 +1,36 @@
+{
+  "name": "simplelightbox",
+  "version": "1.0.0",
+  "homepage": "http://andreknieriem.de/simple-lightbox",
+  "authors": [
+    "André Knieriem <info@andreknieriem.de> (http://andreknieriem.de)"
+  ],
+  "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
+  "main": [
+    "dist/simplelightbox.css",
+    "dist/simplelightbox.min.css",
+	"dist/simple-lightbox.js",
+	"dist/simple-lightbox.min.js"
+  ],
+  "keywords": [
+    "image",
+    "gallery",
+    "lightbox",
+    "swipe",
+    "touch",
+    "jquery"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andreknieriem/simplelightbox.git"
+  },
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "demo"
+  ]
+}
