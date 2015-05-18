@@ -29,6 +29,9 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | loop | true | bool | enables looping through images |
 | docClose | true | bool | closes the lightbox when clicking outside |
 | swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
+| className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox
+| widthRatio: | 0.8 | float | Ratio of image width to screen width
+| heightRatio: | 0.9 | float | Ratio of image height to screen height
 
 ###Events
 | Name | Description |
@@ -61,4 +64,5 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.1.0 - Added classname for lightbox wrapper and width/height ratio
 **1.0.0 - Initial Release**

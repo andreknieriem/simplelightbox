@@ -12,7 +12,6 @@ $.fn.simpleLightbox = function( options )
 {
 	
 	var options = $.extend({
-		className:		'simple-lightbox',
 		overlay:		true,
 		spinner:		true,
 		nav:			true,
@@ -27,6 +26,10 @@ $.fn.simpleLightbox = function( options )
 	 	loop:			true,
 	 	docClose: 		true,
 	 	swipeTolerance: 50,
+	 	className:		'simple-lightbox',
+	 	widthRatio: 	0.8,
+	 	heightRatio: 	0.9
+	 	
 	 }, options );
 	
 	// global variables
@@ -78,7 +81,7 @@ $.fn.simpleLightbox = function( options )
 		setup = function(){
 			if(options.overlay) overlay.appendTo($('body'));
 	        $('<div>')
-	        	.addClass('sl-wrapper')
+	        	.addClass('sl-wrapper').addClass(options.className)
 	        	.html('<div class="sl-image"></div>')
 	        	.appendTo('body');
 	        image = $('.sl-image');
@@ -108,9 +111,12 @@ $.fn.simpleLightbox = function( options )
 		adjustImage = function(dir){
 			if(!curImg.length) return;
       	var tmpImage 	 = new Image(),
-			windowWidth	 = $( window ).width() * 0.8,
-			windowHeight = $( window ).height() * 0.9;
+			windowWidth	 = $( window ).width() * options.widthRatio,
+			windowHeight = $( window ).height() * options.heightRatio;
         	tmpImage.src	= curImg.attr( 'src' );
+        	
+        	console.log(options.heightRatio);
+        	
         	tmpImage.onload = function() {
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
