@@ -115,8 +115,6 @@ $.fn.simpleLightbox = function( options )
 			windowHeight = $( window ).height() * options.heightRatio;
         	tmpImage.src	= curImg.attr( 'src' );
         	
-        	console.log(options.heightRatio);
-        	
         	tmpImage.onload = function() {
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
