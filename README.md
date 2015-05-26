@@ -64,6 +64,6 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
-**1.1.1 - Bugfix for loading indicator and removed a log-event
+**1.1.1 - Bugfix for loading indicator and removed a log-event**  
 **1.1.0 - Added classname for lightbox wrapper and width/height ratio**  
 **1.0.0 - Initial Release**
