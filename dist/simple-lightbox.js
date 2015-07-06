@@ -1,6 +1,6 @@
 
 /*
-	By André Knieriem, www.andreknieriem.de
+	By Andre Knieriem, www.andreknieriem.de
 	Available for use under the MIT License
 */
 
@@ -17,6 +17,7 @@ $.fn.simpleLightbox = function( options )
 		nav:			true,
 		navText:		['&larr;','&rarr;'],
 		captions:		true,
+		captionsData:	'title',
 		close:			true,
 		closeText:		'X',
 	 	fileExt:		'png|jpg|jpeg|gif',
@@ -138,7 +139,7 @@ $.fn.simpleLightbox = function( options )
 				.fadeIn('fast');
 				opened = true;
 				
-				var captionText = $(selector).eq(index).find('img').prop('title');
+				var captionText = (options.captionsData == 'title') ? $(selector).eq(index).find('img').prop('title') : $(selector).eq(index).find('img').data('title');
 				if(dir == 1 || dir == -1){
 					var css = { 'opacity': 1.0 };
 					if( canTransisions ) {
@@ -161,7 +162,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext){
 			if(captiontext != '' && options.captions){
-				caption.text(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
+				caption.html(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
 			}
 		},
 		slide = function(speed, pos){
