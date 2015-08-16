@@ -23,6 +23,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionsData | title | string | get the caption from title or data-title attribute |
 | close | true | bool | show the close button or not |
 | closeText | 'X' | string | text or html for the close button |
+| showCounter | true | bool | show current image index or not |
 | fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp | list of fileextensions the plugin works with | 
 | animationSpeed | 250 | int | how long takes the slide animation |
 | preloading | true | bool | allows preloading next und previous images |
@@ -65,6 +66,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.3.0 - Added current index indicator/counter**  
 **1.2.0 - Added option for captions attribute (title or data-title)**  
 **1.1.2 - Bugfix for looping images**  
 **1.1.1 - Bugfix for loading indicator and removed a log-event**  

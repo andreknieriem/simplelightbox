@@ -36,11 +36,19 @@
   z-index: 15;
 }
 /* line 33, ../sass/simplelightbox.scss */
+.sl-wrapper .sl-counter {
+  display: none;
+  position: fixed;
+  top: 30px;
+  left: 30px;
+  z-index: 15;
+}
+/* line 41, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation {
   width: 100%;
   display: none;
 }
-/* line 36, ../sass/simplelightbox.scss */
+/* line 44, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button {
   position: fixed;
   top: 50%;
@@ -52,28 +60,28 @@
   display: block;
   z-index: 15;
 }
-/* line 46, ../sass/simplelightbox.scss */
+/* line 54, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button.sl-next {
   right: 40px;
 }
-/* line 50, ../sass/simplelightbox.scss */
+/* line 58, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button.sl-prev {
   left: 40px;
 }
-/* line 56, ../sass/simplelightbox.scss */
+/* line 64, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image {
   position: fixed;
   -ms-touch-action: none;
   touch-action: none;
   z-index: 10000;
 }
-/* line 61, ../sass/simplelightbox.scss */
+/* line 69, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image img {
   margin: 0;
   padding: 0;
   display: block;
 }
-/* line 66, ../sass/simplelightbox.scss */
+/* line 74, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-caption {
   display: none;
   padding: 10px;
@@ -85,8 +93,17 @@
   left: 0;
   right: 0;
 }
+/* line 86, ../sass/simplelightbox.scss */
+.sl-wrapper .sl-image .sl-download {
+  display: none;
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  color: #fff;
+  z-index: 5;
+}
 
-/* line 80, ../sass/simplelightbox.scss */
+/* line 97, ../sass/simplelightbox.scss */
 .sl-spinner {
   display: none;
   border: 5px solid #333;

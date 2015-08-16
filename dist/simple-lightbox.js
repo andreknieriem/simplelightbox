@@ -1,6 +1,6 @@
 
 /*
-	By Andre Knieriem, www.andreknieriem.de
+	By André Knieriem, www.andreknieriem.de
 	Available for use under the MIT License
 */
 
@@ -17,9 +17,9 @@ $.fn.simpleLightbox = function( options )
 		nav:			true,
 		navText:		['&larr;','&rarr;'],
 		captions:		true,
-		captionsData:	'title',
 		close:			true,
 		closeText:		'X',
+		showCounter:	true,
 	 	fileExt:		'png|jpg|jpeg|gif',
 	 	animationSpeed:	250,
 	 	preloading:		true,
@@ -72,6 +72,7 @@ $.fn.simpleLightbox = function( options )
 		closeBtn = $('<button>').addClass('sl-close').html(options.closeText),
 		spinner = $('<div>').addClass('sl-spinner').html('<div></div>'),
 		nav = $('<div>').addClass('sl-navigation').html('<button class="sl-prev">'+options.navText[0]+'</button><button class="sl-next">'+options.navText[1]+'</button>'),
+		counter = $('<div>').addClass('sl-counter').html('<span class="sl-current"></span>/<span class="sl-total"></span>'),
 		animating = false,
 		index = 0,
 		image = $(),
@@ -87,6 +88,13 @@ $.fn.simpleLightbox = function( options )
 	        	.appendTo('body');
 	        image = $('.sl-image');
 	        if(options.close) closeBtn.appendTo($('.sl-wrapper'));
+	        if(options.showCounter){
+	        	if($(selector).length > 1){
+	        		counter.appendTo($('.sl-wrapper'));
+	        		$('.sl-wrapper .sl-counter .sl-total').text($(selector).length);
+	        	}
+	        	
+	        }
 	        if(options.nav) nav.appendTo($('.sl-wrapper'));
 	        if(options.spinner) spinner.appendTo($('.sl-wrapper'));
 		},
@@ -103,6 +111,8 @@ $.fn.simpleLightbox = function( options )
         	$('.sl-close').fadeIn('fast');
         	spinner.show();
         	nav.fadeIn('fast');
+        	$('.sl-wrapper .sl-counter .sl-current').text(index +1);
+        	counter.fadeIn('fast');
         	adjustImage();
         	if(options.preloading){
 		    	preload();
@@ -139,7 +149,7 @@ $.fn.simpleLightbox = function( options )
 				.fadeIn('fast');
 				opened = true;
 				
-				var captionText = (options.captionsData == 'title') ? $(selector).eq(index).find('img').prop('title') : $(selector).eq(index).find('img').data('title');
+				var captionText = $(selector).eq(index).find('img').prop('title');
 				if(dir == 1 || dir == -1){
 					var css = { 'opacity': 1.0 };
 					if( canTransisions ) {
@@ -162,7 +172,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext){
 			if(captiontext != '' && options.captions){
-				caption.html(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
+				caption.text(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
 			}
 		},
 		slide = function(speed, pos){
@@ -184,6 +194,7 @@ $.fn.simpleLightbox = function( options )
 			if(animating || (newIndex < 0 || newIndex >= $(selector).length) && options.loop == false ) return;
 			animating = true;
 			index = (newIndex < 0) ? $(selector).length -1: (newIndex > $(selector).length -1) ? 0 : newIndex;
+			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
       	var css = { 'opacity': 0 };
 			if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
 			else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
@@ -203,7 +214,7 @@ $.fn.simpleLightbox = function( options )
 			var elem = $(selector).eq(index), 
 				triggered = false;
 			elem.trigger($.Event('close.simplelightbox'));
-		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption').fadeOut('fast', function(){
+		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
 		    	if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 		    	triggered = true;
 		    });
