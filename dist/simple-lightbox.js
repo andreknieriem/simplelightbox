@@ -264,12 +264,15 @@ $.fn.simpleLightbox = function( options )
 		$( document ).on( 'keyup.'+prefix, function( e ){
 			e.preventDefault();
 			swipeDiff = 0;
-			var key = e.keyCode;
-			if( key == 27 ) {
-				close();
-			}
-			if( key == 37 || e.keyCode == 39 ) {
-				loadImage( e.keyCode == 39 ? 1 : -1 );
+			// keyboard control only if lightbox is open
+			if(opened){
+				var key = e.keyCode;
+				if( key == 27 ) {
+					close();
+				}
+				if( key == 37 || e.keyCode == 39 ) {
+					loadImage( e.keyCode == 39 ? 1 : -1 );
+				}
 			}
 		});
 	}

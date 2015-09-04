@@ -66,6 +66,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.3.1 - Bugfix: disable keyboard control if lightbox is closed**  
 **1.3.0 - Added current index indicator/counter**  
 **1.2.0 - Added option for captions attribute (title or data-title)**  
 **1.1.2 - Bugfix for looping images**  
