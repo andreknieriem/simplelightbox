@@ -3,7 +3,11 @@ Touch-friendly image lightbox for mobile and desktop with jQuery
 
 ### Install
 ```sh
+//Bower
 bower install simplelightbox
+
+//NPM
+npm install simplelightbox
 ```
 
 ### Usage
@@ -20,7 +24,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | nav | true | bool | show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
 | captions | true | bool | show captions if availabled or not |
-| captionsData | title | string | get the caption from title or data-title attribute |
+| captionsData | title | string | get the caption from given attribute or data-title |
 | close | true | bool | show the close button or not |
 | closeText | 'X' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
@@ -66,6 +70,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.4.0 - Caption Attribute can now be what, you want, or data-title. Fixed some small issues**  
 **1.3.1 - Bugfix: disable keyboard control if lightbox is closed**  
 **1.3.0 - Added current index indicator/counter**  
 **1.2.0 - Added option for captions attribute (title or data-title)**  

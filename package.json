@@ -1,0 +1,30 @@
+{
+  "name": "simplelightbox",
+  "version": "1.4.0",
+  "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
+  "main": "dist/simple-lightbox.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/andreknieriem/simplelightbox.git"
+  },
+  "keywords": [
+    "lightbox",
+    "modal",
+    "gallery",
+    "jquery-plugin",
+    "touchfriendly",
+    "responsive",
+    "popup",
+    "dialog"
+  ],
+  "author": {
+		"name": "Andre Rinas",
+		"url": "http://www.andreknieriem.de",
+		"email": "info@andreknieriem.de"
+	},
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andreknieriem/simplelightbox/issues"
+  },
+  "homepage": "http://andreknieriem.de/simple-lightbox"
+}
