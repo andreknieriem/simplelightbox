@@ -17,6 +17,8 @@ $.fn.simpleLightbox = function( options )
 		nav:			true,
 		navText:		['&larr;','&rarr;'],
 		captions:		true,
+		captionSelector:'img',
+		captionType:	'attr',
 		captionsData:	'title',
 		close:			true,
 		closeText:		'X',
@@ -149,8 +151,15 @@ $.fn.simpleLightbox = function( options )
 				})
 				.fadeIn('fast');
 				opened = true;
+				var cSel = (options.captionSelector == 'self') ? $(selector).eq(index) : $(selector).eq(index).find(options.captionSelector);
+				if(options.captionType == 'data'){
+					var captionText = cSel.data(options.captionsData);
+				} else if(options.captionType == 'text'){
+					var captionText = cSel.html();
+				} else {
+					var captionText = cSel.prop(options.captionsData);
+				}
 				
-				var captionText = (options.captionsData == 'data-title') ? $(selector).eq(index).find('img').data('title') : $(selector).eq(index).find('img').prop(options.captionsData);
 				if(dir == 1 || dir == -1){
 					var css = { 'opacity': 1.0 };
 					if( canTransisions ) {
@@ -172,7 +181,7 @@ $.fn.simpleLightbox = function( options )
 			}
 		},
 		setCaption = function(captiontext){
-			if(captiontext != '' && options.captions){
+			if(captiontext != '' && typeof captiontext !== "undefined" && options.captions){
 				caption.html(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
 			}
 		},
@@ -248,7 +257,8 @@ $.fn.simpleLightbox = function( options )
 	$(document).click(function(e){
 		if(opened){
 			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)
-			){				close();
+			){
+				close();
 			}
 		}
 	});

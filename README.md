@@ -24,7 +24,9 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | nav | true | bool | show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
 | captions | true | bool | show captions if availabled or not |
-| captionsData | title | string | get the caption from given attribute or data-title |
+| captionSelector | 'img' | string | set the element where the caption is. Set it to "self" for the A-Tag itself |
+| captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
+| captionsData | title | string | get the caption from given attribute |
 | close | true | bool | show the close button or not |
 | closeText | 'X' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
@@ -70,6 +72,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.4.1 - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute**  
 **1.4.0 - Caption Attribute can now be what, you want, or data-title. Fixed some small issues**  
 **1.3.1 - Bugfix: disable keyboard control if lightbox is closed**  
 **1.3.0 - Added current index indicator/counter**  
