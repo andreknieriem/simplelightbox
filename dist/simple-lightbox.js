@@ -67,6 +67,7 @@ $.fn.simpleLightbox = function( options )
 	        return false;
 		},
 		opened = false,
+		
 		selector = this.selector,
 		transPrefix = transPrefix(),
 		canTransisions = (transPrefix !== false) ? true : false,
@@ -221,6 +222,7 @@ $.fn.simpleLightbox = function( options )
 			});
 		},
 		close = function(){
+			if(animating) return;
 			var elem = $(selector).eq(index), 
 				triggered = false;
 			elem.trigger($.Event('close.simplelightbox'));
@@ -302,7 +304,7 @@ $.fn.simpleLightbox = function( options )
 		mousedown = true;
 		swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
 	})
-	.on( 'touchmove mousemove pointermove MSPointerMove', '.sl-image', function(e)
+	.on( 'touchmove mousemove pointermove MSPointerMove', function(e)
 	{
 		if(!mousedown) return true;
 		e.preventDefault();
@@ -311,16 +313,18 @@ $.fn.simpleLightbox = function( options )
 		if( canTransisions ) slide( 0, -swipeDiff + 'px' );
 		else image.css( 'left', imageLeft - swipeDiff + 'px' );
 	})
-	.on( 'touchend mouseup touchcancel pointerup pointercancel MSPointerUp MSPointerCancel', '.sl-image' ,function(e)
+	.on( 'touchend mouseup touchcancel pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
 	{
-		mousedown = false;
-		if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
-			loadImage( swipeDiff > 0 ? 1 : -1 );	
-		}
-		else
-		{
-			if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
-			else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
+		if(mousedown){
+			mousedown = false;
+			if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
+				loadImage( swipeDiff > 0 ? 1 : -1 );	
+			}
+			else
+			{
+				if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
+				else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
+			}
 		}
 	});
 	

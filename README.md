@@ -72,6 +72,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.4.2 - Bugfix for issue #2 - Drop Event does not fire when mouse leaves window**  
 **1.4.1 - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute**  
 **1.4.0 - Caption Attribute can now be what, you want, or data-title. Fixed some small issues**  
 **1.3.1 - Bugfix: disable keyboard control if lightbox is closed**  

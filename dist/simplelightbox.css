@@ -8,12 +8,12 @@
   background: #fff;
   opacity: 0.7;
   display: none;
-  z-index: 6;
+  z-index: 1006;
 }
 
 /* line 12, ../sass/simplelightbox.scss */
 .sl-wrapper {
-  z-index: 10;
+  z-index: 1000;
 }
 /* line 14, ../sass/simplelightbox.scss */
 .sl-wrapper button {
@@ -33,7 +33,7 @@
   position: fixed;
   right: 30px;
   top: 30px;
-  z-index: 15;
+  z-index: 1015;
 }
 /* line 33, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-counter {
@@ -41,7 +41,7 @@
   position: fixed;
   top: 30px;
   left: 30px;
-  z-index: 15;
+  z-index: 1015;
 }
 /* line 41, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation {
@@ -58,7 +58,7 @@
   line-height: 30px;
   text-algin: center;
   display: block;
-  z-index: 15;
+  z-index: 1015;
 }
 /* line 54, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button.sl-next {
@@ -100,7 +100,7 @@
   bottom: 5px;
   right: 5px;
   color: #fff;
-  z-index: 5;
+  z-index: 1005;
 }
 
 /* line 97, ../sass/simplelightbox.scss */
@@ -115,7 +115,7 @@
   position: fixed;
   top: 50%;
   width: 40px;
-  z-index: 10;
+  z-index: 1000;
   -webkit-animation: pulsate 1s ease-out infinite;
   -moz-animation: pulsate 1s ease-out infinite;
   -ms-animation: pulsate 1s ease-out infinite;
