@@ -115,7 +115,7 @@
   position: fixed;
   top: 50%;
   width: 40px;
-  z-index: 1000;
+  z-index: 1007;
   -webkit-animation: pulsate 1s ease-out infinite;
   -moz-animation: pulsate 1s ease-out infinite;
   -ms-animation: pulsate 1s ease-out infinite;
