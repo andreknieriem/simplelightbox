@@ -1,6 +1,6 @@
 
 /*
-	By André Knieriem, www.andreknieriem.de
+	By André Rinas, www.andreknieriem.de
 	Available for use under the MIT License
 */
 

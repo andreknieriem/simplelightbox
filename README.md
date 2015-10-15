@@ -72,6 +72,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.4.3 - Bugfix z-index for spinner to low, added sass files**  
 **1.4.2 - Bugfix for issue #2 - Drop Event does not fire when mouse leaves window**  
 **1.4.1 - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute**  
 **1.4.0 - Caption Attribute can now be what, you want, or data-title. Fixed some small issues**  
