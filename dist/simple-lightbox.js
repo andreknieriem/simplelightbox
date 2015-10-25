@@ -21,7 +21,7 @@ $.fn.simpleLightbox = function( options )
 		captionType:	'attr',
 		captionsData:	'title',
 		close:			true,
-		closeText:		'X',
+		closeText:		'×',
 		showCounter:	true,
 	 	fileExt:		'png|jpg|jpeg|gif',
 	 	animationSpeed:	250,
@@ -81,29 +81,28 @@ $.fn.simpleLightbox = function( options )
 		index = 0,
 		image = $(),
 		caption = $('<div>').addClass('sl-caption'),
+		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className).html('<div class="sl-image"></div>'),
 		isValidLink = function( element ){
 			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( 'href' ) );
 		},
 		setup = function(){
-			if(options.overlay) overlay.appendTo($('body'));
-	        $('<div>')
-	        	.addClass('sl-wrapper').addClass(options.className)
-	        	.html('<div class="sl-image"></div>')
-	        	.appendTo('body');
 	        image = $('.sl-image');
-	        if(options.close) closeBtn.appendTo($('.sl-wrapper'));
+	        if(options.close) closeBtn.appendTo(wrapper);
 	        if(options.showCounter){
 	        	if($(selector).length > 1){
-	        		counter.appendTo($('.sl-wrapper'));
-	        		$('.sl-wrapper .sl-counter .sl-total').text($(selector).length);
+	        		counter.appendTo(wrapper);
+	        		counter.find('.sl-total').text($(selector).length);
 	        	}
 	        	
 	        }
-	        if(options.nav) nav.appendTo($('.sl-wrapper'));
-	        if(options.spinner) spinner.appendTo($('.sl-wrapper'));
+	        if(options.nav) nav.appendTo(wrapper);
+	        if(options.spinner) spinner.appendTo(wrapper);
+	        
 		},
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
+			wrapper.appendTo('body');
+			if(options.overlay) overlay.appendTo($('body'));
 			animating = true;
 			index = $(selector).index(elem);
 	        curImg = $( '<img/>' )
@@ -227,6 +226,7 @@ $.fn.simpleLightbox = function( options )
 				triggered = false;
 			elem.trigger($.Event('close.simplelightbox'));
 		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
+		    	 $('.sl-wrapper, .sl-overlay').remove();
 		    	if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 		    	triggered = true;
 		    });
@@ -303,6 +303,7 @@ $.fn.simpleLightbox = function( options )
 		if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
 		mousedown = true;
 		swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
+		return false;
 	})
 	.on( 'touchmove mousemove pointermove MSPointerMove', function(e)
 	{
@@ -312,6 +313,7 @@ $.fn.simpleLightbox = function( options )
 		swipeDiff = swipeStart - swipeEnd;
 		if( canTransisions ) slide( 0, -swipeDiff + 'px' );
 		else image.css( 'left', imageLeft - swipeDiff + 'px' );
+		return false;
 	})
 	.on( 'touchend mouseup touchcancel pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
 	{
@@ -326,6 +328,7 @@ $.fn.simpleLightbox = function( options )
 				else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
 			}
 		}
+		return false;
 	});
 	
 	// Public methods
