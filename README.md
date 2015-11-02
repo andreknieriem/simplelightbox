@@ -28,9 +28,9 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
 | close | true | bool | show the close button or not |
-| closeText | 'X' | string | text or html for the close button |
+| closeText | '×' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
-| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp | list of fileextensions the plugin works with | 
+| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check | 
 | animationSpeed | 250 | int | how long takes the slide animation |
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
@@ -72,6 +72,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.4.6 - Option for fileExt can now be false to enable pictures like example.com/pic/200/100**  
 **1.4.5 - Bugfix lightbox opening does not work on mobile devices**  
 **1.4.4 - Bugfix no drag&drop in FF, changed default close text, only output data if lightbox is opened**  
 **1.4.3 - Bugfix z-index for spinner to low, added sass files**  

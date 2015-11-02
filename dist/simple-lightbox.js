@@ -83,6 +83,7 @@ $.fn.simpleLightbox = function( options )
 		caption = $('<div>').addClass('sl-caption'),
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className).html('<div class="sl-image"></div>'),
 		isValidLink = function( element ){
+			if(!options.fileExt) return true;
 			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( 'href' ) );
 		},
 		setup = function(){

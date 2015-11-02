@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "1.4.5",
+  "version": "1.4.6",
   "homepage": "http://andreknieriem.de/simple-lightbox",
   "authors": [
     "André Rinas <info@andreknieriem.de> (http://andreknieriem.de)"
@@ -18,7 +18,8 @@
     "lightbox",
     "swipe",
     "touch",
-    "jquery"
+    "jquery",
+    "popup"
   ],
   "repository": {
     "type": "git",
