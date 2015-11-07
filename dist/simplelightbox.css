@@ -123,6 +123,15 @@
   animation: pulsate 1s ease-out infinite;
 }
 
+/* line 116, ../sass/simplelightbox.scss */
+.sl-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
 @-webkit-keyframes pulsate {
   0% {
     transform: scale(0.1);

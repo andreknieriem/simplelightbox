@@ -40,6 +40,8 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
 | widthRatio: | 0.8 | float | Ratio of image width to screen width |
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
+| disableRightClick | false | bool | disable rightclick on image or not |
+| disableScroll | true | bool | stop scrolling page if lightbox is openend |
 
 ###Events
 | Name | Description |
@@ -72,6 +74,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.5.0 - Added options for disabling rightclick and scrolling, changed default prev- and next-button text**  
 **1.4.6 - Option for fileExt can now be false to enable pictures like example.com/pic/200/100**  
 **1.4.5 - Bugfix lightbox opening does not work on mobile devices**  
 **1.4.4 - Bugfix no drag&drop in FF, changed default close text, only output data if lightbox is opened**  

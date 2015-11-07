@@ -12,28 +12,29 @@ $.fn.simpleLightbox = function( options )
 {
 	
 	var options = $.extend({
-		overlay:		true,
-		spinner:		true,
-		nav:			true,
-		navText:		['&larr;','&rarr;'],
-		captions:		true,
-		captionSelector:'img',
-		captionType:	'attr',
-		captionsData:	'title',
-		close:			true,
-		closeText:		'×',
-		showCounter:	true,
-	 	fileExt:		'png|jpg|jpeg|gif',
-	 	animationSpeed:	250,
-	 	preloading:		true,
-	 	enableKeyboard:	true,
-	 	loop:			true,
-	 	docClose: 		true,
-	 	swipeTolerance: 50,
-	 	className:		'simple-lightbox',
-	 	widthRatio: 	0.8,
-	 	heightRatio: 	0.9
-	 	
+		overlay:			true,
+		spinner:			true,
+		nav:				true,
+		navText:			['&lsaquo;','&rsaquo;'],
+		captions:			true,
+		captionSelector:	'img',
+		captionType:		'attr',
+		captionsData:		'title',
+		close:				true,
+		closeText:			'×',
+		showCounter:		true,
+	 	fileExt:			'png|jpg|jpeg|gif',
+	 	animationSpeed:		250,
+	 	preloading:			true,
+	 	enableKeyboard:		true,
+	 	loop:				true,
+	 	docClose: 			true,
+	 	swipeTolerance: 	50,
+	 	className:			'simple-lightbox',
+	 	widthRatio: 		0.8,
+	 	heightRatio: 		0.9,
+	 	disableRightClick:	false,
+	 	disableScroll:		true
 	 }, options );
 	
 	// global variables
@@ -101,6 +102,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
+			if(options.disableScroll) handleScrollbar('hide');
 			wrapper.appendTo('body');
 			if(options.overlay) overlay.appendTo($('body'));
 			animating = true;
@@ -117,9 +119,7 @@ $.fn.simpleLightbox = function( options )
         	$('.sl-wrapper .sl-counter .sl-current').text(index +1);
         	counter.fadeIn('fast');
         	adjustImage();
-        	if(options.preloading){
-		    	preload();
-		    }
+        	if(options.preloading) preload();
 		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox'));} ,options.animationSpeed);
 		},
 		adjustImage = function(dir){
@@ -226,12 +226,37 @@ $.fn.simpleLightbox = function( options )
 				triggered = false;
 			elem.trigger($.Event('close.simplelightbox'));
 		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
-		    	 $('.sl-wrapper, .sl-overlay').remove();
+		    	if(options.disableScroll) handleScrollbar('show');
+		    	$('.sl-wrapper, .sl-overlay').remove();
 		    	if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 		    	triggered = true;
 		    });
 		    curImg = $();
 		    opened = false;
+		},
+		handleScrollbar = function(type){
+			if(type == 'hide'){
+				var fullWindowWidth = window.innerWidth;
+				if (!fullWindowWidth) {
+			      var documentElementRect = document.documentElement.getBoundingClientRect()
+			      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+			    }
+				if(document.body.clientWidth < fullWindowWidth){
+					var scrollDiv = document.createElement('div'),
+						padding = parseInt($('body').css('padding-right'),10);
+				    scrollDiv.className = 'sl-scrollbar-measure';
+				    $('body').append(scrollDiv);
+				    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+				    $(document.body)[0].removeChild(scrollDiv);
+				    $('body').data('padding',padding);
+				    console.log(padding, scrollbarWidth);
+				    if(scrollbarWidth > 0){
+				    	$('body').css({'padding-right':padding+scrollbarWidth, 'overflow':'hidden'});
+				    }
+				}
+			} else {
+				$('body').css({'padding-right':$('body').data('padding'), 'overflow':'auto'});
+			}
 		}
 		  
 	// events
@@ -258,12 +283,18 @@ $.fn.simpleLightbox = function( options )
 	// close on click on doc
 	$(document).click(function(e){
 		if(opened){
-			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)
-			){
+			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)){
 				close();
 			}
 		}
 	});
+	
+	// disable rightclick
+	if(options.disableRightClick){
+		$(document).on('contextmenu', '.sl-image img', function(e){
+			return false;
+		});
+	}
 	
 	// nav-buttons
 	$(document).on('click', '.sl-navigation button', function(e){
