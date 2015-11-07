@@ -56,32 +56,33 @@
   height: 30px;
   width: 30px;
   line-height: 30px;
-  text-algin: center;
+  text-align: center;
   display: block;
   z-index: 1015;
+  font-family: arial sans-serif;
 }
-/* line 54, ../sass/simplelightbox.scss */
+/* line 55, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button.sl-next {
   right: 40px;
 }
-/* line 58, ../sass/simplelightbox.scss */
+/* line 59, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-navigation button.sl-prev {
   left: 40px;
 }
-/* line 64, ../sass/simplelightbox.scss */
+/* line 65, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image {
   position: fixed;
   -ms-touch-action: none;
   touch-action: none;
   z-index: 10000;
 }
-/* line 69, ../sass/simplelightbox.scss */
+/* line 70, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image img {
   margin: 0;
   padding: 0;
   display: block;
 }
-/* line 74, ../sass/simplelightbox.scss */
+/* line 75, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-caption {
   display: none;
   padding: 10px;
@@ -93,7 +94,7 @@
   left: 0;
   right: 0;
 }
-/* line 86, ../sass/simplelightbox.scss */
+/* line 87, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-download {
   display: none;
   position: absolute;
@@ -103,7 +104,7 @@
   z-index: 1005;
 }
 
-/* line 97, ../sass/simplelightbox.scss */
+/* line 98, ../sass/simplelightbox.scss */
 .sl-spinner {
   display: none;
   border: 5px solid #333;
@@ -123,7 +124,7 @@
   animation: pulsate 1s ease-out infinite;
 }
 
-/* line 116, ../sass/simplelightbox.scss */
+/* line 117, ../sass/simplelightbox.scss */
 .sl-scrollbar-measure {
   position: absolute;
   top: -9999px;
