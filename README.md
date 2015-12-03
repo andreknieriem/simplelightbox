@@ -41,7 +41,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | widthRatio: | 0.8 | float | Ratio of image width to screen width |
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
 | disableRightClick | false | bool | disable rightclick on image or not |
-| disableScroll | true | bool | stop scrolling page if lightbox is openend |
+| disableScroll | true | bool | stop scrolling page if lightbox is opened |
 
 ###Events
 | Name | Description |
@@ -74,6 +74,7 @@ var gallery = $('.gallery a').simpleLightbox();
 gallery.next(); // Next Image
 ```
 ### Changelog
+**1.5.1 - Bugfix for multiple lightboxes on one page**  
 **1.5.0 - Added options for disabling rightclick and scrolling, changed default prev- and next-button text**  
 **1.4.6 - Option for fileExt can now be false to enable pictures like example.com/pic/200/100**  
 **1.4.5 - Bugfix lightbox opening does not work on mobile devices**  

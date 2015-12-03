@@ -173,11 +173,11 @@ $.fn.simpleLightbox = function( options )
 						animating = false;
 						setCaption(captionText);
 					});
-					
 				} else {
 					animating = false;
 					setCaption(captionText);
 				}
+				
 			}
 		},
 		setCaption = function(captiontext){
@@ -202,7 +202,6 @@ $.fn.simpleLightbox = function( options )
 		    spinner.show();
 		var newIndex = index + dir;
 			if(animating || (newIndex < 0 || newIndex >= $(selector).length) && options.loop == false ) return;
-			animating = true;
 			index = (newIndex < 0) ? $(selector).length -1: (newIndex > $(selector).length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
       	var css = { 'opacity': 0 };
@@ -233,6 +232,7 @@ $.fn.simpleLightbox = function( options )
 		    });
 		    curImg = $();
 		    opened = false;
+		    animating = false;
 		},
 		handleScrollbar = function(type){
 			if(type == 'hide'){
@@ -249,7 +249,6 @@ $.fn.simpleLightbox = function( options )
 				    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 				    $(document.body)[0].removeChild(scrollDiv);
 				    $('body').data('padding',padding);
-				    console.log(padding, scrollbarWidth);
 				    if(scrollbarWidth > 0){
 				    	$('body').css({'padding-right':padding+scrollbarWidth, 'overflow':'hidden'});
 				    }
