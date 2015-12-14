@@ -83,6 +83,11 @@
   display: block;
 }
 /* line 75, ../sass/simplelightbox.scss */
+.sl-wrapper .sl-image iframe {
+  border: 0 none;
+  background: #000;
+}
+/* line 79, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-caption {
   display: none;
   padding: 10px;
@@ -94,7 +99,16 @@
   left: 0;
   right: 0;
 }
-/* line 87, ../sass/simplelightbox.scss */
+/* line 90, ../sass/simplelightbox.scss */
+.sl-wrapper .sl-image .sl-caption.pos-top {
+  bottom: auto;
+  top: 0;
+}
+/* line 95, ../sass/simplelightbox.scss */
+.sl-wrapper .sl-image .sl-caption.pos-outside {
+  bottom: auto;
+}
+/* line 100, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-download {
   display: none;
   position: absolute;
@@ -104,7 +118,7 @@
   z-index: 1005;
 }
 
-/* line 98, ../sass/simplelightbox.scss */
+/* line 111, ../sass/simplelightbox.scss */
 .sl-spinner {
   display: none;
   border: 5px solid #333;
@@ -124,7 +138,7 @@
   animation: pulsate 1s ease-out infinite;
 }
 
-/* line 117, ../sass/simplelightbox.scss */
+/* line 130, ../sass/simplelightbox.scss */
 .sl-scrollbar-measure {
   position: absolute;
   top: -9999px;

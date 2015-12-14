@@ -27,6 +27,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionSelector | 'img' | string | set the element where the caption is. Set it to "self" for the A-Tag itself |
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
+| captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
 | close | true | bool | show the close button or not |
 | closeText | '×' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
@@ -73,7 +74,16 @@ var gallery = $('.gallery a').simpleLightbox();
 
 gallery.next(); // Next Image
 ```
+
+###Multiple Lightboxes on one page
+You can have multiple lightboxes on one page, if you give them different selectors. Here is a small example:
+```javascript
+var lightbox1 = $('.lighbox-1 a').simpleLightbox();
+var lightbox2 = $('.lighbox-2 a').simpleLightbox();
+```
+
 ### Changelog
+**1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last. **  
 **1.5.1 - Bugfix for multiple lightboxes on one page**  
 **1.5.0 - Added options for disabling rightclick and scrolling, changed default prev- and next-button text**  
 **1.4.6 - Option for fileExt can now be false to enable pictures like example.com/pic/200/100**  

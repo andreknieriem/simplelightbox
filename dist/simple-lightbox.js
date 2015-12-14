@@ -20,6 +20,7 @@ $.fn.simpleLightbox = function( options )
 		captionSelector:	'img',
 		captionType:		'attr',
 		captionsData:		'title',
+		captionPosition:	'bottom',
 		close:				true,
 		closeText:			'×',
 		showCounter:		true,
@@ -81,7 +82,7 @@ $.fn.simpleLightbox = function( options )
 		animating = false,
 		index = 0,
 		image = $(),
-		caption = $('<div>').addClass('sl-caption'),
+		caption = $('<div>').addClass('sl-caption pos-'+options.captionPosition),
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className).html('<div class="sl-image"></div>'),
 		isValidLink = function( element ){
 			if(!options.fileExt) return true;
@@ -158,6 +159,12 @@ $.fn.simpleLightbox = function( options )
 					var captionText = cSel.html();
 				} else {
 					var captionText = cSel.prop(options.captionsData);
+				}
+				
+				if(!options.loop) {
+					if(index == 0){ $('.sl-prev').hide();}
+					if(index >= $(selector).length -1) {$('.sl-next').hide();}
+					if(index > 0 && index < $(selector).length -1){ $('.sl-prev, .sl-next').show(); }
 				}
 				
 				if(dir == 1 || dir == -1){
