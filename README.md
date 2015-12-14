@@ -83,7 +83,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
-**1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last. **  
+**1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.**  
 **1.5.1 - Bugfix for multiple lightboxes on one page**  
 **1.5.0 - Added options for disabling rightclick and scrolling, changed default prev- and next-button text**  
 **1.4.6 - Option for fileExt can now be false to enable pictures like example.com/pic/200/100**  
