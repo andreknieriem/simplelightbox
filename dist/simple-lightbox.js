@@ -25,6 +25,7 @@ $.fn.simpleLightbox = function( options )
 		closeText:			'×',
 		showCounter:		true,
 	 	fileExt:			'png|jpg|jpeg|gif',
+	 	animationSlide:		true,
 	 	animationSpeed:		250,
 	 	preloading:			true,
 	 	enableKeyboard:		true,
@@ -169,13 +170,16 @@ $.fn.simpleLightbox = function( options )
 				
 				if(dir == 1 || dir == -1){
 					var css = { 'opacity': 1.0 };
-					if( canTransisions ) {
-						slide(0, 100 * dir + 'px');
-						setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'), 50 });
+					if( options.animationSlide ) {
+						if( canTransisions ) {
+							slide(0, 100 * dir + 'px');
+							setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'), 50 });
+						}
+						else {
+							css.left = parseInt( $('.sl-image').css( 'left' ) ) + 100 * dir + 'px';
+						}
 					}
-					else {
-						css.left = parseInt( $('.sl-image').css( 'left' ) ) + 100 * dir + 'px';
-					}
+					
 					$('.sl-image').animate( css, options.animationSpeed, function(){
 						animating = false;
 						setCaption(captionText);
