@@ -32,7 +32,8 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | closeText | '×' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
 | fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check | 
-| animationSpeed | 250 | int | how long takes the slide animation |
+| animationSlide | true | bool | weather to slide in new photos or not, disable to fade
+| animationSpeed | 250 | int | how long takes the slide and fade animations |
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
