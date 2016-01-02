@@ -216,8 +216,10 @@ $.fn.simpleLightbox = function( options )
 			index = (newIndex < 0) ? $(selector).length -1: (newIndex > $(selector).length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
       	var css = { 'opacity': 0 };
-			if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
-			else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
+			if( options.animationSlide ) {
+			  if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
+			  else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
+			}
 			$('.sl-image').animate( css, options.animationSpeed, function(){
 				setTimeout( function(){
 					// fadeout old image
@@ -352,8 +354,10 @@ $.fn.simpleLightbox = function( options )
 		e.preventDefault();
 		swipeEnd = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
 		swipeDiff = swipeStart - swipeEnd;
-		if( canTransisions ) slide( 0, -swipeDiff + 'px' );
-		else image.css( 'left', imageLeft - swipeDiff + 'px' );
+		if( options.animationSlide ) {
+		  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
+		  else image.css( 'left', imageLeft - swipeDiff + 'px' );
+		}
 	})
 	.on( 'touchend mouseup touchcancel pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
 	{
@@ -362,7 +366,7 @@ $.fn.simpleLightbox = function( options )
 			if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
 				loadImage( swipeDiff > 0 ? 1 : -1 );	
 			}
-			else
+			else if( options.animationSlide )
 			{
 				if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
 				else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
