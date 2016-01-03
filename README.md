@@ -28,11 +28,13 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
 | captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
+| captionDelay | 0 | int | adds a delay before the caption shows (in ms) |
 | close | true | bool | show the close button or not |
 | closeText | '×' | string | text or html for the close button |
 | showCounter | true | bool | show current image index or not |
 | fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check | 
 | animationSpeed | 250 | int | how long takes the slide animation |
+| animationSlide | true | bool | weather to slide in new photos or not, disable to fade |
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
@@ -83,6 +85,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.7.0 - Add support for fading between photos, Bugfix for single image navigation, option for caption delay**  
 **1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.**  
 **1.5.1 - Bugfix for multiple lightboxes on one page**  
 **1.5.0 - Added options for disabling rightclick and scrolling, changed default prev- and next-button text**  
