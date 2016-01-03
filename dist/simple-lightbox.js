@@ -17,6 +17,7 @@ $.fn.simpleLightbox = function( options )
 		nav:				true,
 		navText:			['&lsaquo;','&rsaquo;'],
 		captions:			true,
+		captionDelay:		0,
 		captionSelector:	'img',
 		captionType:		'attr',
 		captionsData:		'title',
@@ -189,7 +190,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext){
 			if(captiontext != '' && typeof captiontext !== "undefined" && options.captions){
-				caption.html(captiontext).hide().appendTo($('.sl-image')).fadeIn('fast');
+				caption.html(captiontext).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
 			}
 		},
 		slide = function(speed, pos){

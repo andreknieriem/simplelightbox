@@ -24,6 +24,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | nav | true | bool | show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
 | captions | true | bool | show captions if availabled or not |
+| captionDelay | 0 | int | adds a delay before the caption shows |
 | captionSelector | 'img' | string | set the element where the caption is. Set it to "self" for the A-Tag itself |
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
