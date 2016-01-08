@@ -7,10 +7,10 @@
 ;( function( $, window, document, undefined )
 {
 	'use strict';
-	
+
 $.fn.simpleLightbox = function( options )
 {
-	
+
 	var options = $.extend({
 		overlay:			true,
 		spinner:			true,
@@ -37,9 +37,10 @@ $.fn.simpleLightbox = function( options )
 	 	widthRatio: 		0.8,
 	 	heightRatio: 		0.9,
 	 	disableRightClick:	false,
-	 	disableScroll:		true
+	 	disableScroll:		true,
+	 	alertError:			true
 	 }, options );
-	
+
 	// global variables
 	var touchDevice	= ( 'ontouchstart' in window ),
 	    pointerEnabled = window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
@@ -71,8 +72,8 @@ $.fn.simpleLightbox = function( options )
 	        return false;
 		},
 		opened = false,
-		
-		selector = this.selector,
+
+		objects = $( this.selector, this.context ),
 		transPrefix = transPrefix(),
 		canTransisions = (transPrefix !== false) ? true : false,
 		prefix = 'simplelb',
@@ -94,11 +95,11 @@ $.fn.simpleLightbox = function( options )
 			image = $('.sl-image');
 	        if(options.close) closeBtn.appendTo(wrapper);
 	        if(options.showCounter){
-	        	if($(selector).length > 1){
+	        	if(objects.length > 1){
 	        		counter.appendTo(wrapper);
-	        		counter.find('.sl-total').text($(selector).length);
+	        		counter.find('.sl-total').text(objects.length);
 	        	}
-	        	
+
 	        }
 	        if(options.nav) nav.appendTo(wrapper);
 	        if(options.spinner) spinner.appendTo(wrapper);
@@ -109,7 +110,7 @@ $.fn.simpleLightbox = function( options )
 			wrapper.appendTo('body');
 			if(options.overlay) overlay.appendTo($('body'));
 			animating = true;
-			index = $(selector).index(elem);
+			index = objects.index(elem);
 	        curImg = $( '<img/>' )
 	        .hide()
 	        .attr('src', elem.attr('href'));
@@ -123,7 +124,7 @@ $.fn.simpleLightbox = function( options )
         	counter.fadeIn('fast');
         	adjustImage();
         	if(options.preloading) preload();
-		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox'));} ,options.animationSpeed);
+		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox')); } ,options.animationSpeed);
 		},
 		adjustImage = function(dir){
 			if(!curImg.length) return;
@@ -131,17 +132,27 @@ $.fn.simpleLightbox = function( options )
 			windowWidth	 = $( window ).width() * options.widthRatio,
 			windowHeight = $( window ).height() * options.heightRatio;
         	tmpImage.src	= curImg.attr( 'src' );
-        	
+			
+			$(tmpImage).bind('error',function(ev){
+			    //no image was found
+			    animating = false;
+			    if(options.alertError){
+			    	alert('Image not found, next image will be loaded');
+			    }
+			    loadImage(1);
+			    return;
+			})
+			
         	tmpImage.onload = function() {
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
-				
+
 				if( imageWidth > windowWidth || imageHeight > windowHeight ){
 					var ratio	 = imageWidth / imageHeight > windowWidth / windowHeight ? imageWidth / windowWidth : imageHeight / windowHeight;
 					imageWidth	/= ratio;
 					imageHeight	/= ratio;
 				}
-				
+
 				$('.sl-image').css({
 					'top':    ( $( window ).height() - imageHeight ) / 2 + 'px',
 					'left':   ( $( window ).width() - imageWidth ) / 2 + 'px'
@@ -154,7 +165,7 @@ $.fn.simpleLightbox = function( options )
 				})
 				.fadeIn('fast');
 				opened = true;
-				var cSel = (options.captionSelector == 'self') ? $(selector).eq(index) : $(selector).eq(index).find(options.captionSelector);
+				var cSel = (options.captionSelector == 'self') ? objects.eq(index) : objects.eq(index).find(options.captionSelector);
 				if(options.captionType == 'data'){
 					var captionText = cSel.data(options.captionsData);
 				} else if(options.captionType == 'text'){
@@ -162,15 +173,15 @@ $.fn.simpleLightbox = function( options )
 				} else {
 					var captionText = cSel.prop(options.captionsData);
 				}
-				
+
 				if(!options.loop) {
 					if(index == 0){ $('.sl-prev').hide();}
-					if(index >= $(selector).length -1) {$('.sl-next').hide();}
-					if(index > 0 && index < $(selector).length -1){ $('.sl-prev, .sl-next').show(); }
+					if(index >= objects.length -1) {$('.sl-next').hide();}
+					if(index > 0 && index < objects.length -1){ $('.sl-prev, .sl-next').show(); }
 				}
-				
-				if($(selector).length == 1) $('.sl-prev, .sl-next').hide();
-				
+
+				if(objects.length == 1) $('.sl-prev, .sl-next').hide();
+
 				if(dir == 1 || dir == -1){
 					var css = { 'opacity': 1.0 };
 					if( options.animationSlide ) {
@@ -182,7 +193,7 @@ $.fn.simpleLightbox = function( options )
 							css.left = parseInt( $('.sl-image').css( 'left' ) ) + 100 * dir + 'px';
 						}
 					}
-					
+
 					$('.sl-image').animate( css, options.animationSpeed, function(){
 						animating = false;
 						setCaption(captionText);
@@ -191,7 +202,7 @@ $.fn.simpleLightbox = function( options )
 					animating = false;
 					setCaption(captionText);
 				}
-				
+
 			}
 		},
 		setCaption = function(captiontext){
@@ -206,17 +217,17 @@ $.fn.simpleLightbox = function( options )
 			$('.sl-image').css(styles);
 		},
 		preload = function(){
-			var next = (index+1 < 0) ? $(selector).length -1: (index+1 >= $(selector).length -1) ? 0 : index+1,
-				prev = (index-1 < 0) ? $(selector).length -1: (index-1 >= $(selector).length -1) ? 0 : index-1;
-			$( '<img />' ).attr( 'src', $(selector).eq(next).attr( 'href' ) ).load();
-			$( '<img />' ).attr( 'src', $(selector).eq(prev).attr( 'href' ) ).load();
-				
+			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
+				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
+			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load();
+			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load();
+
 		},
 		loadImage = function(dir){
 		    spinner.show();
 		var newIndex = index + dir;
-			if(animating || (newIndex < 0 || newIndex >= $(selector).length) && options.loop == false ) return;
-			index = (newIndex < 0) ? $(selector).length -1: (newIndex > $(selector).length -1) ? 0 : newIndex;
+			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
+			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
       	var css = { 'opacity': 0 };
 			if( options.animationSlide ) {
@@ -226,7 +237,7 @@ $.fn.simpleLightbox = function( options )
 			$('.sl-image').animate( css, options.animationSpeed, function(){
 				setTimeout( function(){
 					// fadeout old image
-					var elem = $(selector).eq(index);
+					var elem = objects.eq(index);
 					curImg
 					.attr('src', elem.attr('href'));
 					$('.sl-caption').remove();
@@ -237,7 +248,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		close = function(){
 			if(animating) return;
-			var elem = $(selector).eq(index), 
+			var elem = objects.eq(index),
 				triggered = false;
 			elem.trigger($.Event('close.simplelightbox'));
 		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
@@ -273,51 +284,51 @@ $.fn.simpleLightbox = function( options )
 				$('body').css({'padding-right':$('body').data('padding'), 'overflow':'auto'});
 			}
 		}
-		  
+
 	// events
 	setup();
-	
+
 	// resize/responsive
-	$( window ).on( 'resize', adjustImage );	
-	
+	$( window ).on( 'resize', adjustImage );
+
 	// open lightbox
-	$( document ).on( 'click.'+prefix, this.selector, function( e ){
-	  if(isValidLink(this)){
-	    e.preventDefault();
-	    if(animating) return false;
-	    openImage($(this));
-	  }
+	objects.on( 'click.'+prefix, function( e ){
+	  	if(isValidLink(this)){
+	    	e.preventDefault();
+	    	if(animating) return false;
+	    	openImage($(this));
+	  	}
 	});
-	
+
 	// close lightbox on close btn
-	$(document).on('click', '.sl-close', function(e){
+	$( document ).on('click', '.sl-close', function(e){
 		e.preventDefault();
 		if(opened){ close();}
 	});
-	
+
 	// close on click on doc
-	$(document).click(function(e){
+	$( document ).click(function(e){
 		if(opened){
 			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)){
 				close();
 			}
 		}
 	});
-	
+
 	// disable rightclick
 	if(options.disableRightClick){
-		$(document).on('contextmenu', '.sl-image img', function(e){
+		$( document ).on('contextmenu', '.sl-image img', function(e){
 			return false;
 		});
 	}
-	
+
 	// nav-buttons
 	$(document).on('click', '.sl-navigation button', function(e){
 		e.preventDefault();
 		swipeDiff = 0;
 		loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
 	});
-	
+
 	// keyboard-control
 	if( options.enableKeyboard ){
 		$( document ).on( 'keyup.'+prefix, function( e ){
@@ -335,14 +346,14 @@ $.fn.simpleLightbox = function( options )
 			}
 		});
 	}
-	
+
 	// touchcontrols
 	var swipeStart	 = 0,
 		swipeEnd	 = 0,
 		mousedown = false,
 		imageLeft = 0;
-    
-	$(document)
+
+	$( document )
 	.on( 'touchstart mousedown pointerdown MSPointerDown', '.sl-image', function(e)
 	{
 	    if(mousedown) return true;
@@ -367,7 +378,7 @@ $.fn.simpleLightbox = function( options )
 		if(mousedown){
 			mousedown = false;
 			if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
-				loadImage( swipeDiff > 0 ? 1 : -1 );	
+				loadImage( swipeDiff > 0 ? 1 : -1 );
 			}
 			else if( options.animationSlide )
 			{
@@ -376,31 +387,31 @@ $.fn.simpleLightbox = function( options )
 			}
 		}
 	});
-	
+
 	// Public methods
 	this.open = function(elem){
 		openImage(elem);
 	}
-	
+
 	this.next = function(){
 		loadImage( 1 );
 	}
-	
+
 	this.prev = function(){
 		loadImage( -1 );
 	}
-	
+
 	this.close = function(){
 		close();
 	}
-	
+
 	this.destroy = function(){
-		$(document).unbind('click.'+prefix).unbind('keyup.'+prefix);
+		$( document ).unbind('click.'+prefix).unbind('keyup.'+prefix);
 		close();
 		$('.sl-overlay, .sl-wrapper').remove();
 	}
-	
+
 	return this;
-	
+
 };
 })( jQuery, window, document );

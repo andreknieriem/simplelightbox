@@ -45,6 +45,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
 | disableRightClick | false | bool | disable rightclick on image or not |
 | disableScroll | true | bool | stop scrolling page if lightbox is opened |
+| alertError | true | bool | show an alert, if image was not found |
 
 ###Events
 | Name | Description |
@@ -85,6 +86,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.7.1 - Bugfix von #22 with new option alertError and merged pull request #23**  
 **1.7.0 - Add support for fading between photos, Bugfix for single image navigation, option for caption delay**  
 **1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.**  
 **1.5.1 - Bugfix for multiple lightboxes on one page**  
