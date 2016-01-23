@@ -114,7 +114,7 @@ $.fn.simpleLightbox = function( options )
 	        curImg = $( '<img/>' )
 	        .hide()
 	        .attr('src', elem.attr('href'));
-	        $('.sl-image').html('');
+	        $('.sl-image').html('').attr('style','');
         	curImg.appendTo($('.sl-image'));
         	overlay.fadeIn('fast');
         	$('.sl-close').fadeIn('fast');
@@ -127,6 +127,7 @@ $.fn.simpleLightbox = function( options )
 		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox')); } ,options.animationSpeed);
 		},
 		adjustImage = function(dir){
+			
 			if(!curImg.length) return;
       	var tmpImage 	 = new Image(),
 			windowWidth	 = $( window ).width() * options.widthRatio,
@@ -139,7 +140,12 @@ $.fn.simpleLightbox = function( options )
 			    if(options.alertError){
 			    	alert('Image not found, next image will be loaded');
 			    }
-			    loadImage(1);
+			    
+			    if(dir == 1 || dir == -1){
+			    	loadImage(dir);
+			    } else {
+			    	loadImage(1);
+			    }
 			    return;
 			})
 			

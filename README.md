@@ -86,6 +86,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.7.2 - Bugfix von #25 and #27**  
 **1.7.1 - Bugfix von #22 with new option alertError and merged pull request #23**  
 **1.7.0 - Add support for fading between photos, Bugfix for single image navigation, option for caption delay**  
 **1.6.0 - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.**  
