@@ -135,6 +135,7 @@ $.fn.simpleLightbox = function( options )
 			
 			$(tmpImage).bind('error',function(ev){
 			    //no image was found
+			    objects.eq(index).trigger($.Event('error.simplelightbox'))
 			    animating = false;
 			    if(options.alertError){
 			    	alert('Image not found, next image will be loaded');
