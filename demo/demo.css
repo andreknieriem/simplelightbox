@@ -63,3 +63,8 @@ a {
 .align-center {
   text-align: center;
 }
+
+/* line 69, ../sass/demo.scss */
+.gallery + p {
+  margin-top: 3em;
+}
