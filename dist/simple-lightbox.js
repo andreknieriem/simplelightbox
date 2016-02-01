@@ -396,6 +396,7 @@ $.fn.simpleLightbox = function( options )
 
 	// Public methods
 	this.open = function(elem){
+		elem = elem || $(this[0]);
 		openImage(elem);
 	}
 
