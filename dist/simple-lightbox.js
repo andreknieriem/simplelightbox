@@ -1,4 +1,3 @@
-
 /*
 	By André Rinas, www.andreknieriem.de
 	Available for use under the MIT License
@@ -150,6 +149,11 @@ $.fn.simpleLightbox = function( options )
 			})
 			
         	tmpImage.onload = function() {
+        		if (typeof dir !== 'undefined') {
+	        		objects.eq(index)
+							.trigger($.Event('changed.simplelightbox'))
+							.trigger($.Event( (dir===1?'nextDone':'prevDone')+'.simplelightbox'));
+				}
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
@@ -225,11 +229,19 @@ $.fn.simpleLightbox = function( options )
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
-			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load();
-			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load();
+			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load(function(){
+				objects.eq(index).trigger($.Event('nextImageLoaded.simplelightbox'));
+				
+			});
+			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load(function(){
+				objects.eq(index).trigger($.Event('prevImageLoaded.simplelightbox'));
+			});
 
 		},
 		loadImage = function(dir){
+			objects.eq(index)
+						.trigger($.Event('change.simplelightbox'))
+						.trigger($.Event( (dir===1?'next':'prev')+'.simplelightbox'));
 		    spinner.show();
 		var newIndex = index + dir;
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
