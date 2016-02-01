@@ -37,7 +37,8 @@ $.fn.simpleLightbox = function( options )
 	 	heightRatio: 		0.9,
 	 	disableRightClick:	false,
 	 	disableScroll:		true,
-	 	alertError:			true
+	 	alertError:			true,
+	 	alertErrorMessage:	'Image not found, next image will be loaded'
 	 }, options );
 
 	// global variables
@@ -137,8 +138,8 @@ $.fn.simpleLightbox = function( options )
 			    //no image was found
 			    objects.eq(index).trigger($.Event('error.simplelightbox'))
 			    animating = false;
-			    if(options.alertError){
-			    	alert('Image not found, next image will be loaded');
+			    if ( options.alertError ) {
+			    	alert( options.alertErrorMessage );
 			    }
 			    
 			    if(dir == 1 || dir == -1){
