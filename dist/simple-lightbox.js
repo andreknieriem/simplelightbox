@@ -38,7 +38,8 @@ $.fn.simpleLightbox = function( options )
 	 	heightRatio: 		0.9,
 	 	disableRightClick:	false,
 	 	disableScroll:		true,
-	 	alertError:			true
+	 	alertError:			true,
+	 	alertErrorMessage:	'Image not found, next image will be loaded'
 	 }, options );
 
 	// global variables
@@ -136,20 +137,29 @@ $.fn.simpleLightbox = function( options )
 			
 			$(tmpImage).bind('error',function(ev){
 			    //no image was found
+			    objects.eq(index).trigger($.Event('error.simplelightbox'))
 			    animating = false;
+			    opened = true;
+			    spinner.hide();
 			    if(options.alertError){
-			    	alert('Image not found, next image will be loaded');
+			    	alert(options.alertErrorMessage);
+			    	
+			    	if(dir == 1 || dir == -1){
+				    	loadImage(dir);
+				    } else {
+				    	loadImage(1);
+				    }
+				    return;
 			    }
-			    
-			    if(dir == 1 || dir == -1){
-			    	loadImage(dir);
-			    } else {
-			    	loadImage(1);
-			    }
-			    return;
 			})
 			
         	tmpImage.onload = function() {
+        		if (typeof dir !== 'undefined') {
+					objects.eq(index)
+					.trigger($.Event('changed.simplelightbox'))
+					.trigger($.Event( (dir===1?'nextDone':'prevDone')+'.simplelightbox'));
+				}
+        		
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
@@ -225,11 +235,19 @@ $.fn.simpleLightbox = function( options )
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
-			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load();
-			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load();
+			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load(function(){
+				objects.eq(index).trigger($.Event('nextImageLoaded.simplelightbox'));
+			});
+			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load(function(){
+				objects.eq(index).trigger($.Event('prevImageLoaded.simplelightbox'));
+			});
 
 		},
 		loadImage = function(dir){
+			objects.eq(index)
+			.trigger($.Event('change.simplelightbox'))
+			.trigger($.Event( (dir===1?'next':'prev')+'.simplelightbox'));
+			
 		    spinner.show();
 		var newIndex = index + dir;
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
@@ -396,6 +414,7 @@ $.fn.simpleLightbox = function( options )
 
 	// Public methods
 	this.open = function(elem){
+		elem = elem || $(this[0]);
 		openImage(elem);
 	}
 

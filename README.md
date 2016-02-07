@@ -16,7 +16,7 @@ Simple include simplelightbox.css and simple-lightbox.js to your page
 var lightbox = $('.gallery a').simpleLightbox(options);
 ```
 
-###Options
+### Options
 | Property | Default | Type | Description |
 | -------- | ------- | ---- | ----------- |
 | overlay | true | bool | show an overlay or not |
@@ -45,24 +45,38 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
 | disableRightClick | false | bool | disable rightclick on image or not |
 | disableScroll | true | bool | stop scrolling page if lightbox is opened |
-| alertError | true | bool | show an alert, if image was not found |
+| alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
+| alertErrorMessage | 'Image not found, next image will be loaded' | string | the message displayed if image was not found |
 
-###Events
+### Events
 | Name | Description |
 | ---- | ----------- |
 | open.simplelightbox | this event fires before the lightbox opens |
 | opened.simplelightbox | this event fires after the lightbox was opened |
 | close.simplelightbox | this event fires before the lightbox closes |
 | closed.simplelightbox | this event fires after the lightbox was closed |
+| change.simplelightbox | this event fires before image changes |
+| changed.simplelightbox | this event fires after image was changed |
+| next.simplelightbox | this event fires before next image arrives |
+| nextDone.simplelightbox | this event fires after next image was arrived |
+| prev.simplelightbox | this event fires before previous image arrives |
+| prevDone.simplelightbox | this event fires after previous image was arrived |
+| nextImageLoaded.simplelightbox | this event fires after next image was loaded (if preload activated) |
+| prevImageLoaded.simplelightbox | this event fires after previous image was loaded (if preload activated) |
+| error.simplelightbox | this event fires on image load error |
 
-**Example**
+**Example**  
 ```javascript
 $('.gallery a').on('open.simplelightbox', function () {
   // do something…
 });
+
+$('.gallery a').on('error.simplelightbox', function (e) {
+  console.log(e); // some usefull information
+});
 ```
 
-###Public Methods
+### Public Methods
 | Name | Description |
 | ---- | ----------- |
 | open | Opens the lightbox with an given jQuery Element |
@@ -71,14 +85,14 @@ $('.gallery a').on('open.simplelightbox', function () {
 | prev | Go to previous image |
 | destroy | Destroys the instance of  the lightbox |
 
-**Example**
+**Example**  
 ```javascript
 var gallery = $('.gallery a').simpleLightbox();
 
 gallery.next(); // Next Image
 ```
 
-###Multiple Lightboxes on one page
+### Multiple Lightboxes on one page
 You can have multiple lightboxes on one page, if you give them different selectors. Here is a small example:
 ```javascript
 var lightbox1 = $('.lighbox-1 a').simpleLightbox();
@@ -86,6 +100,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.8.0 - New API Events (changed open to show) and little fix in function open() brought by Geoffrey Crofte and some other small bugfixes**  
 **1.7.2 - Bugfix von #25 and #27**  
 **1.7.1 - Bugfix von #22 with new option alertError and merged pull request #23**  
 **1.7.0 - Add support for fading between photos, Bugfix for single image navigation, option for caption delay**  
@@ -106,3 +121,12 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 **1.1.1 - Bugfix for loading indicator and removed a log-event**  
 **1.1.0 - Added classname for lightbox wrapper and width/height ratio**  
 **1.0.0 - Initial Release**
+
+### Author
+[Andre Rinas](http://andreknieriem.de/) - [Github](https://github.com/andreknieriem/)
+
+### Contributors
+[Github](https://github.com/nicekiwi)
+[Github](https://github.com/helloilya)
+[Github](https://github.com/bitstarr)
+[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)
