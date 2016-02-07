@@ -126,7 +126,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 [Andre Rinas](http://andreknieriem.de/) - [Github](https://github.com/andreknieriem/)
 
 ### Contributors
-[Github](https://github.com/nicekiwi)
-[Github](https://github.com/helloilya)
-[Github](https://github.com/bitstarr)
-[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)
+[nicekiwi](https://github.com/nicekiwi)  
+[helloilya](https://github.com/helloilya)  
+[bitstarr](https://github.com/bitstarr)  
+[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
