@@ -73,8 +73,8 @@ $.fn.simpleLightbox = function( options )
 	        return false;
 		},
 		opened = false,
-
-		objects = $( this.selector, this.context ),
+		loaded = [],
+		objects = this,
 		transPrefix = transPrefix(),
 		canTransisions = (transPrefix !== false) ? true : false,
 		prefix = 'simplelb',
@@ -115,6 +115,9 @@ $.fn.simpleLightbox = function( options )
 	        curImg = $( '<img/>' )
 	        .hide()
 	        .attr('src', elem.attr('href'));
+	        if(loaded.indexOf(elem.attr('href')) == -1){
+	        	loaded.push(elem.attr('href'));
+	        }
 	        $('.sl-image').html('').attr('style','');
         	curImg.appendTo($('.sl-image'));
         	overlay.fadeIn('fast');
@@ -152,7 +155,6 @@ $.fn.simpleLightbox = function( options )
 				    return;
 			    }
 			})
-			
         	tmpImage.onload = function() {
         		if (typeof dir !== 'undefined') {
 					objects.eq(index)
@@ -160,6 +162,9 @@ $.fn.simpleLightbox = function( options )
 					.trigger($.Event( (dir===1?'nextDone':'prevDone')+'.simplelightbox'));
 				}
         		
+        		if(loaded.indexOf(curImg.attr( 'src' )) == -1){
+        			loaded.push(curImg.attr( 'src' ));
+        		}
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
@@ -236,9 +241,15 @@ $.fn.simpleLightbox = function( options )
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
 			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load(function(){
+				if(loaded.indexOf($(this).attr('src')) == -1){
+					loaded.push($(this).attr('src'));
+				}
 				objects.eq(index).trigger($.Event('nextImageLoaded.simplelightbox'));
 			});
 			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load(function(){
+				if(loaded.indexOf($(this).attr('src')) == -1){
+					loaded.push($(this).attr('src'));
+				}
 				objects.eq(index).trigger($.Event('prevImageLoaded.simplelightbox'));
 			});
 
@@ -248,7 +259,6 @@ $.fn.simpleLightbox = function( options )
 			.trigger($.Event('change.simplelightbox'))
 			.trigger($.Event( (dir===1?'next':'prev')+'.simplelightbox'));
 			
-		    spinner.show();
 		var newIndex = index + dir;
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
 			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
@@ -258,12 +268,16 @@ $.fn.simpleLightbox = function( options )
 			  if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
 			  else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
 			}
+			
 			$('.sl-image').animate( css, options.animationSpeed, function(){
 				setTimeout( function(){
 					// fadeout old image
 					var elem = objects.eq(index);
 					curImg
 					.attr('src', elem.attr('href'));
+					if(loaded.indexOf(elem.attr('href')) == -1){
+						spinner.show();
+					}
 					$('.sl-caption').remove();
 					adjustImage(dir);
 					if(options.preloading) preload();
@@ -305,7 +319,7 @@ $.fn.simpleLightbox = function( options )
 				    }
 				}
 			} else {
-				$('body').css({'padding-right':$('body').data('padding'), 'overflow':'auto'});
+				$('body').css({'padding-right':$('body').data('padding'), 'overflow':'visible'});
 			}
 		}
 
