@@ -100,6 +100,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.8.2 - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!**  
 **1.8.1 - Bugfix for #31, #32 and #33**  
 **1.8.0 - New API Events (changed open to show) and little fix in function open() brought by Geoffrey Crofte and some other small bugfixes**  
 **1.7.2 - Bugfix von #25 and #27**  

@@ -85,15 +85,14 @@ $.fn.simpleLightbox = function( options )
 		counter = $('<div>').addClass('sl-counter').html('<span class="sl-current"></span>/<span class="sl-total"></span>'),
 		animating = false,
 		index = 0,
-		image = $(),
 		caption = $('<div>').addClass('sl-caption pos-'+options.captionPosition),
-		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className).html('<div class="sl-image"></div>'),
+		image = $('<div>').addClass('sl-image'),
+		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className),
 		isValidLink = function( element ){
 			if(!options.fileExt) return true;
 			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( 'href' ) );
 		},
 		setup = function(){
-			image = $('.sl-image');
 	        if(options.close) closeBtn.appendTo(wrapper);
 	        if(options.showCounter){
 	        	if(objects.length > 1){
@@ -109,6 +108,7 @@ $.fn.simpleLightbox = function( options )
 			elem.trigger($.Event('show.simplelightbox'));
 			if(options.disableScroll) handleScrollbar('hide');
 			wrapper.appendTo('body');
+			image.appendTo(wrapper);
 			if(options.overlay) overlay.appendTo($('body'));
 			animating = true;
 			index = objects.index(elem);
@@ -118,8 +118,9 @@ $.fn.simpleLightbox = function( options )
 	        if(loaded.indexOf(elem.attr('href')) == -1){
 	        	loaded.push(elem.attr('href'));
 	        }
-	        $('.sl-image').html('').attr('style','');
-        	curImg.appendTo($('.sl-image'));
+	        image.html('').attr('style','');
+        	curImg.appendTo(image);
+        	addEvents();
         	overlay.fadeIn('fast');
         	$('.sl-close').fadeIn('fast');
         	spinner.show();
@@ -131,7 +132,6 @@ $.fn.simpleLightbox = function( options )
 		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox')); } ,options.animationSpeed);
 		},
 		adjustImage = function(dir){
-			
 			if(!curImg.length) return;
       	var tmpImage 	 = new Image(),
 			windowWidth	 = $( window ).width() * options.widthRatio,
@@ -237,6 +237,69 @@ $.fn.simpleLightbox = function( options )
 			styles[transPrefix + 'transition'] = transPrefix + 'transform ' + speed + 's linear';
 			$('.sl-image').css(styles);
 		},
+		addEvents = function(){
+			// resize/responsive
+			$( window ).on( 'resize.'+prefix, adjustImage );
+
+			// close lightbox on close btn
+			$( document ).on('click.'+prefix, '.sl-close', function(e){
+				e.preventDefault();
+				if(opened){ close();}
+			});
+
+			// nav-buttons
+			nav.on('click.'+prefix, 'button', function(e){
+				e.preventDefault();
+				swipeDiff = 0;
+				loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
+			});
+
+			// touchcontrols
+			var swipeStart	 = 0,
+				swipeEnd	 = 0,
+				mousedown = false,
+				imageLeft = 0;
+		
+			image
+			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e)
+			{
+			    if(mousedown) return true;
+				if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
+				mousedown = true;
+				swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
+				return false;
+			})
+			.on( 'touchmove.'+prefix+' mousemove.'+prefix+' pointermove MSPointerMove', function(e)
+			{
+				if(!mousedown) return true;
+				e.preventDefault();
+				swipeEnd = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
+				swipeDiff = swipeStart - swipeEnd;
+				if( options.animationSlide ) {
+				  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
+				  else image.css( 'left', imageLeft - swipeDiff + 'px' );
+				}
+			})
+			.on( 'touchend.'+prefix+' mouseup.'+prefix+' touchcancel.'+prefix+' mouseleave.'+prefix+' pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
+			{
+				if(mousedown){
+					mousedown = false;
+					if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
+						loadImage( swipeDiff > 0 ? 1 : -1 );
+					}
+					else if( options.animationSlide )
+					{
+						if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
+						else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
+					}
+				}
+			});
+		},
+		removeEvents = function(){
+			nav.off('click', 'button');
+			$( document ).off('click.'+prefix, '.sl-close');
+			$( window ).off( 'resize.'+prefix);
+		},
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
@@ -292,6 +355,7 @@ $.fn.simpleLightbox = function( options )
 		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
 		    	if(options.disableScroll) handleScrollbar('show');
 		    	$('.sl-wrapper, .sl-overlay').remove();
+		    	removeEvents();
 		    	if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 		    	triggered = true;
 		    });
@@ -315,19 +379,18 @@ $.fn.simpleLightbox = function( options )
 				    $(document.body)[0].removeChild(scrollDiv);
 				    $('body').data('padding',padding);
 				    if(scrollbarWidth > 0){
-				    	$('body').css({'padding-right':padding+scrollbarWidth, 'overflow':'hidden'});
+				    	$('body').addClass('hidden-scroll').css({'padding-right':padding+scrollbarWidth});
 				    }
 				}
 			} else {
-				$('body').css({'padding-right':$('body').data('padding'), 'overflow':'visible'});
+				$('body').removeClass('hidden-scroll').css({'padding-right':$('body').data('padding')});
 			}
 		}
 
 	// events
 	setup();
 
-	// resize/responsive
-	$( window ).on( 'resize', adjustImage );
+	
 
 	// open lightbox
 	objects.on( 'click.'+prefix, function( e ){
@@ -336,12 +399,6 @@ $.fn.simpleLightbox = function( options )
 	    	if(animating) return false;
 	    	openImage($(this));
 	  	}
-	});
-
-	// close lightbox on close btn
-	$( document ).on('click', '.sl-close', function(e){
-		e.preventDefault();
-		if(opened){ close();}
 	});
 
 	// close on click on doc
@@ -360,12 +417,6 @@ $.fn.simpleLightbox = function( options )
 		});
 	}
 
-	// nav-buttons
-	$(document).on('click', '.sl-navigation button', function(e){
-		e.preventDefault();
-		swipeDiff = 0;
-		loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
-	});
 
 	// keyboard-control
 	if( options.enableKeyboard ){
@@ -384,47 +435,6 @@ $.fn.simpleLightbox = function( options )
 			}
 		});
 	}
-
-	// touchcontrols
-	var swipeStart	 = 0,
-		swipeEnd	 = 0,
-		mousedown = false,
-		imageLeft = 0;
-
-	$( document )
-	.on( 'touchstart mousedown pointerdown MSPointerDown', '.sl-image', function(e)
-	{
-	    if(mousedown) return true;
-		if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
-		mousedown = true;
-		swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
-		return false;
-	})
-	.on( 'touchmove mousemove pointermove MSPointerMove', function(e)
-	{
-		if(!mousedown) return true;
-		e.preventDefault();
-		swipeEnd = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
-		swipeDiff = swipeStart - swipeEnd;
-		if( options.animationSlide ) {
-		  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
-		  else image.css( 'left', imageLeft - swipeDiff + 'px' );
-		}
-	})
-	.on( 'touchend mouseup touchcancel pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
-	{
-		if(mousedown){
-			mousedown = false;
-			if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
-				loadImage( swipeDiff > 0 ? 1 : -1 );
-			}
-			else if( options.animationSlide )
-			{
-				if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
-				else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
-			}
-		}
-	});
 
 	// Public methods
 	this.open = function(elem){
