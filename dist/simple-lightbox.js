@@ -198,7 +198,8 @@ $.fn.simpleLightbox = function( options )
 				if(!options.loop) {
 					if(index == 0){ $('.sl-prev').hide();}
 					if(index >= objects.length -1) {$('.sl-next').hide();}
-					if(index > 0 && index < objects.length -1){ $('.sl-prev, .sl-next').show(); }
+					if(index > 0){ $('.sl-prev').show(); }
+					if(index < objects.length -1){ $('.sl-next').show(); }
 				}
 
 				if(objects.length == 1) $('.sl-prev, .sl-next').hide();
@@ -284,7 +285,12 @@ $.fn.simpleLightbox = function( options )
 			{
 				if(mousedown){
 					mousedown = false;
-					if( Math.abs( swipeDiff ) > options.swipeTolerance ) {
+					var possibleDir = true;
+					if(!options.loop) {
+						if(index == 0 && swipeDiff < 0){ possibleDir = false; }
+						if(index >= objects.length -1 && swipeDiff > 0) { possibleDir = false; }
+					}
+					if( Math.abs( swipeDiff ) > options.swipeTolerance && possibleDir ) {
 						loadImage( swipeDiff > 0 ? 1 : -1 );
 					}
 					else if( options.animationSlide )
