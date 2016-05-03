@@ -47,6 +47,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | disableScroll | true | bool | stop scrolling page if lightbox is opened |
 | alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
 | alertErrorMessage | 'Image not found, next image will be loaded' | string | the message displayed if image was not found |
+| additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
 
 ### Events
 | Name | Description |
@@ -100,6 +101,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.8.4 - Bugfix for #41 and added option for additional html inside images #40**  
 **1.8.3 - Bugfix for #38 and small other fix for loop false option**  
 **1.8.2 - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!**  
 **1.8.1 - Bugfix for #31, #32 and #33**  

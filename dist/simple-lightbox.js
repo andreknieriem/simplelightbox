@@ -39,7 +39,8 @@ $.fn.simpleLightbox = function( options )
 	 	disableRightClick:	false,
 	 	disableScroll:		true,
 	 	alertError:			true,
-	 	alertErrorMessage:	'Image not found, next image will be loaded'
+	 	alertErrorMessage:	'Image not found, next image will be loaded',
+	 	additionalHtml:		false
 	 }, options );
 
 	// global variables
@@ -224,7 +225,9 @@ $.fn.simpleLightbox = function( options )
 					animating = false;
 					setCaption(captionText);
 				}
-
+				if(options.additionalHtml && $('.sl-additional-html').length == 0){
+					$('<div>').html(options.additionalHtml).addClass('sl-additional-html').appendTo($('.sl-image'));
+				}
 			}
 		},
 		setCaption = function(captiontext){
@@ -243,7 +246,7 @@ $.fn.simpleLightbox = function( options )
 			$( window ).on( 'resize.'+prefix, adjustImage );
 
 			// close lightbox on close btn
-			$( document ).on('click.'+prefix, '.sl-close', function(e){
+			$( document ).on('click.'+prefix+ ' touchstart.'+prefix, '.sl-close', function(e){
 				e.preventDefault();
 				if(opened){ close();}
 			});
@@ -408,7 +411,7 @@ $.fn.simpleLightbox = function( options )
 	});
 
 	// close on click on doc
-	$( document ).click(function(e){
+	$( document ).on('click.'+prefix+ ' touchstart.'+prefix, function(e){
 		if(opened){
 			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)){
 				close();
