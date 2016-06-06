@@ -24,6 +24,7 @@ $.fn.simpleLightbox = function( options )
 		captionPosition:	'bottom',
 		close:				true,
 		closeText:			'×',
+		swipeClose:			true,
 		showCounter:		true,
 	 	fileExt:			'png|jpg|jpeg|gif',
 	 	animationSlide:		true,
@@ -64,6 +65,7 @@ $.fn.simpleLightbox = function( options )
             return false;
         },
         swipeDiff = 0,
+        swipeYDiff = 0,
 		curImg = $(),
 	    transPrefix = function(){
 	        var s = document.body || document.documentElement, s = s.style;
@@ -261,6 +263,8 @@ $.fn.simpleLightbox = function( options )
 			// touchcontrols
 			var swipeStart	 = 0,
 				swipeEnd	 = 0,
+				swipeYStart = 0,
+				swipeYEnd = 0,
 				mousedown = false,
 				imageLeft = 0;
 		
@@ -271,6 +275,7 @@ $.fn.simpleLightbox = function( options )
 				if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
 				mousedown = true;
 				swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
+				swipeYStart = e.originalEvent.pageY || e.originalEvent.touches[ 0 ].pageY;
 				return false;
 			})
 			.on( 'touchmove.'+prefix+' mousemove.'+prefix+' pointermove MSPointerMove', function(e)
@@ -278,7 +283,9 @@ $.fn.simpleLightbox = function( options )
 				if(!mousedown) return true;
 				e.preventDefault();
 				swipeEnd = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
+				swipeYEnd = e.originalEvent.pageY || e.originalEvent.touches[ 0 ].pageY;
 				swipeDiff = swipeStart - swipeEnd;
+				swipeYDiff = swipeYStart - swipeYEnd;
 				if( options.animationSlide ) {
 				  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
 				  else image.css( 'left', imageLeft - swipeDiff + 'px' );
@@ -300,6 +307,10 @@ $.fn.simpleLightbox = function( options )
 					{
 						if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
 						else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
+					}
+					
+					if( options.swipeClose && Math.abs(swipeYDiff) > 50 && Math.abs( swipeDiff ) < options.swipeTolerance) {
+						close();
 					}
 				}
 			});

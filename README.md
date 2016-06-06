@@ -31,6 +31,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionDelay | 0 | int | adds a delay before the caption shows (in ms) |
 | close | true | bool | show the close button or not |
 | closeText | '×' | string | text or html for the close button |
+| swipeClose | true | bool | swipe up or down to close gallery |
 | showCounter | true | bool | show current image index or not |
 | fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check | 
 | animationSpeed | 250 | int | how long takes the slide animation |
@@ -101,6 +102,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.8.5 - Implemented feature-request #44**  
 **1.8.4 - Bugfix for #41 and added option for additional html inside images #40**  
 **1.8.3 - Bugfix for #38 and small other fix for loop false option**  
 **1.8.2 - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!**  
