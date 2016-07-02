@@ -473,11 +473,17 @@ $.fn.simpleLightbox = function( options )
 	this.close = function(){
 		close();
 	}
-
+	
 	this.destroy = function(){
 		$( document ).unbind('click.'+prefix).unbind('keyup.'+prefix);
 		close();
 		$('.sl-overlay, .sl-wrapper').remove();
+		this.off('click');
+	}
+	
+	this.refresh = function(){
+		this.destroy();
+		$(this.selector).simpleLightbox(options);
 	}
 
 	return this;

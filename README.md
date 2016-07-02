@@ -102,6 +102,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.8.6 - Implemented feature-request #46, added refresh method**  
 **1.8.5 - Implemented feature-request #44**  
 **1.8.4 - Bugfix for #41 and added option for additional html inside images #40**  
 **1.8.3 - Bugfix for #38 and small other fix for loop false option**  
