@@ -86,6 +86,7 @@ $('.gallery a').on('error.simplelightbox', function (e) {
 | next | Go to next image |
 | prev | Go to previous image |
 | destroy | Destroys the instance of  the lightbox |
+| refresh | Destroys and reinitilized the lightbox, needed for eg. Ajax Calls, or after dom manipulations |
 
 **Example**  
 ```javascript
