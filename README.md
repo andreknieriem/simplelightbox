@@ -53,8 +53,8 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 ### Events
 | Name | Description |
 | ---- | ----------- |
-| open.simplelightbox | this event fires before the lightbox opens |
-| opened.simplelightbox | this event fires after the lightbox was opened |
+| show.simplelightbox | this event fires before the lightbox opens |
+| shown.simplelightbox | this event fires after the lightbox was opened |
 | close.simplelightbox | this event fires before the lightbox closes |
 | closed.simplelightbox | this event fires after the lightbox was closed |
 | change.simplelightbox | this event fires before image changes |
