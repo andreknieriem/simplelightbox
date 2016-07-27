@@ -32,6 +32,7 @@ $.fn.simpleLightbox = function( options )
 	 	preloading:			true,
 	 	enableKeyboard:		true,
 	 	loop:				true,
+	 	rel:				false,
 	 	docClose: 			true,
 	 	swipeTolerance: 	50,
 	 	className:			'simple-lightbox',
@@ -77,7 +78,14 @@ $.fn.simpleLightbox = function( options )
 		},
 		opened = false,
 		loaded = [],
-		objects = this,
+		getRelated = function(rel, jqObj) {
+			var $related = $(jqObj.selector).filter(function () {
+				return ($(this).attr('rel') === rel);
+			});
+			
+			return $related;
+		},
+		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, this) : this,
 		transPrefix = transPrefix(),
 		canTransisions = (transPrefix !== false) ? true : false,
 		prefix = 'simplelb',
@@ -238,10 +246,10 @@ $.fn.simpleLightbox = function( options )
 			}
 		},
 		slide = function(speed, pos){
-		var styles = {};
-			styles[transPrefix + 'transform'] = 'translateX(' + pos + ')';
-			styles[transPrefix + 'transition'] = transPrefix + 'transform ' + speed + 's linear';
-			$('.sl-image').css(styles);
+			var styles = {};
+				styles[transPrefix + 'transform'] = 'translateX(' + pos + ')';
+				styles[transPrefix + 'transition'] = transPrefix + 'transform ' + speed + 's linear';
+				$('.sl-image').css(styles);
 		},
 		addEvents = function(){
 			// resize/responsive

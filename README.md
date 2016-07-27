@@ -39,6 +39,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
+| rel | false | mixed | group images by rel attribute of link with same selector. 
 | docClose | true | bool | closes the lightbox when clicking outside |
 | swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
@@ -103,6 +104,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.9.0 - Implemented feature-request #16, added rel option for grouping images**  
 **1.8.6 - Implemented feature-request #46, added refresh method**  
 **1.8.5 - Implemented feature-request #44**  
 **1.8.4 - Bugfix for #41 and added option for additional html inside images #40**  
