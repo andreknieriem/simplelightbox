@@ -12,69 +12,64 @@ $.fn.simpleLightbox = function( options )
 {
 
 	var options = $.extend({
-		overlay:			true,
-		spinner:			true,
-		nav:				true,
-		navText:			['&lsaquo;','&rsaquo;'],
-		captions:			true,
-		captionDelay:		0,
-		captionSelector:	'img',
-		captionType:		'attr',
-		captionsData:		'title',
-		captionPosition:	'bottom',
-		close:				true,
-		closeText:			'×',
-		swipeClose:			true,
-		showCounter:		true,
-	 	fileExt:			'png|jpg|jpeg|gif',
-	 	animationSlide:		true,
-	 	animationSpeed:		250,
-	 	preloading:			true,
-	 	enableKeyboard:		true,
-	 	loop:				true,
-	 	rel:				false,
-	 	docClose: 			true,
-	 	swipeTolerance: 	50,
-	 	className:			'simple-lightbox',
-	 	widthRatio: 		0.8,
-	 	heightRatio: 		0.9,
-	 	disableRightClick:	false,
-	 	disableScroll:		true,
-	 	alertError:			true,
-	 	alertErrorMessage:	'Image not found, next image will be loaded',
-	 	additionalHtml:		false
-	 }, options );
+		overlay: true,
+		spinner: true,
+		nav: true,
+		navText: ['&lsaquo;', '&rsaquo;'],
+		captions: true,
+		captionDelay: 0,
+		captionSelector: 'img',
+		captionType: 'attr',
+		captionsData: 'title',
+		captionPosition: 'bottom',
+		close: true,
+		closeText: '×',
+		swipeClose: true,
+		showCounter: true,
+		fileExt: 'png|jpg|jpeg|gif',
+		animationSlide: true,
+		animationSpeed: 250,
+		preloading: true,
+		enableKeyboard: true,
+		loop: true,
+		rel: false,
+		docClose: true,
+		swipeTolerance: 50,
+		className: 'simple-lightbox',
+		widthRatio: 0.8,
+		heightRatio: 0.9,
+		disableRightClick: false,
+		disableScroll: true,
+		alertError: true,
+		alertErrorMessage: 'Image not found, next image will be loaded',
+		additionalHtml: false,
+		history: true
+	}, options);
 
 	// global variables
 	var touchDevice	= ( 'ontouchstart' in window ),
-	    pointerEnabled = window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
-	    touched = function( event ){
-            if( touchDevice ) return true;
-
-            if( !pointerEnabled || typeof event === 'undefined' || typeof event.pointerType === 'undefined' )
-                return false;
-
-            if( typeof event.MSPOINTER_TYPE_MOUSE !== 'undefined' )
-            {
-                if( event.MSPOINTER_TYPE_MOUSE != event.pointerType )
-                    return true;
-            }
-            else
-                if( event.pointerType != 'mouse' )
-                    return true;
-
-            return false;
-        },
-        swipeDiff = 0,
-        swipeYDiff = 0,
+		pointerEnabled = window.navigator.pointerEnabled || window.navigator.msPointerEnabled,
+		touched = function( event ){
+			if( touchDevice ) return true;
+			if( !pointerEnabled || typeof event === 'undefined' || typeof event.pointerType === 'undefined' ) return false;
+			if( typeof event.MSPOINTER_TYPE_MOUSE !== 'undefined' ) {
+				if( event.MSPOINTER_TYPE_MOUSE != event.pointerType ) return true;
+			}
+			else {
+				if( event.pointerType != 'mouse' ) return true;
+			}
+			return false;
+		},
+		swipeDiff = 0,
+		swipeYDiff = 0,
 		curImg = $(),
-	    transPrefix = function(){
-	        var s = document.body || document.documentElement, s = s.style;
-	        if( s.WebkitTransition == '' ) return '-webkit-';
-	        if( s.MozTransition == '' ) return '-moz-';
-	        if( s.OTransition == '' ) return '-o-';
-	        if( s.transition == '' ) return '';
-	        return false;
+		transPrefix = function(){
+			var s = document.body || document.documentElement, s = s.style;
+				if( s.WebkitTransition == '' ) return '-webkit-';
+				if( s.MozTransition == '' ) return '-moz-';
+				if( s.OTransition == '' ) return '-o-';
+				if( s.transition == '' ) return '';
+			return false;
 		},
 		opened = false,
 		loaded = [],
@@ -82,12 +77,51 @@ $.fn.simpleLightbox = function( options )
 			var $related = $(jqObj.selector).filter(function () {
 				return ($(this).attr('rel') === rel);
 			});
-			
 			return $related;
 		},
 		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, this) : this,
 		transPrefix = transPrefix(),
 		canTransisions = (transPrefix !== false) ? true : false,
+		supportsPushState = ('pushState' in history),
+		historyhasChanged = false,
+		historyUpdateTimeout,
+		winLoc = window.location,
+		getHash = function(){
+			return winLoc.hash.substring(1);
+		},
+		initialHash = getHash(),
+		updateHash = function(){
+			var hash = getHash(),
+			newHash = 'pid='+(index+1);
+			var newURL = winLoc.href.split('#')[0] + '#' +  newHash;
+
+			if(supportsPushState){
+				history[historyhasChanged ? 'replaceState' : 'pushState']('', document.title, newURL);
+			}else {
+				if(historyhasChanged) {
+					winLoc.replace( newURL );
+				} else {
+					winLoc.hash = newHash;
+				}
+			}
+			historyhasChanged = true;
+		},
+		resetHash = function() {
+			if (supportsPushState) {
+				history.pushState('', document.title,  winLoc.pathname + winLoc.search );
+			} else {
+				winLoc.hash = '';
+			}
+			clearTimeout(historyUpdateTimeout);
+
+		},
+		updateURL = function(){
+			if(!historyhasChanged) {
+				updateHash(); // first time
+			} else {
+				historyUpdateTimeout = setTimeout(updateHash, 800);
+			}
+		},
 		prefix = 'simplelb',
 		overlay = $('<div>').addClass('sl-overlay'),
 		closeBtn = $('<button>').addClass('sl-close').html(options.closeText),
@@ -104,16 +138,15 @@ $.fn.simpleLightbox = function( options )
 			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( 'href' ) );
 		},
 		setup = function(){
-	        if(options.close) closeBtn.appendTo(wrapper);
-	        if(options.showCounter){
-	        	if(objects.length > 1){
-	        		counter.appendTo(wrapper);
-	        		counter.find('.sl-total').text(objects.length);
-	        	}
-
-	        }
-	        if(options.nav) nav.appendTo(wrapper);
-	        if(options.spinner) spinner.appendTo(wrapper);
+			if(options.close) closeBtn.appendTo(wrapper);
+			if(options.showCounter){
+				if(objects.length > 1){
+					counter.appendTo(wrapper);
+					counter.find('.sl-total').text(objects.length);
+				}
+			}
+			if(options.nav) nav.appendTo(wrapper);
+			if(options.spinner) spinner.appendTo(wrapper);
 		},
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
@@ -123,59 +156,65 @@ $.fn.simpleLightbox = function( options )
 			if(options.overlay) overlay.appendTo($('body'));
 			animating = true;
 			index = objects.index(elem);
-	        curImg = $( '<img/>' )
-	        .hide()
-	        .attr('src', elem.attr('href'));
-	        if(loaded.indexOf(elem.attr('href')) == -1){
-	        	loaded.push(elem.attr('href'));
-	        }
-	        image.html('').attr('style','');
-        	curImg.appendTo(image);
-        	addEvents();
-        	overlay.fadeIn('fast');
-        	$('.sl-close').fadeIn('fast');
-        	spinner.show();
-        	nav.fadeIn('fast');
-        	$('.sl-wrapper .sl-counter .sl-current').text(index +1);
-        	counter.fadeIn('fast');
-        	adjustImage();
-        	if(options.preloading) preload();
-		    setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox')); } ,options.animationSpeed);
+			curImg = $( '<img/>' )
+				.hide()
+				.attr('src', elem.attr('href'));
+			if(loaded.indexOf(elem.attr('href')) == -1){
+				loaded.push(elem.attr('href'));
+			}
+			image.html('').attr('style','');
+			curImg.appendTo(image);
+			addEvents();
+			overlay.fadeIn('fast');
+			$('.sl-close').fadeIn('fast');
+			spinner.show();
+			nav.fadeIn('fast');
+			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
+			counter.fadeIn('fast');
+			adjustImage();
+			if(options.preloading) preload();
+			setTimeout( function(){ elem.trigger($.Event('shown.simplelightbox')); } ,options.animationSpeed);
 		},
 		adjustImage = function(dir){
 			if(!curImg.length) return;
-      	var tmpImage 	 = new Image(),
+			var tmpImage 	 = new Image(),
 			windowWidth	 = $( window ).width() * options.widthRatio,
 			windowHeight = $( window ).height() * options.heightRatio;
-        	tmpImage.src	= curImg.attr( 'src' );
-			
+			tmpImage.src	= curImg.attr( 'src' );
+
 			$(tmpImage).bind('error',function(ev){
-			    //no image was found
-			    objects.eq(index).trigger($.Event('error.simplelightbox'))
-			    animating = false;
-			    opened = true;
-			    spinner.hide();
-			    if(options.alertError){
-			    	alert(options.alertErrorMessage);
-			    	
-			    	if(dir == 1 || dir == -1){
-				    	loadImage(dir);
-				    } else {
-				    	loadImage(1);
-				    }
-				    return;
-			    }
-			})
-        	tmpImage.onload = function() {
-        		if (typeof dir !== 'undefined') {
-					objects.eq(index)
-					.trigger($.Event('changed.simplelightbox'))
-					.trigger($.Event( (dir===1?'nextDone':'prevDone')+'.simplelightbox'));
+				//no image was found
+				objects.eq(index).trigger($.Event('error.simplelightbox'))
+				animating = false;
+				opened = true;
+				spinner.hide();
+				if(options.alertError){
+					alert(options.alertErrorMessage);
+					if(dir == 1 || dir == -1){
+						loadImage(dir);
+					} else {
+						loadImage(1);
+					}
+					return;
 				}
-        		
-        		if(loaded.indexOf(curImg.attr( 'src' )) == -1){
-        			loaded.push(curImg.attr( 'src' ));
-        		}
+			});
+
+
+			tmpImage.onload = function() {
+				if (typeof dir !== 'undefined') {
+					objects.eq(index)
+						.trigger($.Event('changed.simplelightbox'))
+						.trigger($.Event( (dir===1?'nextDone':'prevDone')+'.simplelightbox'));
+				}
+
+				// history
+				if(options.history){
+					updateURL();
+				}
+
+				if(loaded.indexOf(curImg.attr( 'src' )) == -1){
+					loaded.push(curImg.attr( 'src' ));
+				}
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
@@ -261,6 +300,19 @@ $.fn.simpleLightbox = function( options )
 				if(opened){ close();}
 			});
 
+			if(options.history){
+				setTimeout(function() {
+					$(window).on('hashchange.'+prefix,function(){
+						if(opened){
+							if(getHash() === initialHash) {
+								close();
+								return;
+							}
+						}
+					});
+				}, 40);
+			}
+
 			// nav-buttons
 			nav.on('click.'+prefix, 'button', function(e){
 				e.preventDefault();
@@ -275,11 +327,11 @@ $.fn.simpleLightbox = function( options )
 				swipeYEnd = 0,
 				mousedown = false,
 				imageLeft = 0;
-		
+
 			image
 			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e)
 			{
-			    if(mousedown) return true;
+				if(mousedown) return true;
 				if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
 				mousedown = true;
 				swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
@@ -316,7 +368,7 @@ $.fn.simpleLightbox = function( options )
 						if( canTransisions ) slide( options.animationSpeed / 1000, 0 + 'px' );
 						else image.animate({ 'left': imageLeft + 'px' }, options.animationSpeed / 2 );
 					}
-					
+
 					if( options.swipeClose && Math.abs(swipeYDiff) > 50 && Math.abs( swipeDiff ) < options.swipeTolerance) {
 						close();
 					}
@@ -327,6 +379,7 @@ $.fn.simpleLightbox = function( options )
 			nav.off('click', 'button');
 			$( document ).off('click.'+prefix, '.sl-close');
 			$( window ).off( 'resize.'+prefix);
+			$( window ).off( 'hashchange.'+prefix);
 		},
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
@@ -349,7 +402,7 @@ $.fn.simpleLightbox = function( options )
 			objects.eq(index)
 			.trigger($.Event('change.simplelightbox'))
 			.trigger($.Event( (dir===1?'next':'prev')+'.simplelightbox'));
-			
+
 		var newIndex = index + dir;
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
 			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
@@ -359,7 +412,7 @@ $.fn.simpleLightbox = function( options )
 			  if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
 			  else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
 			}
-			
+
 			$('.sl-image').animate( css, options.animationSpeed, function(){
 				setTimeout( function(){
 					// fadeout old image
@@ -378,37 +431,39 @@ $.fn.simpleLightbox = function( options )
 		close = function(){
 			if(animating) return;
 			var elem = objects.eq(index),
-				triggered = false;
+			triggered = false;
+
 			elem.trigger($.Event('close.simplelightbox'));
-		    $('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
-		    	if(options.disableScroll) handleScrollbar('show');
-		    	$('.sl-wrapper, .sl-overlay').remove();
-		    	removeEvents();
-		    	if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
-		    	triggered = true;
-		    });
-		    curImg = $();
-		    opened = false;
-		    animating = false;
+			resetHash();
+			$('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
+				if(options.disableScroll) handleScrollbar('show');
+				$('.sl-wrapper, .sl-overlay').remove();
+				removeEvents();
+				if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
+				triggered = true;
+			});
+	    curImg = $();
+	    opened = false;
+	    animating = false;
 		},
 		handleScrollbar = function(type){
 			if(type == 'hide'){
 				var fullWindowWidth = window.innerWidth;
 				if (!fullWindowWidth) {
-			      var documentElementRect = document.documentElement.getBoundingClientRect()
-			      fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
-			    }
+					var documentElementRect = document.documentElement.getBoundingClientRect()
+					fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+				}
 				if(document.body.clientWidth < fullWindowWidth){
 					var scrollDiv = document.createElement('div'),
-						padding = parseInt($('body').css('padding-right'),10);
-				    scrollDiv.className = 'sl-scrollbar-measure';
-				    $('body').append(scrollDiv);
-				    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-				    $(document.body)[0].removeChild(scrollDiv);
-				    $('body').data('padding',padding);
-				    if(scrollbarWidth > 0){
-				    	$('body').addClass('hidden-scroll').css({'padding-right':padding+scrollbarWidth});
-				    }
+					padding = parseInt($('body').css('padding-right'),10);
+					scrollDiv.className = 'sl-scrollbar-measure';
+					$('body').append(scrollDiv);
+					var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+					$(document.body)[0].removeChild(scrollDiv);
+					$('body').data('padding',padding);
+					if(scrollbarWidth > 0){
+						$('body').addClass('hidden-scroll').css({'padding-right':padding+scrollbarWidth});
+					}
 				}
 			} else {
 				$('body').removeClass('hidden-scroll').css({'padding-right':$('body').data('padding')});
@@ -418,15 +473,13 @@ $.fn.simpleLightbox = function( options )
 	// events
 	setup();
 
-	
-
 	// open lightbox
 	objects.on( 'click.'+prefix, function( e ){
-	  	if(isValidLink(this)){
-	    	e.preventDefault();
-	    	if(animating) return false;
-	    	openImage($(this));
-	  	}
+		if(isValidLink(this)){
+			e.preventDefault();
+			if(animating) return false;
+			openImage($(this));
+		}
 	});
 
 	// close on click on doc
@@ -481,14 +534,14 @@ $.fn.simpleLightbox = function( options )
 	this.close = function(){
 		close();
 	}
-	
+
 	this.destroy = function(){
 		$( document ).unbind('click.'+prefix).unbind('keyup.'+prefix);
 		close();
 		$('.sl-overlay, .sl-wrapper').remove();
 		this.off('click');
 	}
-	
+
 	this.refresh = function(){
 		this.destroy();
 		$(this.selector).simpleLightbox(options);

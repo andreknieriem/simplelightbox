@@ -33,13 +33,13 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | closeText | '×' | string | text or html for the close button |
 | swipeClose | true | bool | swipe up or down to close gallery |
 | showCounter | true | bool | show current image index or not |
-| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check | 
+| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check |
 | animationSpeed | 250 | int | how long takes the slide animation |
 | animationSlide | true | bool | weather to slide in new photos or not, disable to fade |
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
-| rel | false | mixed | group images by rel attribute of link with same selector. 
+| rel | false | mixed | group images by rel attribute of link with same selector.
 | docClose | true | bool | closes the lightbox when clicking outside |
 | swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
@@ -50,6 +50,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
 | alertErrorMessage | 'Image not found, next image will be loaded' | string | the message displayed if image was not found |
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
+| history | true | bool | enable history back closes lightbox instead of reloading the page |
 
 ### Events
 | Name | Description |
@@ -104,6 +105,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.10.0 - Implemented feature-request #48, history back, some bugfixing and code styling**  
 **1.9.0 - Implemented feature-request #16, added rel option for grouping images**  
 **1.8.6 - Implemented feature-request #46, added refresh method**  
 **1.8.5 - Implemented feature-request #44**  
