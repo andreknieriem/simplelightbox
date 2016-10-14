@@ -1,6 +1,21 @@
 # simplelightbox
 Touch-friendly image lightbox for mobile and desktop with jQuery
 
+### Features
+* responsive
+* touchfriendly
+* swipe gestures for next/previous image
+* easy to install, easy to use
+* minimalistic
+* Only some css is included. You can change the style like you want!
+* lots of options
+* preloading next and previous image
+* Android, iOs and Windows phone support
+* CSS3 Transitions with fallback for older browsers
+* Works in every modern Browser, even in IE 9+
+* Can use jQuery 1.x or 2.x
+* Keyboard support
+
 ### Install
 ```sh
 //Bower
