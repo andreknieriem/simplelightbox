@@ -13,7 +13,7 @@ Touch-friendly image lightbox for mobile and desktop with jQuery
 * Android, iOs and Windows phone support
 * CSS3 Transitions with fallback for older browsers
 * Works in every modern Browser, even in IE 9+
-* Can use jQuery 1.x or 2.x
+* Can use jQuery 1.x,2.x and 3.x
 * Keyboard support
 
 ### Install
@@ -120,6 +120,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.10.1 - Added support for jQuery 3.x #50**  
 **1.10.0 - Implemented feature-request #48, history back, some bugfixing and code styling**  
 **1.9.0 - Implemented feature-request #16, added rel option for grouping images**  
 **1.8.6 - Implemented feature-request #46, added refresh method**  

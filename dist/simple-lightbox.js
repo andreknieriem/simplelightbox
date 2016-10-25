@@ -384,13 +384,13 @@ $.fn.simpleLightbox = function( options )
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
-			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).load(function(){
+			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).on('load', function(){
 				if(loaded.indexOf($(this).attr('src')) == -1){
 					loaded.push($(this).attr('src'));
 				}
 				objects.eq(index).trigger($.Event('nextImageLoaded.simplelightbox'));
 			});
-			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).load(function(){
+			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).on('load', function(){
 				if(loaded.indexOf($(this).attr('src')) == -1){
 					loaded.push($(this).attr('src'));
 				}
