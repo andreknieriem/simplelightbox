@@ -17,7 +17,7 @@ body.hidden-scroll {
   button {
     border: 0 none;
     background: transparent;
-    font-size: 24px;
+    font-size: 28px;
     padding: 0;
     cursor: pointer;
     &:hover {
@@ -31,6 +31,12 @@ body.hidden-scroll {
     right: 30px;
     top: 30px;
     z-index: 1015;
+    margin-top: -14px;
+    margin-right: -14px;
+    height: 44px;
+    width: 44px;
+    line-height: 44px;
+    font-family: Arial, Baskerville, monospace;
   }
   
   .sl-counter {
@@ -47,20 +53,31 @@ body.hidden-scroll {
     button {
       position: fixed;
       top: 50%;
-      margin-top: - 10px;
-      height: 30px;
-      width: 30px;
-      line-height: 30px;
+      margin-top: -22px;
+      height: 44px;
+      width: 22px;
+      line-height: 44px;
       text-align: center;
       display: block;
       z-index: 1015;
-      font-family: arial sans-serif;
+      font-family: Arial, Baskerville, monospace;
       &.sl-next {
-        right: 40px;
+        right: 5px;
       }
       
       &.sl-prev {
-        left: 40px;
+        left: 5px;
+      }
+      @media (min-width: 38.75em) {
+        width: 44px;
+
+        &.sl-next {
+          right: 20px;
+        }
+        
+        &.sl-prev {
+          left: 20px;
+        }
       }
     }
   }
