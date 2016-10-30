@@ -120,6 +120,7 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
 ### Changelog
+**1.10.2 - Aligned navigation and close buttons #51, fixed image error bug #52**  
 **1.10.1 - Added support for jQuery 3.x #50**  
 **1.10.0 - Implemented feature-request #48, history back, some bugfixing and code styling**  
 **1.9.0 - Implemented feature-request #16, added rel option for grouping images**  

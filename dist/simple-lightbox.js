@@ -190,13 +190,13 @@ $.fn.simpleLightbox = function( options )
 				spinner.hide();
 				if(options.alertError){
 					alert(options.alertErrorMessage);
-					if(dir == 1 || dir == -1){
-						loadImage(dir);
-					} else {
-						loadImage(1);
-					}
-					return;
 				}
+				if(dir == 1 || dir == -1){
+					loadImage(dir);
+				} else {
+					loadImage(1);
+				}
+				return;
 			});
 
 
