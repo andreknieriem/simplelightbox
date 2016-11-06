@@ -148,9 +148,10 @@ $.fn.simpleLightbox = function( options )
 			if(options.nav) nav.appendTo(wrapper);
 			if(options.spinner) spinner.appendTo(wrapper);
 		},
+		globalScrollbarwidth = 0,
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
-			if(options.disableScroll) handleScrollbar('hide');
+			if(options.disableScroll) globalScrollbarwidth = handleScrollbar('hide');
 			wrapper.appendTo('body');
 			image.appendTo(wrapper);
 			if(options.overlay) overlay.appendTo($('body'));
@@ -225,8 +226,8 @@ $.fn.simpleLightbox = function( options )
 				}
 
 				$('.sl-image').css({
-					'top':    ( $( window ).height() - imageHeight ) / 2 + 'px',
-					'left':   ( $( window ).width() - imageWidth ) / 2 + 'px'
+					'top':    ( $( window ).height() - imageHeight) / 2 + 'px',
+					'left':   ( $( window ).width() - imageWidth - globalScrollbarwidth)/ 2 + 'px'
 				});
 				spinner.hide();
 				curImg
@@ -357,7 +358,7 @@ $.fn.simpleLightbox = function( options )
 					mousedown = false;
 					var possibleDir = true;
 					if(!options.loop) {
-						if(index == 0 && swipeDiff < 0){ possibleDir = false; }
+						if(index === 0 && swipeDiff < 0){ possibleDir = false; }
 						if(index >= objects.length -1 && swipeDiff > 0) { possibleDir = false; }
 					}
 					if( Math.abs( swipeDiff ) > options.swipeTolerance && possibleDir ) {
@@ -447,6 +448,7 @@ $.fn.simpleLightbox = function( options )
 	    animating = false;
 		},
 		handleScrollbar = function(type){
+			var scrollbarWidth = 0;
 			if(type == 'hide'){
 				var fullWindowWidth = window.innerWidth;
 				if (!fullWindowWidth) {
@@ -458,7 +460,7 @@ $.fn.simpleLightbox = function( options )
 					padding = parseInt($('body').css('padding-right'),10);
 					scrollDiv.className = 'sl-scrollbar-measure';
 					$('body').append(scrollDiv);
-					var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+					scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 					$(document.body)[0].removeChild(scrollDiv);
 					$('body').data('padding',padding);
 					if(scrollbarWidth > 0){
@@ -468,7 +470,8 @@ $.fn.simpleLightbox = function( options )
 			} else {
 				$('body').removeClass('hidden-scroll').css({'padding-right':$('body').data('padding')});
 			}
-		}
+			return scrollbarWidth;
+		};
 
 	// events
 	setup();
