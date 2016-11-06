@@ -125,7 +125,7 @@ You can customize Simplelightbox by changing the style in simplelightbox.css.
 
 If you are using SASS, you can customize Simplelightbox with the following variables
 
-````SASS
+```SASS
 $sl-font-family: inherit;
 $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
@@ -138,7 +138,7 @@ $sl-arrow-fontsize-large: 3rem;
 $sl-arrow-fontsize-small: 2rem;
 $sl-counter-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
-``
+```
 
 
 ### Changelog
