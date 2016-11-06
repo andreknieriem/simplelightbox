@@ -65,6 +65,7 @@ $.fn.simpleLightbox = function( options )
 		curImg = $(),
 		transPrefix = function(){
 			var s = document.body || document.documentElement;
+			s = s.style;
 			if( s.WebkitTransition === '' ) return '-webkit-';
 			if( s.MozTransition === '' ) return '-moz-';
 			if( s.OTransition === '' ) return '-o-';
