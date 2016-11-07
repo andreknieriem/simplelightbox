@@ -126,18 +126,27 @@ You can customize Simplelightbox by changing the style in simplelightbox.css.
 If you are using SASS, you can customize Simplelightbox with the following variables
 
 ```SASS
-$sl-font-family: inherit;
+$sl-font-family: Arial, Baskerville, monospace;
 $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
 $sl-caption-background: #000;
-$sl-img-border: 0 none;
-$sl-iframe-border: 0 none;
-$sl-breakpoint: 38.75rem;  // from which point the prev and next arrows move a little bit inwards
-$sl-arrow-fontsize-large: 3rem;
-$sl-arrow-fontsize-small: 2rem;
+
 $sl-counter-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
+
+$sl-breakpoint-medium: 35.5rem; // 568px, when 1rem == 16px
+$sl-breakpoint-large:  50rem;   // 800px, when 1rem == 16px
+
+$sl-arrow-fontsize-small:  2rem;
+$sl-arrow-fontsize-medium: 3rem;
+$sl-arrow-fontsize-large:  3rem;
+$sl-img-border-small:  0 none;
+$sl-img-border-medium: 0 none;
+$sl-img-border-large:  0 none;
+$sl-iframe-border-small:  0 none;
+$sl-iframe-border-medium: 0 none;
+$sl-iframe-border-large:  0 none;
 ```
 
 

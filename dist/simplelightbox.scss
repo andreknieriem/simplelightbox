@@ -5,13 +5,23 @@ $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
 $sl-caption-background: #000;
-$sl-img-border: 0 none;
-$sl-iframe-border: 0 none;
-$sl-breakpoint: 38.75rem;  // from which point the prev and next arrows move a little bit inwards
-$sl-arrow-fontsize-large: 3rem;
-$sl-arrow-fontsize-small: 2rem;
+
 $sl-counter-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
+
+$sl-breakpoint-medium: 35.5rem; // 568px, when 1rem == 16px
+$sl-breakpoint-large:  50rem;   // 800px, when 1rem == 16px
+
+$sl-arrow-fontsize-small:  2rem;
+$sl-arrow-fontsize-medium: 3rem;
+$sl-arrow-fontsize-large:  3rem;
+$sl-img-border-small:  0 none;
+$sl-img-border-medium: 0 none;
+$sl-img-border-large:  0 none;
+$sl-iframe-border-small:  0 none;
+$sl-iframe-border-medium: 0 none;
+$sl-iframe-border-large:  0 none;
+
 
 
 body.hidden-scroll {
@@ -91,7 +101,20 @@ body.hidden-scroll {
         left: 5px;
         font-size: $sl-arrow-fontsize-small;
       }
-      @media (min-width: $sl-breakpoint) {
+      @media (min-width: $sl-breakpoint-medium) {
+        width: 44px;
+
+        &.sl-next {
+          right: 10px;
+          font-size: $sl-arrow-fontsize-medium;
+        }
+
+        &.sl-prev {
+          left: 10px;
+          font-size: $sl-arrow-fontsize-medium;
+        }
+      }
+      @media (min-width: $sl-breakpoint-large) {
         width: 44px;
 
         &.sl-next {
@@ -116,11 +139,24 @@ body.hidden-scroll {
       margin: 0;
       padding: 0;
       display: block;
-      border: $sl-img-border;
+      border: $sl-img-border-small;
+      @media (min-width: $sl-breakpoint-medium) {
+        border: $sl-img-border-medium;
+      }
+      @media (min-width: $sl-breakpoint-large) {
+        border: $sl-img-border-large;
+      }
+
     }
     iframe {
-      border: $sl-iframe-border;
       background: #000;
+      border: $sl-iframe-border-small;
+      @media (min-width: $sl-breakpoint-medium) {
+        border: $sl-iframe-border-medium;
+      }
+      @media (min-width: $sl-breakpoint-large) {
+        border: $sl-iframe-border-large;
+      }
     }
     .sl-caption {
       display: none;
