@@ -1,3 +1,29 @@
+// You can customize Simplelightbox with the following variables:
+
+$sl-font-family: Arial, Baskerville, monospace;
+$sl-overlay-background: #fff;
+$sl-navigation-color: #000;
+$sl-caption-color: #fff;
+$sl-caption-background: #000;
+
+$sl-counter-fontsize: 1rem;
+$sl-close-fontsize: 3rem;
+
+$sl-breakpoint-medium: 35.5em; // 568px, when 1em == 16px
+$sl-breakpoint-large:  50em;   // 800px, when 1em == 16px
+
+$sl-arrow-fontsize-small:  2rem;
+$sl-arrow-fontsize-medium: 3rem;
+$sl-arrow-fontsize-large:  3rem;
+$sl-img-border-small:  0 none;
+$sl-img-border-medium: 0 none;
+$sl-img-border-large:  0 none;
+$sl-iframe-border-small:  0 none;
+$sl-iframe-border-medium: 0 none;
+$sl-iframe-border-large:  0 none;
+
+
+
 body.hidden-scroll {
   overflow: hidden;
 }
@@ -7,7 +33,7 @@ body.hidden-scroll {
   right: 0;
   top: 0;
   bottom: 0;
-  background: #fff;
+  background: $sl-overlay-background;
   opacity: 0.7;
   display: none;
   z-index: 1006;
@@ -36,7 +62,9 @@ body.hidden-scroll {
     height: 44px;
     width: 44px;
     line-height: 44px;
-    font-family: Arial, Baskerville, monospace;
+    font-family: $sl-font-family;
+    color: $sl-navigation-color;
+    font-size: $sl-close-fontsize;
   }
 
   .sl-counter {
@@ -45,6 +73,8 @@ body.hidden-scroll {
     top: 30px;
     left: 30px;
     z-index: 1015;
+    color: $sl-navigation-color;
+    font-size: $sl-counter-fontsize;
   }
 
   .sl-navigation {
@@ -60,23 +90,41 @@ body.hidden-scroll {
       text-align: center;
       display: block;
       z-index: 1015;
-      font-family: Arial, Baskerville, monospace;
+      font-family: $sl-font-family;
+      color: $sl-navigation-color;
       &.sl-next {
         right: 5px;
+        font-size: $sl-arrow-fontsize-small;
       }
 
       &.sl-prev {
         left: 5px;
+        font-size: $sl-arrow-fontsize-small;
       }
-      @media (min-width: 38.75em) {
+      @media (min-width: $sl-breakpoint-medium) {
+        width: 44px;
+
+        &.sl-next {
+          right: 10px;
+          font-size: $sl-arrow-fontsize-medium;
+        }
+
+        &.sl-prev {
+          left: 10px;
+          font-size: $sl-arrow-fontsize-medium;
+        }
+      }
+      @media (min-width: $sl-breakpoint-large) {
         width: 44px;
 
         &.sl-next {
           right: 20px;
+          font-size: $sl-arrow-fontsize-large;
         }
 
         &.sl-prev {
           left: 20px;
+          font-size: $sl-arrow-fontsize-large;
         }
       }
     }
@@ -91,16 +139,30 @@ body.hidden-scroll {
       margin: 0;
       padding: 0;
       display: block;
+      border: $sl-img-border-small;
+      @media (min-width: $sl-breakpoint-medium) {
+        border: $sl-img-border-medium;
+      }
+      @media (min-width: $sl-breakpoint-large) {
+        border: $sl-img-border-large;
+      }
+
     }
     iframe {
-      border: 0 none;
       background: #000;
+      border: $sl-iframe-border-small;
+      @media (min-width: $sl-breakpoint-medium) {
+        border: $sl-iframe-border-medium;
+      }
+      @media (min-width: $sl-breakpoint-large) {
+        border: $sl-iframe-border-large;
+      }
     }
     .sl-caption {
       display: none;
       padding: 10px;
-      color: #fff;
-      background: #000;
+      color: $sl-caption-color;
+      background: $sl-caption-background;
       opacity: 0.8;
       position: absolute;
       bottom: 0;
@@ -122,7 +184,7 @@ body.hidden-scroll {
       position: absolute;
       bottom: 5px;
       right: 5px;
-      color: #fff;
+      color: $sl-navigation-color;
       z-index: 1005;
     }
   }

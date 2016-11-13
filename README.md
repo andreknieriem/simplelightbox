@@ -31,7 +31,7 @@ Simple include simplelightbox.css and simple-lightbox.js to your page
 var lightbox = $('.gallery a').simpleLightbox(options);
 ```
 
-### Options
+### JavaScript Options
 | Property | Default | Type | Description |
 | -------- | ------- | ---- | ----------- |
 | overlay | true | bool | show an overlay or not |
@@ -119,7 +119,39 @@ var lightbox1 = $('.lighbox-1 a').simpleLightbox();
 var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 ```
 
+### Customization
+
+You can customize Simplelightbox by changing the style in simplelightbox.css.
+
+If you are using SASS, you can customize Simplelightbox with the following variables
+
+```SASS
+$sl-font-family: Arial, Baskerville, monospace;
+$sl-overlay-background: #fff;
+$sl-navigation-color: #000;
+$sl-caption-color: #fff;
+$sl-caption-background: #000;
+
+$sl-counter-fontsize: 1rem;
+$sl-close-fontsize: 3rem;
+
+$sl-breakpoint-medium: 35.5rem; // 568px, when 1rem == 16px
+$sl-breakpoint-large:  50rem;   // 800px, when 1rem == 16px
+
+$sl-arrow-fontsize-small:  2rem;
+$sl-arrow-fontsize-medium: 3rem;
+$sl-arrow-fontsize-large:  3rem;
+$sl-img-border-small:  0 none;
+$sl-img-border-medium: 0 none;
+$sl-img-border-large:  0 none;
+$sl-iframe-border-small:  0 none;
+$sl-iframe-border-medium: 0 none;
+$sl-iframe-border-large:  0 none;
+```
+
+
 ### Changelog
+**1.10.3 - Merged pull requests #55, #56 and #57. Thanks to karland**  
 **1.10.2 - Aligned navigation and close buttons #51, fixed image error bug #52**  
 **1.10.1 - Added support for jQuery 3.x #50**  
 **1.10.0 - Implemented feature-request #48, history back, some bugfixing and code styling**  
@@ -159,4 +191,5 @@ var lightbox2 = $('.lighbox-2 a').simpleLightbox();
 [nicekiwi](https://github.com/nicekiwi)  
 [helloilya](https://github.com/helloilya)  
 [bitstarr](https://github.com/bitstarr)  
-[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
+[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)
+[Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)   

@@ -64,11 +64,12 @@ $.fn.simpleLightbox = function( options )
 		swipeYDiff = 0,
 		curImg = $(),
 		transPrefix = function(){
-			var s = document.body || document.documentElement, s = s.style;
-				if( s.WebkitTransition == '' ) return '-webkit-';
-				if( s.MozTransition == '' ) return '-moz-';
-				if( s.OTransition == '' ) return '-o-';
-				if( s.transition == '' ) return '';
+			var s = document.body || document.documentElement;
+			s = s.style;
+			if( s.WebkitTransition === '' ) return '-webkit-';
+			if( s.MozTransition === '' ) return '-moz-';
+			if( s.OTransition === '' ) return '-o-';
+			if( s.transition === '' ) return '';
 			return false;
 		},
 		opened = false,
@@ -81,6 +82,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, this) : this,
 		transPrefix = transPrefix(),
+		globalScrollbarwidth = 0,
 		canTransisions = (transPrefix !== false) ? true : false,
 		supportsPushState = ('pushState' in history),
 		historyhasChanged = false,
@@ -150,7 +152,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
-			if(options.disableScroll) handleScrollbar('hide');
+			if(options.disableScroll) globalScrollbarwidth = handleScrollbar('hide');
 			wrapper.appendTo('body');
 			image.appendTo(wrapper);
 			if(options.overlay) overlay.appendTo($('body'));
@@ -184,7 +186,7 @@ $.fn.simpleLightbox = function( options )
 
 			$(tmpImage).bind('error',function(ev){
 				//no image was found
-				objects.eq(index).trigger($.Event('error.simplelightbox'))
+				objects.eq(index).trigger($.Event('error.simplelightbox'));
 				animating = false;
 				opened = true;
 				spinner.hide();
@@ -226,7 +228,7 @@ $.fn.simpleLightbox = function( options )
 
 				$('.sl-image').css({
 					'top':    ( $( window ).height() - imageHeight ) / 2 + 'px',
-					'left':   ( $( window ).width() - imageWidth ) / 2 + 'px'
+					'left':   ( $( window ).width() - imageWidth - globalScrollbarwidth)/ 2 + 'px'
 				});
 				spinner.hide();
 				curImg
@@ -237,16 +239,17 @@ $.fn.simpleLightbox = function( options )
 				.fadeIn('fast');
 				opened = true;
 				var cSel = (options.captionSelector == 'self') ? objects.eq(index) : objects.eq(index).find(options.captionSelector);
+				var captionText;
 				if(options.captionType == 'data'){
-					var captionText = cSel.data(options.captionsData);
+					captionText = cSel.data(options.captionsData);
 				} else if(options.captionType == 'text'){
-					var captionText = cSel.html();
+					captionText = cSel.html();
 				} else {
-					var captionText = cSel.prop(options.captionsData);
+					captionText = cSel.prop(options.captionsData);
 				}
 
 				if(!options.loop) {
-					if(index == 0){ $('.sl-prev').hide();}
+					if(index === 0){ $('.sl-prev').hide();}
 					if(index >= objects.length -1) {$('.sl-next').hide();}
 					if(index > 0){ $('.sl-prev').show(); }
 					if(index < objects.length -1){ $('.sl-next').show(); }
@@ -274,13 +277,13 @@ $.fn.simpleLightbox = function( options )
 					animating = false;
 					setCaption(captionText);
 				}
-				if(options.additionalHtml && $('.sl-additional-html').length == 0){
+				if(options.additionalHtml && $('.sl-additional-html').length === 0){
 					$('<div>').html(options.additionalHtml).addClass('sl-additional-html').appendTo($('.sl-image'));
 				}
-			}
+			};
 		},
 		setCaption = function(captiontext){
-			if(captiontext != '' && typeof captiontext !== "undefined" && options.captions){
+			if(captiontext !== '' && typeof captiontext !== "undefined" && options.captions){
 				caption.html(captiontext).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
 			}
 		},
@@ -357,7 +360,7 @@ $.fn.simpleLightbox = function( options )
 					mousedown = false;
 					var possibleDir = true;
 					if(!options.loop) {
-						if(index == 0 && swipeDiff < 0){ possibleDir = false; }
+						if(index === 0 && swipeDiff < 0){ possibleDir = false; }
 						if(index >= objects.length -1 && swipeDiff > 0) { possibleDir = false; }
 					}
 					if( Math.abs( swipeDiff ) > options.swipeTolerance && possibleDir ) {
@@ -404,7 +407,7 @@ $.fn.simpleLightbox = function( options )
 			.trigger($.Event( (dir===1?'next':'prev')+'.simplelightbox'));
 
 		var newIndex = index + dir;
-			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop == false ) return;
+			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop === false ) return;
 			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
       	var css = { 'opacity': 0 };
@@ -447,18 +450,19 @@ $.fn.simpleLightbox = function( options )
 	    animating = false;
 		},
 		handleScrollbar = function(type){
+			var scrollbarWidth = 0;
 			if(type == 'hide'){
 				var fullWindowWidth = window.innerWidth;
 				if (!fullWindowWidth) {
-					var documentElementRect = document.documentElement.getBoundingClientRect()
-					fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left)
+					var documentElementRect = document.documentElement.getBoundingClientRect();
+					fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
 				}
 				if(document.body.clientWidth < fullWindowWidth){
 					var scrollDiv = document.createElement('div'),
 					padding = parseInt($('body').css('padding-right'),10);
 					scrollDiv.className = 'sl-scrollbar-measure';
 					$('body').append(scrollDiv);
-					var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+					scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
 					$(document.body)[0].removeChild(scrollDiv);
 					$('body').data('padding',padding);
 					if(scrollbarWidth > 0){
@@ -468,7 +472,8 @@ $.fn.simpleLightbox = function( options )
 			} else {
 				$('body').removeClass('hidden-scroll').css({'padding-right':$('body').data('padding')});
 			}
-		}
+			return scrollbarWidth;
+		};
 
 	// events
 	setup();
@@ -485,7 +490,7 @@ $.fn.simpleLightbox = function( options )
 	// close on click on doc
 	$( document ).on('click.'+prefix+ ' touchstart.'+prefix, function(e){
 		if(opened){
-			if((options.docClose && $(e.target).closest('.sl-image').length == 0 && $(e.target).closest('.sl-navigation').length == 0)){
+			if((options.docClose && $(e.target).closest('.sl-image').length === 0 && $(e.target).closest('.sl-navigation').length === 0)){
 				close();
 			}
 		}
@@ -521,31 +526,31 @@ $.fn.simpleLightbox = function( options )
 	this.open = function(elem){
 		elem = elem || $(this[0]);
 		openImage(elem);
-	}
+	};
 
 	this.next = function(){
 		loadImage( 1 );
-	}
+	};
 
 	this.prev = function(){
 		loadImage( -1 );
-	}
+	};
 
 	this.close = function(){
 		close();
-	}
+	};
 
 	this.destroy = function(){
 		$( document ).unbind('click.'+prefix).unbind('keyup.'+prefix);
 		close();
 		$('.sl-overlay, .sl-wrapper').remove();
 		this.off('click');
-	}
+	};
 
 	this.refresh = function(){
 		this.destroy();
 		$(this.selector).simpleLightbox(options);
-	}
+	};
 
 	return this;
 
