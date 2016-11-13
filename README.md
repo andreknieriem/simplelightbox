@@ -191,5 +191,5 @@ $sl-iframe-border-large:  0 none;
 [nicekiwi](https://github.com/nicekiwi)  
 [helloilya](https://github.com/helloilya)  
 [bitstarr](https://github.com/bitstarr)  
-[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)
+[Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
 [Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)   
