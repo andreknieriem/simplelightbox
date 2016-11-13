@@ -135,8 +135,8 @@ $sl-caption-background: #000;
 $sl-counter-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
 
-$sl-breakpoint-medium: 35.5rem; // 568px, when 1rem == 16px
-$sl-breakpoint-large:  50rem;   // 800px, when 1rem == 16px
+$sl-breakpoint-medium: 35.5em; // 568px, when 1rem == 16px
+$sl-breakpoint-large:  50em;   // 800px, when 1rem == 16px
 
 $sl-arrow-fontsize-small:  2rem;
 $sl-arrow-fontsize-medium: 3rem;
