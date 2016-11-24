@@ -437,7 +437,9 @@ $.fn.simpleLightbox = function( options )
 			triggered = false;
 
 			elem.trigger($.Event('close.simplelightbox'));
-			resetHash();
+			if(options.history){
+				resetHash();
+			}
 			$('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
 				if(options.disableScroll) handleScrollbar('show');
 				$('.sl-wrapper, .sl-overlay').remove();

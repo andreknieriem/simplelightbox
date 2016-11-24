@@ -151,6 +151,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.10.4 - Bugfix von #58**  
 **1.10.3 - Merged pull requests #55, #56 and #57. Thanks to karland**  
 **1.10.2 - Aligned navigation and close buttons #51, fixed image error bug #52**  
 **1.10.1 - Added support for jQuery 3.x #50**  
