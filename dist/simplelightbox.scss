@@ -4,7 +4,7 @@ $sl-font-family: Arial, Baskerville, monospace;
 $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
-$sl-caption-background: #000;
+$sl-caption-background: rgba(0, 0, 0, 0.8);
 
 $sl-counter-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
@@ -163,7 +163,6 @@ body.hidden-scroll {
       padding: 10px;
       color: $sl-caption-color;
       background: $sl-caption-background;
-      opacity: 0.8;
       position: absolute;
       bottom: 0;
       left: 0;
