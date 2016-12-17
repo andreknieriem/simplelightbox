@@ -1,26 +1,26 @@
 // You can customize Simplelightbox with the following variables:
 
-$sl-font-family: Arial, Baskerville, monospace;
-$sl-overlay-background: #fff;
-$sl-navigation-color: #000;
-$sl-caption-color: #fff;
-$sl-caption-background: #000;
+$sl-font-family: Arial, Baskerville, monospace !default;
+$sl-overlay-background: #fff !default;
+$sl-navigation-color: #000 !default;
+$sl-caption-color: #fff !default;
+$sl-caption-background: #000 !default;
 
-$sl-counter-fontsize: 1rem;
-$sl-close-fontsize: 3rem;
+$sl-counter-fontsize: 1rem !default;
+$sl-close-fontsize: 3rem !default;
 
-$sl-breakpoint-medium: 35.5em; // 568px, when 1em == 16px
-$sl-breakpoint-large:  50em;   // 800px, when 1em == 16px
+$sl-breakpoint-medium: 35.5em !default; // 568px, when 1em == 16px
+$sl-breakpoint-large:  50em !default;   // 800px, when 1em == 16px
 
-$sl-arrow-fontsize-small:  2rem;
-$sl-arrow-fontsize-medium: 3rem;
-$sl-arrow-fontsize-large:  3rem;
-$sl-img-border-small:  0 none;
-$sl-img-border-medium: 0 none;
-$sl-img-border-large:  0 none;
-$sl-iframe-border-small:  0 none;
-$sl-iframe-border-medium: 0 none;
-$sl-iframe-border-large:  0 none;
+$sl-arrow-fontsize-small:  2rem !default;
+$sl-arrow-fontsize-medium: 3rem !default;
+$sl-arrow-fontsize-large:  3rem !default;
+$sl-img-border-small:  0 none !default;
+$sl-img-border-medium: 0 none !default;
+$sl-img-border-large:  0 none !default;
+$sl-iframe-border-small:  0 none !default;
+$sl-iframe-border-medium: 0 none !default;
+$sl-iframe-border-large:  0 none !default;
 
 
 
