@@ -509,10 +509,10 @@ $.fn.simpleLightbox = function( options )
 	// keyboard-control
 	if( options.enableKeyboard ){
 		$( document ).on( 'keyup.'+prefix, function( e ){
-			e.preventDefault();
 			swipeDiff = 0;
 			// keyboard control only if lightbox is open
 			if(opened){
+				e.preventDefault();
 				var key = e.keyCode;
 				if( key == 27 ) {
 					close();
