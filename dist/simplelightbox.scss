@@ -36,10 +36,10 @@ body.hidden-scroll {
   background: $sl-overlay-background;
   opacity: 0.7;
   display: none;
-  z-index: 1006;
+  z-index: 1050;
 }
 .sl-wrapper {
-  z-index: 1000;
+  z-index: 1040;
   button {
     border: 0 none;
     background: transparent;
@@ -56,7 +56,7 @@ body.hidden-scroll {
     position: fixed;
     right: 30px;
     top: 30px;
-    z-index: 1015;
+    z-index: 1060;
     margin-top: -14px;
     margin-right: -14px;
     height: 44px;
@@ -72,7 +72,7 @@ body.hidden-scroll {
     position: fixed;
     top: 30px;
     left: 30px;
-    z-index: 1015;
+    z-index: 1060;
     color: $sl-navigation-color;
     font-size: $sl-counter-fontsize;
   }
@@ -89,7 +89,7 @@ body.hidden-scroll {
       line-height: 44px;
       text-align: center;
       display: block;
-      z-index: 1015;
+      z-index: 1060;
       font-family: $sl-font-family;
       color: $sl-navigation-color;
       &.sl-next {
@@ -184,7 +184,7 @@ body.hidden-scroll {
       bottom: 5px;
       right: 5px;
       color: $sl-navigation-color;
-      z-index: 1005;
+      z-index: 1060;
     }
   }
 }

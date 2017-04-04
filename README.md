@@ -151,6 +151,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.10.7 - Added Bootstrap compatibility #69**  
 **1.10.6 - Merged pull requests #65. Thanks to mstaniuk**  
 **1.10.5 - Merged pull requests #60 and #61. Thanks to slavanga**  
 **1.10.4 - Bugfix von #58**  
