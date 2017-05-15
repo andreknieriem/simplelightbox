@@ -12,6 +12,7 @@ $.fn.simpleLightbox = function( options )
 {
 
 	var options = $.extend({
+		sourceAttr: 'href',
 		overlay: true,
 		spinner: true,
 		nav: true,
@@ -137,7 +138,7 @@ $.fn.simpleLightbox = function( options )
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className),
 		isValidLink = function( element ){
 			if(!options.fileExt) return true;
-			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( 'href' ) );
+			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( options.sourceAttr ) );
 		},
 		setup = function(){
 			if(options.close) closeBtn.appendTo(wrapper);
@@ -160,9 +161,9 @@ $.fn.simpleLightbox = function( options )
 			index = objects.index(elem);
 			curImg = $( '<img/>' )
 				.hide()
-				.attr('src', elem.attr('href'));
-			if(loaded.indexOf(elem.attr('href')) == -1){
-				loaded.push(elem.attr('href'));
+				.attr('src', elem.attr(options.sourceAttr));
+			if(loaded.indexOf(elem.attr(options.sourceAttr)) == -1){
+				loaded.push(elem.attr(options.sourceAttr));
 			}
 			image.html('').attr('style','');
 			curImg.appendTo(image);
@@ -387,13 +388,13 @@ $.fn.simpleLightbox = function( options )
 		preload = function(){
 			var next = (index+1 < 0) ? objects.length -1: (index+1 >= objects.length -1) ? 0 : index+1,
 				prev = (index-1 < 0) ? objects.length -1: (index-1 >= objects.length -1) ? 0 : index-1;
-			$( '<img />' ).attr( 'src', objects.eq(next).attr( 'href' ) ).on('load', function(){
+			$( '<img />' ).attr( 'src', objects.eq(next).attr( options.sourceAttr ) ).on('load', function(){
 				if(loaded.indexOf($(this).attr('src')) == -1){
 					loaded.push($(this).attr('src'));
 				}
 				objects.eq(index).trigger($.Event('nextImageLoaded.simplelightbox'));
 			});
-			$( '<img />' ).attr( 'src', objects.eq(prev).attr( 'href' ) ).on('load', function(){
+			$( '<img />' ).attr( 'src', objects.eq(prev).attr( options.sourceAttr ) ).on('load', function(){
 				if(loaded.indexOf($(this).attr('src')) == -1){
 					loaded.push($(this).attr('src'));
 				}
@@ -421,8 +422,8 @@ $.fn.simpleLightbox = function( options )
 					// fadeout old image
 					var elem = objects.eq(index);
 					curImg
-					.attr('src', elem.attr('href'));
-					if(loaded.indexOf(elem.attr('href')) == -1){
+					.attr('src', elem.attr(options.sourceAttr));
+					if(loaded.indexOf(elem.attr(options.sourceAttr)) == -1){
 						spinner.show();
 					}
 					$('.sl-caption').remove();

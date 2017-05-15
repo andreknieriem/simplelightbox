@@ -34,6 +34,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 ### JavaScript Options
 | Property | Default | Type | Description |
 | -------- | ------- | ---- | ----------- |
+| sourceAttr | href | string | the attribute used for large images |
 | overlay | true | bool | show an overlay or not |
 | spinner | true | bool | show spinner or not |
 | nav | true | bool | show arrow-navigation or not |
@@ -151,6 +152,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.11.0 - New option for src of image. e.g data attribute #70**  
 **1.10.7 - Added Bootstrap compatibility #69**  
 **1.10.6 - Merged pull requests #65. Thanks to mstaniuk**  
 **1.10.5 - Merged pull requests #60 and #61. Thanks to slavanga**  
@@ -189,7 +191,7 @@ $sl-iframe-border-large:  0 none;
 **1.0.0 - Initial Release**
 
 ### Author
-[Andre Rinas](http://andreknieriem.de/) - [Github](https://github.com/andreknieriem/)
+[Andre Rinas](http://andrerinas.de/) - [Github](https://github.com/andreknieriem/)
 
 ### Contributors
 [nicekiwi](https://github.com/nicekiwi)  
