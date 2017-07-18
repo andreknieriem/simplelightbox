@@ -263,7 +263,7 @@ $.fn.simpleLightbox = function( options )
 					if( options.animationSlide ) {
 						if( canTransisions ) {
 							slide(0, 100 * dir + 'px');
-							setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'), 50 });
+							setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'); }, 50 );
 						}
 						else {
 							css.left = parseInt( $('.sl-image').css( 'left' ) ) + 100 * dir + 'px';
