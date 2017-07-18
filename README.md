@@ -152,6 +152,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.11.1 - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59**  
 **1.11.0 - New option for src of image. e.g data attribute #70**  
 **1.10.7 - Added Bootstrap compatibility #69**  
 **1.10.6 - Merged pull requests #65. Thanks to mstaniuk**  

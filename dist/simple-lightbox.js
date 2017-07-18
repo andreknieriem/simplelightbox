@@ -1,9 +1,7 @@
-
 /*
-	By André Rinas, www.andreknieriem.de
+	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
 */
-
 ;( function( $, window, document, undefined )
 {
 	'use strict';
@@ -138,7 +136,9 @@ $.fn.simpleLightbox = function( options )
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className),
 		isValidLink = function( element ){
 			if(!options.fileExt) return true;
-			return $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( $( element ).attr( options.sourceAttr ) );
+			var filEext = /\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/gmi;
+			var testExt = $( element ).attr( options.sourceAttr ).match(filEext);
+			return testExt && $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( testExt );
 		},
 		setup = function(){
 			if(options.close) closeBtn.appendTo(wrapper);
@@ -263,7 +263,7 @@ $.fn.simpleLightbox = function( options )
 					if( options.animationSlide ) {
 						if( canTransisions ) {
 							slide(0, 100 * dir + 'px');
-							setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'), 50 });
+							setTimeout( function(){ slide( options.animationSpeed / 1000, 0 + 'px'); }, 50 );
 						}
 						else {
 							css.left = parseInt( $('.sl-image').css( 'left' ) ) + 100 * dir + 'px';
