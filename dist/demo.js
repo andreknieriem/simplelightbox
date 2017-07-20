@@ -10,7 +10,7 @@ var docStart = $('#documentation').offset().top,
 inPageItems = [];
 
 $(function(){
-	$('header').height($(window).height());
+	$('header').css('min-height',Math.max($(window).height(),620));
 
 	$('body').fadeIn(200);
 
@@ -36,7 +36,7 @@ $(function(){
 	});
 
 	$(window).resize(function(){
-		$('header').height($(window).height());
+		$('header').height(Math.max($(window).height(),620));
 	});
 
 	$('.scrolllink').click(function(e){
