@@ -138,6 +138,20 @@ header .gradient {
 	background: #141c3c;
 }
 
+.btn.wordpress {
+	background: #0073aa;
+}
+.btn.wordpress:hover {
+	background: #004667;
+}
+
+.btn.typo3 {
+	background: #ff8700;
+}
+.btn.typo3:hover {
+	background: #b35f00;
+}
+
 .container {
 	width: 1140px;
 	max-width: 100%;
