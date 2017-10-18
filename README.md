@@ -18,6 +18,9 @@ Touch-friendly image lightbox for mobile and desktop with jQuery
 
 ### Install
 ```sh
+// YARN
+yarn add simplelightbox
+
 //Bower
 bower install simplelightbox
 

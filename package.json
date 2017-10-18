@@ -22,12 +22,12 @@
   ],
   "author": {
 		"name": "Andre Rinas",
-		"url": "http://www.andreknieriem.de",
-		"email": "info@andreknieriem.de"
+		"url": "http://www.andrerinas.de",
+		"email": "info@andrerinas.de"
 	},
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
   },
-  "homepage": "http://andreknieriem.de/simple-lightbox"
+  "homepage": "https://andrerinas.de/simplelightbox.html"
 }

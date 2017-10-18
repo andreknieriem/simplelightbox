@@ -3,7 +3,7 @@
   "version": "1.11.1",
   "homepage": "http://andreknieriem.de/simple-lightbox",
   "authors": [
-    "André Rinas <info@andreknieriem.de> (http://andreknieriem.de)"
+    "André Rinas <info@andrerinas.de> (http://andrerinas.de)"
   ],
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": [
