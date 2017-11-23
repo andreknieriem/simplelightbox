@@ -48,6 +48,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | captionsData | title | string | get the caption from given attribute |
 | captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
 | captionDelay | 0 | int | adds a delay before the caption shows (in ms) |
+| captionClass | '' | string | add an additional class to the sl-caption |
 | close | true | bool | show the close button or not |
 | closeText | '×' | string | text or html for the close button |
 | swipeClose | true | bool | swipe up or down to close gallery |
@@ -155,6 +156,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.12.0 - New option captionClass #81, bugfix for #82**  
 **1.11.1 - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59**  
 **1.11.0 - New option for src of image. e.g data attribute #70**  
 **1.10.7 - Added Bootstrap compatibility #69**  

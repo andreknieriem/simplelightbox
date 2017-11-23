@@ -1,6 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
+	1.12.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -21,6 +22,7 @@ $.fn.simpleLightbox = function( options )
 		captionType: 'attr',
 		captionsData: 'title',
 		captionPosition: 'bottom',
+		captionClass: '',
 		close: true,
 		closeText: '×',
 		swipeClose: true,
@@ -131,7 +133,7 @@ $.fn.simpleLightbox = function( options )
 		counter = $('<div>').addClass('sl-counter').html('<span class="sl-current"></span>/<span class="sl-total"></span>'),
 		animating = false,
 		index = 0,
-		caption = $('<div>').addClass('sl-caption pos-'+options.captionPosition),
+		caption = $('<div>').addClass('sl-caption '+options.captionClass+' pos-'+options.captionPosition),
 		image = $('<div>').addClass('sl-image'),
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className),
 		isValidLink = function( element ){
@@ -552,7 +554,7 @@ $.fn.simpleLightbox = function( options )
 
 	this.refresh = function(){
 		this.destroy();
-		$(this.selector).simpleLightbox(options);
+		$(this).simpleLightbox(options);
 	};
 
 	return this;
