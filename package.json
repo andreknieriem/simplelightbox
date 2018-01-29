@@ -8,7 +8,7 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "dependencies": {
-	"jquery": ">=1.3.2"
+	"jquery": ">=1.7.0"
   },
   "keywords": [
     "lightbox",

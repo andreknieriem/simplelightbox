@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.12.0
+	1.12.1
 */
 ;( function( $, window, document, undefined )
 {
@@ -187,7 +187,7 @@ $.fn.simpleLightbox = function( options )
 			windowHeight = $( window ).height() * options.heightRatio;
 			tmpImage.src	= curImg.attr( 'src' );
 
-			$(tmpImage).bind('error',function(ev){
+			$(tmpImage).on('error',function(ev){
 				//no image was found
 				objects.eq(index).trigger($.Event('error.simplelightbox'));
 				animating = false;
@@ -340,6 +340,8 @@ $.fn.simpleLightbox = function( options )
 				if(mousedown) return true;
 				if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
 				mousedown = true;
+				swipeDiff = 0;
+				swipeYDiff = 0;
 				swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
 				swipeYStart = e.originalEvent.pageY || e.originalEvent.touches[ 0 ].pageY;
 				return false;
@@ -546,7 +548,7 @@ $.fn.simpleLightbox = function( options )
 	};
 
 	this.destroy = function(){
-		$( document ).unbind('click.'+prefix).unbind('keyup.'+prefix);
+		$( document ).off('click.'+prefix).off('keyup.'+prefix);
 		close();
 		$('.sl-overlay, .sl-wrapper').remove();
 		this.off('click');
