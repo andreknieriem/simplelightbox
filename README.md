@@ -156,6 +156,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.12.2 - Bugfix for #89**  
 **1.12.1 - Bugfix for #88,#87 and remove bind/unbind #84**  
 **1.12.0 - New option captionClass #81, bugfix for #82**  
 **1.11.1 - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59**  

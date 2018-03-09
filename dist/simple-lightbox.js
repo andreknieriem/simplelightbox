@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.12.1
+	1.12.2
 */
 ;( function( $, window, document, undefined )
 {
@@ -76,12 +76,12 @@ $.fn.simpleLightbox = function( options )
 		opened = false,
 		loaded = [],
 		getRelated = function(rel, jqObj) {
-			var $related = $(jqObj.selector).filter(function () {
+			var $related = jqObj.filter(function () {
 				return ($(this).attr('rel') === rel);
 			});
 			return $related;
 		},
-		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, this) : this,
+		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, $(this)) : this,
 		transPrefix = transPrefix(),
 		globalScrollbarwidth = 0,
 		canTransisions = (transPrefix !== false) ? true : false,
