@@ -65,6 +65,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
 | widthRatio: | 0.8 | float | Ratio of image width to screen width |
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
+| scaleImageToRatio: | false | bool | scales the image up to the defined ratio size |
 | disableRightClick | false | bool | disable rightclick on image or not |
 | disableScroll | true | bool | stop scrolling page if lightbox is opened |
 | alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
