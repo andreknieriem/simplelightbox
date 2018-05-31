@@ -5,6 +5,7 @@ $sl-overlay-background: #fff !default;
 $sl-navigation-color: #000 !default;
 $sl-caption-color: #fff !default;
 $sl-caption-background: rgba(0, 0, 0, 0.8) !default;
+$sl-caption-fontsize: 1rem !default;
 
 $sl-counter-fontsize: 1rem !default;
 $sl-close-fontsize: 3rem !default;
@@ -172,6 +173,7 @@ body.hidden-scroll {
 			padding: 10px;
 			color: $sl-caption-color;
 			background: $sl-caption-background;
+			font-size: $sl-caption-fontsize;
 			position: absolute;
 			bottom: 0;
 			left: 0;
