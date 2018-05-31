@@ -44,7 +44,8 @@ $.fn.simpleLightbox = function( options )
 		alertError: true,
 		alertErrorMessage: 'Image not found, next image will be loaded',
 		additionalHtml: false,
-		history: true
+		history: true,
+		scaleImageToRatio: false
 	}, options);
 
 	// global variables
@@ -223,7 +224,7 @@ $.fn.simpleLightbox = function( options )
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
-				if( imageWidth > windowWidth || imageHeight > windowHeight ){
+				if( options.scaleImageToRatio || imageWidth > windowWidth || imageHeight > windowHeight ){
 					var ratio	 = imageWidth / imageHeight > windowWidth / windowHeight ? imageWidth / windowWidth : imageHeight / windowHeight;
 					imageWidth	/= ratio;
 					imageHeight	/= ratio;
