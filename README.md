@@ -159,7 +159,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
-**1.13.0 - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich
+**1.13.0 - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich  
 **1.12.2 - Bugfix for #89**  
 **1.12.1 - Bugfix for #88,#87 and remove bind/unbind #84**  
 **1.12.0 - New option captionClass #81, bugfix for #82**  
