@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v1.12.2</sup></h1>
+				<h1>SimpleLightbox <sup>v1.13.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/andrerinas">Donate</a>
@@ -263,22 +263,27 @@ npm install simplelightbox</code>
 					<td>how much pixel you have to swipe, until next or previous image</td>
 					</tr>
 					<tr>
-					<td>className:</td>
+					<td>className</td>
 					<td>'simple-lightbox'</td>
 					<td>string</td>
 					<td>adds a class to the wrapper of the lightbox</td>
 					</tr>
 					<tr>
-					<td>widthRatio:</td>
+					<td>widthRatio</td>
 					<td>0.8</td>
 					<td>float</td>
 					<td>Ratio of image width to screen width</td>
 					</tr>
 					<tr>
-					<td>heightRatio:</td>
+					<td>heightRatio</td>
 					<td>0.9</td>
 					<td>float</td>
 					<td>Ratio of image height to screen height</td>
+					</tr>
+					<td>scaleImageToRatio</td>
+					<td>false</td>
+					<td>bool</td>
+					<td>scales the image up to the defined ratio size</td>
 					</tr>
 					<tr>
 					<td>disableRightClick</td>
@@ -494,8 +499,10 @@ $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
 $sl-caption-background: #000;
+$sl-overlay-opacity: 0.7;
 
 $sl-counter-fontsize: 1rem;
+$sl-caption-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
 
 $sl-breakpoint-medium: 35.5em; // 568px, when 1rem == 16px
@@ -522,6 +529,7 @@ $sl-iframe-border-large:  0 none;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>1.13.0</strong> - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich<br />
 				<strong>1.12.2</strong> - Bugfix for #89<br />
 				<strong>1.12.1</strong> - Bugfix for #88,#87 and remove bind/unbind #84<br />
 				<strong>1.12.0</strong> - New option captionClass #81, bugfix for #82<br />
