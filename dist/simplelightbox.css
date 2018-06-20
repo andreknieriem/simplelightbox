@@ -176,21 +176,22 @@ body.hidden-scroll {
   padding: 10px;
   color: #fff;
   background: rgba(0, 0, 0, 0.8);
+  font-size: 1rem;
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
 }
-/* line 180, ../sass/simplelightbox.scss */
+/* line 181, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-caption.pos-top {
   bottom: auto;
   top: 0;
 }
-/* line 185, ../sass/simplelightbox.scss */
+/* line 186, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-caption.pos-outside {
   bottom: auto;
 }
-/* line 190, ../sass/simplelightbox.scss */
+/* line 191, ../sass/simplelightbox.scss */
 .sl-wrapper .sl-image .sl-download {
   display: none;
   position: absolute;
@@ -200,7 +201,7 @@ body.hidden-scroll {
   z-index: 1060;
 }
 
-/* line 201, ../sass/simplelightbox.scss */
+/* line 202, ../sass/simplelightbox.scss */
 .sl-spinner {
   display: none;
   border: 5px solid #333;
@@ -220,7 +221,7 @@ body.hidden-scroll {
   animation: pulsate 1s ease-out infinite;
 }
 
-/* line 220, ../sass/simplelightbox.scss */
+/* line 221, ../sass/simplelightbox.scss */
 .sl-scrollbar-measure {
   position: absolute;
   top: -9999px;

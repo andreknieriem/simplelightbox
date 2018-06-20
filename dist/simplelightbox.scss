@@ -2,11 +2,13 @@
 
 $sl-font-family: Arial, Baskerville, monospace !default;
 $sl-overlay-background: #fff !default;
+$sl-overlay-opacity: 0.7 !default;
 $sl-navigation-color: #000 !default;
 $sl-caption-color: #fff !default;
 $sl-caption-background: rgba(0, 0, 0, 0.8) !default;
 
 $sl-counter-fontsize: 1rem !default;
+$sl-caption-fontsize: 1rem !default;
 $sl-close-fontsize: 3rem !default;
 
 $sl-breakpoint-medium: 35.5em !default; // 568px, when 1em == 16px
@@ -22,8 +24,6 @@ $sl-iframe-border-small:	0 none !default;
 $sl-iframe-border-medium: 0 none !default;
 $sl-iframe-border-large:	0 none !default;
 
-
-
 body.hidden-scroll {
 	overflow: hidden;
 }
@@ -34,7 +34,7 @@ body.hidden-scroll {
 	top: 0;
 	bottom: 0;
 	background: $sl-overlay-background;
-	opacity: 0.7;
+	opacity: $sl-overlay-opacity;
 	display: none;
 	z-index: 1050;
 }
@@ -172,6 +172,7 @@ body.hidden-scroll {
 			padding: 10px;
 			color: $sl-caption-color;
 			background: $sl-caption-background;
+			font-size: $sl-caption-fontsize;
 			position: absolute;
 			bottom: 0;
 			left: 0;

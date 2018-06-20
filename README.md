@@ -65,6 +65,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
 | widthRatio: | 0.8 | float | Ratio of image width to screen width |
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
+| scaleImageToRatio: | false | bool | scales the image up to the defined ratio size |
 | disableRightClick | false | bool | disable rightclick on image or not |
 | disableScroll | true | bool | stop scrolling page if lightbox is opened |
 | alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
@@ -136,8 +137,10 @@ $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
 $sl-caption-background: #000;
+$sl-overlay-opacity: 0.7;
 
 $sl-counter-fontsize: 1rem;
+$sl-caption-fontsize: 1rem;
 $sl-close-fontsize: 3rem;
 
 $sl-breakpoint-medium: 35.5em; // 568px, when 1rem == 16px
@@ -156,6 +159,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.13.0 - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich
 **1.12.2 - Bugfix for #89**  
 **1.12.1 - Bugfix for #88,#87 and remove bind/unbind #84**  
 **1.12.0 - New option captionClass #81, bugfix for #82**  

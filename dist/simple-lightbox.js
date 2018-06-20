@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.12.2
+	1.13.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -39,6 +39,7 @@ $.fn.simpleLightbox = function( options )
 		className: 'simple-lightbox',
 		widthRatio: 0.8,
 		heightRatio: 0.9,
+		scaleImageToRatio: false,
 		disableRightClick: false,
 		disableScroll: true,
 		alertError: true,
@@ -223,7 +224,7 @@ $.fn.simpleLightbox = function( options )
 				var imageWidth	 = tmpImage.width,
 					imageHeight	 = tmpImage.height;
 
-				if( imageWidth > windowWidth || imageHeight > windowHeight ){
+				if( options.scaleImageToRatio || imageWidth > windowWidth || imageHeight > windowHeight ){
 					var ratio	 = imageWidth / imageHeight > windowWidth / windowHeight ? imageWidth / windowWidth : imageHeight / windowHeight;
 					imageWidth	/= ratio;
 					imageHeight	/= ratio;
