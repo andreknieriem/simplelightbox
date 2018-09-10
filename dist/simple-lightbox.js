@@ -275,20 +275,20 @@ $.fn.simpleLightbox = function( options )
 
 					$('.sl-image').animate( css, options.animationSpeed, function(){
 						animating = false;
-						setCaption(captionText);
+						setCaption(captionText, imageWidth);
 					});
 				} else {
 					animating = false;
-					setCaption(captionText);
+					setCaption(captionText, imageWidth);
 				}
 				if(options.additionalHtml && $('.sl-additional-html').length === 0){
 					$('<div>').html(options.additionalHtml).addClass('sl-additional-html').appendTo($('.sl-image'));
 				}
 			};
 		},
-		setCaption = function(captiontext){
+		setCaption = function(captiontext, imageWidth){
 			if(captiontext !== '' && typeof captiontext !== "undefined" && options.captions){
-				caption.html(captiontext).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
+				caption.html(captiontext).css({'width':  imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
 			}
 		},
 		slide = function(speed, pos){
