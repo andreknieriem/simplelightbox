@@ -8,7 +8,7 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "dependencies": {
-	"jquery": ">=1.7.0"
+    "jquery": ">=1.7.0"
   },
   "keywords": [
     "lightbox",
@@ -21,10 +21,10 @@
     "dialog"
   ],
   "author": {
-		"name": "Andre Rinas",
-		"url": "http://www.andrerinas.de",
-		"email": "info@andrerinas.de"
-	},
+    "name": "Andre Rinas",
+    "url": "http://www.andrerinas.de",
+    "email": "info@andrerinas.de"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
