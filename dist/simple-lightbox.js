@@ -45,7 +45,8 @@ $.fn.simpleLightbox = function( options )
 		alertError: true,
 		alertErrorMessage: 'Image not found, next image will be loaded',
 		additionalHtml: false,
-		history: true
+		history: true,
+		throttleInterval: 0
 	}, options);
 
 	// global variables
@@ -125,6 +126,20 @@ $.fn.simpleLightbox = function( options )
 			} else {
 				historyUpdateTimeout = setTimeout(updateHash, 800);
 			}
+		},
+		throttle = function(func, limit) {
+			var inThrottle;
+			return function() {
+				var args = arguments;
+				var context = this;
+				if (!inThrottle) {
+					func.apply(context, args);
+					inThrottle = true;
+					setTimeout(function() {
+						return inThrottle = false;
+					}, limit);
+				}
+			};
 		},
 		prefix = 'simplelb',
 		overlay = $('<div>').addClass('sl-overlay'),
@@ -321,11 +336,11 @@ $.fn.simpleLightbox = function( options )
 			}
 
 			// nav-buttons
-			nav.on('click.'+prefix, 'button', function(e){
+			nav.on('click.'+prefix, 'button', throttle(function(e){
 				e.preventDefault();
 				swipeDiff = 0;
 				loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
-			});
+			}, options.throttleInterval));
 
 			// touchcontrols
 			var swipeStart	 = 0,
@@ -514,7 +529,7 @@ $.fn.simpleLightbox = function( options )
 
 	// keyboard-control
 	if( options.enableKeyboard ){
-		$( document ).on( 'keyup.'+prefix, function( e ){
+		$( document ).on( 'keyup.'+prefix, throttle(function( e ){
 			swipeDiff = 0;
 			// keyboard control only if lightbox is open
 			if(opened){
@@ -527,7 +542,7 @@ $.fn.simpleLightbox = function( options )
 					loadImage( e.keyCode == 39 ? 1 : -1 );
 				}
 			}
-		});
+		}, options.throttleInterval));
 	}
 
 	// Public methods
