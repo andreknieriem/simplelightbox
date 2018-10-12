@@ -199,9 +199,9 @@ $.fn.simpleLightbox = function( options )
 		adjustImage = function(dir){
 			if(!curImg.length) return;
 			var tmpImage 	 = new Image(),
-			windowWidth	 = $( window ).width() * options.widthRatio,
-			windowHeight = $( window ).height() * options.heightRatio;
-			tmpImage.src	= curImg.attr( 'src' );
+			windowWidth	 = window.innerWidth * options.widthRatio,
+			windowHeight     = window.innerHeight * options.heightRatio;
+			tmpImage.src	 = curImg.attr( 'src' );
 
 			$(tmpImage).on('error',function(ev){
 				//no image was found
