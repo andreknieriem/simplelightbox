@@ -160,6 +160,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.15.0 - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74**  
 **1.14.0 - Merged pull request #107 and #108. Thanks to RaphaelHaettich**  
 **1.13.0 - Added featured #92 and merged pull request #98 and #99. Thanks to RaphaelHaettich**  
 **1.12.2 - Bugfix for #89**  

@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.14.0
+	1.15.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -98,7 +98,7 @@ $.fn.simpleLightbox = function( options )
 		updateHash = function(){
 			var hash = getHash(),
 			newHash = 'pid='+(index+1);
-			var newURL = winLoc.href.split('#')[0] + '#' +  newHash;
+			var newURL = winLoc.href.split('#')[0] + '#' + newHash;
 
 			if(supportsPushState){
 				history[historyhasChanged ? 'replaceState' : 'pushState']('', document.title, newURL);
@@ -113,7 +113,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		resetHash = function() {
 			if (supportsPushState) {
-				history.pushState('', document.title,  winLoc.pathname + winLoc.search );
+				history.pushState('', document.title, winLoc.pathname + winLoc.search );
 			} else {
 				winLoc.hash = '';
 			}
@@ -247,7 +247,7 @@ $.fn.simpleLightbox = function( options )
 
 				$('.sl-image').css({
 					'top':    ( window.innerHeight - imageHeight ) / 2 + 'px',
-					'left':   ( window.innerWidt - imageWidth - globalScrollbarwidth)/ 2 + 'px'
+					'left':   ( window.innerWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px'
 				});
 				spinner.hide();
 				curImg
@@ -303,7 +303,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext, imageWidth){
 			if(captiontext !== '' && typeof captiontext !== "undefined" && options.captions){
-				caption.html(captiontext).css({'width':  imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
+				caption.html(captiontext).css({'width': imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
 			}
 		},
 		slide = function(speed, pos){
@@ -371,8 +371,8 @@ $.fn.simpleLightbox = function( options )
 				swipeDiff = swipeStart - swipeEnd;
 				swipeYDiff = swipeYStart - swipeYEnd;
 				if( options.animationSlide ) {
-				  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
-				  else image.css( 'left', imageLeft - swipeDiff + 'px' );
+					if( canTransisions ) slide( 0, -swipeDiff + 'px' );
+					else image.css( 'left', imageLeft - swipeDiff + 'px' );
 				}
 			})
 			.on( 'touchend.'+prefix+' mouseup.'+prefix+' touchcancel.'+prefix+' mouseleave.'+prefix+' pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
@@ -431,10 +431,10 @@ $.fn.simpleLightbox = function( options )
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop === false ) return;
 			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
-      	var css = { 'opacity': 0 };
+				var css = { 'opacity': 0 };
 			if( options.animationSlide ) {
-			  if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
-			  else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
+				if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
+				else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
 			}
 
 			$('.sl-image').animate( css, options.animationSpeed, function(){
@@ -468,9 +468,9 @@ $.fn.simpleLightbox = function( options )
 				if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 				triggered = true;
 			});
-	    curImg = $();
-	    opened = false;
-	    animating = false;
+			curImg = $();
+			opened = false;
+			animating = false;
 		},
 		handleScrollbar = function(type){
 			var scrollbarWidth = 0;
@@ -532,9 +532,15 @@ $.fn.simpleLightbox = function( options )
 		$( document ).on( 'keyup.'+prefix, throttle(function( e ){
 			swipeDiff = 0;
 			// keyboard control only if lightbox is open
+			var key = e.keyCode;
+			if(animating && key == 27) {
+				curImg.attr('src', '');
+				animating = false;
+				close();
+			}
+
 			if(opened){
 				e.preventDefault();
-				var key = e.keyCode;
 				if( key == 27 ) {
 					close();
 				}
