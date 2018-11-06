@@ -212,7 +212,7 @@ $.fn.simpleLightbox = function( options )
 				spinner.hide();
 				var dirDefinined = (dir == 1 || dir == -1);
 				if(startIndex === index && dirDefinined){
-                    close();
+					close();
 				    return;
                 }
 				if(options.alertError){
