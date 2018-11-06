@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.13.0
+	1.15.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -45,7 +45,8 @@ $.fn.simpleLightbox = function( options )
 		alertError: true,
 		alertErrorMessage: 'Image not found, next image will be loaded',
 		additionalHtml: false,
-		history: true
+		history: true,
+		throttleInterval: 0
 	}, options);
 
 	// global variables
@@ -97,7 +98,7 @@ $.fn.simpleLightbox = function( options )
 		updateHash = function(){
 			var hash = getHash(),
 			newHash = 'pid='+(index+1);
-			var newURL = winLoc.href.split('#')[0] + '#' +  newHash;
+			var newURL = winLoc.href.split('#')[0] + '#' + newHash;
 
 			if(supportsPushState){
 				history[historyhasChanged ? 'replaceState' : 'pushState']('', document.title, newURL);
@@ -112,7 +113,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		resetHash = function() {
 			if (supportsPushState) {
-				history.pushState('', document.title,  winLoc.pathname + winLoc.search );
+				history.pushState('', document.title, winLoc.pathname + winLoc.search );
 			} else {
 				winLoc.hash = '';
 			}
@@ -125,6 +126,20 @@ $.fn.simpleLightbox = function( options )
 			} else {
 				historyUpdateTimeout = setTimeout(updateHash, 800);
 			}
+		},
+		throttle = function(func, limit) {
+			var inThrottle;
+			return function() {
+				var args = arguments;
+				var context = this;
+				if (!inThrottle) {
+					func.apply(context, args);
+					inThrottle = true;
+					setTimeout(function() {
+						return inThrottle = false;
+					}, limit);
+				}
+			};
 		},
 		prefix = 'simplelb',
 		overlay = $('<div>').addClass('sl-overlay'),
@@ -184,8 +199,8 @@ $.fn.simpleLightbox = function( options )
 		adjustImage = function(dir){
 			if(!curImg.length) return;
 			var tmpImage 	 = new Image(),
-			windowWidth	 = $( window ).width() * options.widthRatio,
-			windowHeight = $( window ).height() * options.heightRatio;
+			windowWidth	 = window.innerWidth * options.widthRatio,
+			windowHeight = window.innerHeight * options.heightRatio;
 			tmpImage.src	= curImg.attr( 'src' );
 
 			$(tmpImage).on('error',function(ev){
@@ -231,8 +246,8 @@ $.fn.simpleLightbox = function( options )
 				}
 
 				$('.sl-image').css({
-					'top':    ( $( window ).height() - imageHeight ) / 2 + 'px',
-					'left':   ( $( window ).width() - imageWidth - globalScrollbarwidth)/ 2 + 'px'
+					'top':    ( window.innerHeight - imageHeight ) / 2 + 'px',
+					'left':   ( window.innerWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px'
 				});
 				spinner.hide();
 				curImg
@@ -288,7 +303,11 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext, imageWidth){
 			if(captiontext !== '' && typeof captiontext !== "undefined" && options.captions){
+<<<<<<< HEAD
 				caption.html(captiontext).css({'width':  imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
+=======
+				caption.html(captiontext).css({'width': imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
+>>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
 			}
 		},
 		slide = function(speed, pos){
@@ -321,11 +340,11 @@ $.fn.simpleLightbox = function( options )
 			}
 
 			// nav-buttons
-			nav.on('click.'+prefix, 'button', function(e){
+			nav.on('click.'+prefix, 'button', throttle(function(e){
 				e.preventDefault();
 				swipeDiff = 0;
 				loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
-			});
+			}, options.throttleInterval));
 
 			// touchcontrols
 			var swipeStart	 = 0,
@@ -356,8 +375,8 @@ $.fn.simpleLightbox = function( options )
 				swipeDiff = swipeStart - swipeEnd;
 				swipeYDiff = swipeYStart - swipeYEnd;
 				if( options.animationSlide ) {
-				  if( canTransisions ) slide( 0, -swipeDiff + 'px' );
-				  else image.css( 'left', imageLeft - swipeDiff + 'px' );
+					if( canTransisions ) slide( 0, -swipeDiff + 'px' );
+					else image.css( 'left', imageLeft - swipeDiff + 'px' );
 				}
 			})
 			.on( 'touchend.'+prefix+' mouseup.'+prefix+' touchcancel.'+prefix+' mouseleave.'+prefix+' pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
@@ -416,10 +435,10 @@ $.fn.simpleLightbox = function( options )
 			if(animating || (newIndex < 0 || newIndex >= objects.length) && options.loop === false ) return;
 			index = (newIndex < 0) ? objects.length -1: (newIndex > objects.length -1) ? 0 : newIndex;
 			$('.sl-wrapper .sl-counter .sl-current').text(index +1);
-      	var css = { 'opacity': 0 };
+				var css = { 'opacity': 0 };
 			if( options.animationSlide ) {
-			  if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
-			  else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
+				if( canTransisions ) slide(options.animationSpeed / 1000, ( -100 * dir ) - swipeDiff + 'px');
+				else css.left = parseInt( $('.sl-image').css( 'left' ) ) + -100 * dir + 'px';
 			}
 
 			$('.sl-image').animate( css, options.animationSpeed, function(){
@@ -453,9 +472,9 @@ $.fn.simpleLightbox = function( options )
 				if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
 				triggered = true;
 			});
-	    curImg = $();
-	    opened = false;
-	    animating = false;
+			curImg = $();
+			opened = false;
+			animating = false;
 		},
 		handleScrollbar = function(type){
 			var scrollbarWidth = 0;
@@ -514,12 +533,18 @@ $.fn.simpleLightbox = function( options )
 
 	// keyboard-control
 	if( options.enableKeyboard ){
-		$( document ).on( 'keyup.'+prefix, function( e ){
+		$( document ).on( 'keyup.'+prefix, throttle(function( e ){
 			swipeDiff = 0;
 			// keyboard control only if lightbox is open
+			var key = e.keyCode;
+			if(animating && key == 27) {
+				curImg.attr('src', '');
+				animating = false;
+				close();
+			}
+
 			if(opened){
 				e.preventDefault();
-				var key = e.keyCode;
 				if( key == 27 ) {
 					close();
 				}
@@ -527,7 +552,7 @@ $.fn.simpleLightbox = function( options )
 					loadImage( e.keyCode == 39 ? 1 : -1 );
 				}
 			}
-		});
+		}, options.throttleInterval));
 	}
 
 	// Public methods

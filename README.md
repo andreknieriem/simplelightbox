@@ -72,6 +72,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | alertErrorMessage | 'Image not found, next image will be loaded' | string | the message displayed if image was not found |
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
 | history | true | bool | enable history back closes lightbox instead of reloading the page |
+| throttleInterval | 0 | int | time to wait between slides |
 
 ### Events
 | Name | Description |
@@ -159,7 +160,9 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
-**1.13.0 - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich  
+**1.15.0 - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74**  
+**1.14.0 - Merged pull request #107 and #108. Thanks to RaphaelHaettich**  
+**1.13.0 - Added featured #92 and merged pull request #98 and #99. Thanks to RaphaelHaettich**  
 **1.12.2 - Bugfix for #89**  
 **1.12.1 - Bugfix for #88,#87 and remove bind/unbind #84**  
 **1.12.0 - New option captionClass #81, bugfix for #82**  
@@ -211,3 +214,4 @@ $sl-iframe-border-large:  0 none;
 [bitstarr](https://github.com/bitstarr)  
 [Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
 [Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)   
+[Raphael Hättich](https://github.com/RaphaelHaettich)
