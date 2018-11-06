@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "1.13.0",
+  "version": "1.15.0",
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": "dist/simple-lightbox.js",
   "repository": {
@@ -8,7 +8,11 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "dependencies": {
+<<<<<<< HEAD
     "jquery": ">=1.7.0"
+=======
+  "jquery": ">=1.7.0"
+>>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
   },
   "keywords": [
     "lightbox",
@@ -22,7 +26,11 @@
   ],
   "author": {
     "name": "Andre Rinas",
+<<<<<<< HEAD
     "url": "http://www.andrerinas.de",
+=======
+    "url": "https://www.andrerinas.de",
+>>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
     "email": "info@andrerinas.de"
   },
   "license": "MIT",
