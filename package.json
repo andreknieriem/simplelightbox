@@ -8,11 +8,7 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "jquery": ">=1.7.0"
-=======
   "jquery": ">=1.7.0"
->>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
   },
   "keywords": [
     "lightbox",
@@ -26,11 +22,7 @@
   ],
   "author": {
     "name": "Andre Rinas",
-<<<<<<< HEAD
-    "url": "http://www.andrerinas.de",
-=======
     "url": "https://www.andrerinas.de",
->>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
     "email": "info@andrerinas.de"
   },
   "license": "MIT",

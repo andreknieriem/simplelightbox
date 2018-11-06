@@ -303,11 +303,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		setCaption = function(captiontext, imageWidth){
 			if(captiontext !== '' && typeof captiontext !== "undefined" && options.captions){
-<<<<<<< HEAD
-				caption.html(captiontext).css({'width':  imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
-=======
 				caption.html(captiontext).css({'width': imageWidth + 'px'}).hide().appendTo($('.sl-image')).delay(options.captionDelay).fadeIn('fast');
->>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
 			}
 		},
 		slide = function(speed, pos){

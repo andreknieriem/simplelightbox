@@ -2,8 +2,4 @@ node_modules
 build
 npm-debug.log
 .env
-<<<<<<< HEAD
-.DS_Store
-=======
 .DS_Stor
->>>>>>> 832025d68fa89aaa225102ca8749271c3560ea8d
