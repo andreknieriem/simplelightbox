@@ -24,6 +24,8 @@ $sl-iframe-border-small:	0 none !default;
 $sl-iframe-border-medium: 0 none !default;
 $sl-iframe-border-large:	0 none !default;
 
+$add-vendor-prefixes: true !default;
+
 body.hidden-scroll {
 	overflow: hidden;
 }
@@ -141,7 +143,9 @@ body.hidden-scroll {
 
 	.sl-image {
 		position: fixed;
-		-ms-touch-action: none;
+		@if $add-vendor-prefixes {
+			-ms-touch-action: none;
+		}
 		touch-action: none;
 		z-index: 10000;
 		img {
@@ -211,10 +215,12 @@ body.hidden-scroll {
 		top: 50%;
 		width: 40px;
 		z-index: 1007;
-		-webkit-animation: pulsate 1s ease-out infinite;
-		-moz-animation: pulsate 1s ease-out infinite;
-		-ms-animation: pulsate 1s ease-out infinite;
-		-o-animation: pulsate 1s ease-out infinite;
+		@if $add-vendor-prefixes {
+			-webkit-animation: pulsate 1s ease-out infinite;
+			-moz-animation: pulsate 1s ease-out infinite;
+			-ms-animation: pulsate 1s ease-out infinite;
+			-o-animation: pulsate 1s ease-out infinite;
+		}
 		animation: pulsate 1s ease-out infinite;
 }
 
@@ -226,19 +232,6 @@ body.hidden-scroll {
 	overflow: scroll;
 }
 
-@-webkit-keyframes pulsate{
-		0% {
-			transform: scale(.1);
-			opacity: 0.0;
-		}
-		50% {
-			opacity: 1;
-		}
-		100% {
-			transform: scale(1.2);
-			opacity: 0;
-		}
-}
 @keyframes pulsate {
 		0% {
 			transform: scale(.1);
@@ -253,44 +246,60 @@ body.hidden-scroll {
 		}
 }
 
-@-moz-keyframes pulsate{
-		0% {
-			transform: scale(.1);
-			opacity: 0.0;
-		}
-		50% {
-			opacity: 1;
-		}
-		100% {
-			transform: scale(1.2);
-			opacity: 0;
-		}
-}
+@if $add-vendor-prefixes {
+	@-webkit-keyframes pulsate{
+			0% {
+				transform: scale(.1);
+				opacity: 0.0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1.2);
+				opacity: 0;
+			}
+	}
 
-@-o-keyframes pulsate{
-		0% {
-			transform: scale(.1);
-			opacity: 0.0;
-		}
-		50% {
-			opacity: 1;
-		}
-		100% {
-			transform: scale(1.2);
-			opacity: 0;
-		}
-}
+	@-moz-keyframes pulsate{
+			0% {
+				transform: scale(.1);
+				opacity: 0.0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1.2);
+				opacity: 0;
+			}
+	}
 
-@-ms-keyframes pulsate{
-		0% {
-			transform: scale(.1);
-			opacity: 0.0;
-		}
-		50% {
-			opacity: 1;
-		}
-		100% {
-			transform: scale(1.2);
-			opacity: 0;
-		}
+	@-o-keyframes pulsate{
+			0% {
+				transform: scale(.1);
+				opacity: 0.0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1.2);
+				opacity: 0;
+			}
+	}
+
+	@-ms-keyframes pulsate{
+			0% {
+				transform: scale(.1);
+				opacity: 0.0;
+			}
+			50% {
+				opacity: 1;
+			}
+			100% {
+				transform: scale(1.2);
+				opacity: 0;
+			}
+	}
 }
