@@ -1,8 +1,9 @@
 {
   "name": "simplelightbox",
-  "version": "1.15.0",
+  "version": "1.15.1",
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": "dist/simple-lightbox.js",
+	"style": "dist/simplelightbox.scss",
   "repository": {
     "type": "git",
     "url": "https://github.com/andreknieriem/simplelightbox.git"

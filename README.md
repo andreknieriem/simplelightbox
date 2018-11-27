@@ -160,6 +160,7 @@ $sl-iframe-border-large:  0 none;
 
 
 ### Changelog
+**1.15.1 - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen**  
 **1.15.0 - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74**  
 **1.14.0 - Merged pull request #107 and #108. Thanks to RaphaelHaettich**  
 **1.13.0 - Added featured #92 and merged pull request #98 and #99. Thanks to RaphaelHaettich**  
@@ -213,5 +214,6 @@ $sl-iframe-border-large:  0 none;
 [helloilya](https://github.com/helloilya)  
 [bitstarr](https://github.com/bitstarr)  
 [Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
-[Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)   
-[Raphael Hättich](https://github.com/RaphaelHaettich)
+[Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)  
+[Raphael Hättich](https://github.com/RaphaelHaettich)  
+[Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  

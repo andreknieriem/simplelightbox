@@ -1,7 +1,7 @@
 /*
 	By André Rinas, www.andrerinas.de
 	Available for use under the MIT License
-	1.15.0
+	1.15.1
 */
 ;( function( $, window, document, undefined )
 {
@@ -149,6 +149,7 @@ $.fn.simpleLightbox = function( options )
 		counter = $('<div>').addClass('sl-counter').html('<span class="sl-current"></span>/<span class="sl-total"></span>'),
 		animating = false,
 		index = 0,
+		startIndex = 0,
 		caption = $('<div>').addClass('sl-caption '+options.captionClass+' pos-'+options.captionPosition),
 		image = $('<div>').addClass('sl-image'),
 		wrapper = $('<div>').addClass('sl-wrapper').addClass(options.className),
@@ -209,10 +210,15 @@ $.fn.simpleLightbox = function( options )
 				animating = false;
 				opened = true;
 				spinner.hide();
+				var dirDefinined = (dir == 1 || dir == -1);
+				if(startIndex === index && dirDefinined){
+					close();
+					return;
+				}
 				if(options.alertError){
 					alert(options.alertErrorMessage);
 				}
-				if(dir == 1 || dir == -1){
+				if(dirDefinined){
 					loadImage(dir);
 				} else {
 					loadImage(1);
@@ -506,7 +512,9 @@ $.fn.simpleLightbox = function( options )
 		if(isValidLink(this)){
 			e.preventDefault();
 			if(animating) return false;
-			openImage($(this));
+			var elem = $(this);
+			startIndex = objects.index(elem);
+			openImage(elem);
 		}
 	});
 
@@ -554,6 +562,7 @@ $.fn.simpleLightbox = function( options )
 	// Public methods
 	this.open = function(elem){
 		elem = elem || $(this[0]);
+		startIndex = objects.index(elem);
 		openImage(elem);
 	};
 
