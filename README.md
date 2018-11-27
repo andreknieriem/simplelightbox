@@ -156,6 +156,8 @@ $sl-img-border-large:  0 none;
 $sl-iframe-border-small:  0 none;
 $sl-iframe-border-medium: 0 none;
 $sl-iframe-border-large:  0 none;
+
+$add-vendor-prefixes: true !default;
 ```
 
 
