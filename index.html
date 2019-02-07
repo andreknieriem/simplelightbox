@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v1.15.1</sup></h1>
+				<h1>SimpleLightbox <sup>v1.16.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -327,6 +327,18 @@ npm install simplelightbox</code>
 					<td>int</td>
 					<td>time to wait between slides</td>
 					</tr>
+					<tr>
+					<td>doubleTapZoom</td>
+					<td>2</td>
+					<td>int</td>
+					<td>zoom level if double tapping on image</td>
+					</tr>
+					<tr>
+					<td>maxZoom</td>
+					<td>10</td>
+					<td>int</td>
+					<td>maximum zoom level on pinching</td>
+					</tr>
 					</tbody>
 					</table>
 			</div>
@@ -537,6 +549,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>1.16.0</strong> - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79<br />
 				<strong>1.15.1</strong> - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen<br />
 				<strong>1.15.0</strong> - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74<br />
 				<strong>1.14.0</strong> - Merged pull request #107 and #108. Thanks to RaphaelHaettich<br />
