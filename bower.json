@@ -1,9 +1,9 @@
 {
   "name": "simplelightbox",
-  "version": "1.15.1",
-  "homepage": "http://andreknieriem.de/simple-lightbox",
+  "version": "1.16.0",
+  "homepage": "http://simplelightbox.com/",
   "authors": [
-    "André Rinas <info@andrerinas.de> (http://andrerinas.de)"
+    "André Rinas <info@andrerinas.de> (https://www.andrerinas.de)"
   ],
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": [
@@ -19,6 +19,7 @@
     "swipe",
     "touch",
     "jquery",
+    "pinch",
     "popup"
   ],
   "repository": {

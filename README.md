@@ -73,7 +73,8 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
 | history | true | bool | enable history back closes lightbox instead of reloading the page |
 | throttleInterval | 0 | int | time to wait between slides |
-
+| doubleTapZoom | 2 | int | zoom level if double tapping on image
+| maxZoom | 10 | int | maximum zoom level on pinching
 ### Events
 | Name | Description |
 | ---- | ----------- |
@@ -162,6 +163,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
+**1.16.0 - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79**  
 **1.15.1 - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen**  
 **1.15.0 - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74**  
 **1.14.0 - Merged pull request #107 and #108. Thanks to RaphaelHaettich**  

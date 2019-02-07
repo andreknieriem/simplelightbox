@@ -58,7 +58,7 @@ body.hidden-scroll {
 		position: fixed;
 		right: 30px;
 		top: 30px;
-		z-index: 1060;
+		z-index: 10060;
 		margin-top: -14px;
 		margin-right: -14px;
 		height: 44px;
@@ -95,7 +95,7 @@ body.hidden-scroll {
 			line-height: 44px;
 			text-align: center;
 			display: block;
-			z-index: 1060;
+			z-index: 10060;
 			font-family: $sl-font-family;
 			color: $sl-navigation-color;
 			&.sl-next {
@@ -153,6 +153,8 @@ body.hidden-scroll {
 			padding: 0;
 			display: block;
 			border: $sl-img-border-small;
+			width: 100%;
+			height: auto;
 			@media (min-width: $sl-breakpoint-medium) {
 				border: $sl-img-border-medium;
 			}
@@ -230,6 +232,16 @@ body.hidden-scroll {
 	width: 50px;
 	height: 50px;
 	overflow: scroll;
+}
+
+.sl-transition {
+	@if $add-vendor-prefixes {
+		transition: -moz-transform ease 200ms;
+		transition: -ms-transform ease 200ms;
+		transition: -o-transform ease 200ms;
+		transition: -webkit-transform ease 200ms;
+	}
+	transition: transform ease 200ms;
 }
 
 @-webkit-keyframes pulsate{

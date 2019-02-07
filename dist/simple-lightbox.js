@@ -1,7 +1,8 @@
 /*
 	By André Rinas, www.andrerinas.de
+	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.15.1
+	1.16.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -46,7 +47,9 @@ $.fn.simpleLightbox = function( options )
 		alertErrorMessage: 'Image not found, next image will be loaded',
 		additionalHtml: false,
 		history: true,
-		throttleInterval: 0
+		throttleInterval: 0,
+		doubleTapZoom: 2,
+		maxZoom: 10
 	}, options);
 
 	// global variables
@@ -180,7 +183,10 @@ $.fn.simpleLightbox = function( options )
 			index = objects.index(elem);
 			curImg = $( '<img/>' )
 				.hide()
-				.attr('src', elem.attr(options.sourceAttr));
+				.attr('src', elem.attr(options.sourceAttr))
+				.attr('data-scale', 1)
+				.attr('data-translate-x', 0)
+				.attr('data-translate-y', 0);
 			if(loaded.indexOf(elem.attr(options.sourceAttr)) == -1){
 				loaded.push(elem.attr(options.sourceAttr));
 			}
@@ -203,7 +209,10 @@ $.fn.simpleLightbox = function( options )
 			windowWidth	 = window.innerWidth * options.widthRatio,
 			windowHeight = window.innerHeight * options.heightRatio;
 			tmpImage.src	= curImg.attr( 'src' );
-
+			curImg.data('scale',1);
+			curImg.data('translate-x',0);
+			curImg.data('translate-y',0);
+			zoomPanElement(0,0,1);
 			$(tmpImage).on('error',function(ev){
 				//no image was found
 				objects.eq(index).trigger($.Event('error.simplelightbox'));
@@ -253,14 +262,12 @@ $.fn.simpleLightbox = function( options )
 
 				$('.sl-image').css({
 					'top':    ( window.innerHeight - imageHeight ) / 2 + 'px',
-					'left':   ( window.innerWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px'
+					'left':   ( window.innerWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px',
+					'width':  imageWidth + 'px',
+					'height': imageHeight + 'px'
 				});
 				spinner.hide();
 				curImg
-				.css({
-					'width':  imageWidth + 'px',
-					'height': imageHeight + 'px'
-				})
 				.fadeIn('fast');
 				opened = true;
 				var cSel = (options.captionSelector == 'self') ? objects.eq(index) : objects.eq(index).find(options.captionSelector);
@@ -318,6 +325,19 @@ $.fn.simpleLightbox = function( options )
 				styles[transPrefix + 'transition'] = transPrefix + 'transform ' + speed + 's linear';
 				$('.sl-image').css(styles);
 		},
+		zoomPanElement = function(targetOffsetX, targetOffsetY, targetScale) {
+			var styles = {};
+			styles[transPrefix + 'transform'] = 'translate(' + targetOffsetX + ',' + targetOffsetY+ ') scale('+targetScale+')';
+			curImg.css(styles);
+		},
+		minMax = function(value, min, max) {
+		    return (value < min) ? min : (value > max) ? max : value;
+		},
+		setZoomData = function(initialScale,targetOffsetX,targetOffsetY) {
+			curImg.data('scale',initialScale);
+			curImg.data('translate-x',targetOffsetX);
+			curImg.data('translate-y',targetOffsetY);
+		},
 		addEvents = function(){
 			// resize/responsive
 			$( window ).on( 'resize.'+prefix, adjustImage );
@@ -348,41 +368,210 @@ $.fn.simpleLightbox = function( options )
 				loadImage( $(this).hasClass('sl-next') ? 1 : -1 );
 			}, options.throttleInterval));
 
-			// touchcontrols
+			// touch helpers
 			var swipeStart	 = 0,
 				swipeEnd	 = 0,
 				swipeYStart = 0,
 				swipeYEnd = 0,
+				zoomed = false,
 				mousedown = false,
-				imageLeft = 0;
+				imageLeft = 0,
+				containerHeight,
+				containerWidth,
+				containerOffsetX,
+				containerOffsetY,
+				imgHeight,
+				imgWidth,
+				capture = false,
+				initialOffsetX,
+				initialOffsetY,
+				initialPointerOffsetX,
+				initialPointerOffsetY,
+				initialPointerOffsetX2,
+				initialPointerOffsetY2,
+				initialScale = minMax(1, 1, options.maxZoom),
+				initialPinchDistance,
+				pointerOffsetX,
+				pointerOffsetY,
+				pointerOffsetX2,
+				pointerOffsetY2,
+				targetOffsetX,
+				targetOffsetY,
+				targetScale,
+				pinchOffsetX,
+				pinchOffsetY,
+				limitOffsetX,
+				limitOffsetY,
+				scaleDifference,
+				targetPinchDistance,
+				touchCount,
+				doubleTapped = false,
+				touchmoveCount = 0;
 
 			image
 			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e)
 			{
+				e = e.originalEvent;
+				if(e.type == 'mousedown') {
+
+				} else {
+					touchCount = e.touches.length;
+					initialPointerOffsetX = e.touches[0].clientX;
+					initialPointerOffsetY = e.touches[0].clientY;
+					containerHeight = image.height();
+					containerWidth = image.width();
+					imgHeight = curImg.height();
+					imgWidth = curImg.width();
+					containerOffsetX = image.offset().left;
+					containerOffsetY = image.offset().top;
+
+					if (touchCount === 1) /* Single touch */ {
+						if(!doubleTapped) {
+							doubleTapped = true;
+							setTimeout(function(){
+								doubleTapped = false;
+							}, 300);
+						} else {
+							curImg.addClass('sl-transition');
+							if(!zoomed) {
+								initialScale = options.doubleTapZoom;
+								setZoomData(0,0, initialScale);
+								zoomPanElement(0 + "px", 0 + "px", initialScale);
+								$('.sl-caption').fadeOut(200);
+								zoomed = true;
+							} else {
+								initialScale = 1;
+								setZoomData(0,0,initialScale);
+								zoomPanElement(0 + "px", 0 + "px", initialScale);
+								zoomed = false;
+							}
+
+							setTimeout(function(){
+								curImg.removeClass('sl-transition');
+							}, 200);
+							return false;
+						}
+
+						initialOffsetX = parseFloat(curImg.data('translate-x'));
+						initialOffsetY = parseFloat(curImg.data('translate-y'));
+					}
+					else if (touchCount === 2) /* Pinch */ {
+						initialPointerOffsetX2 = e.touches[1].clientX;
+						initialPointerOffsetY2 = e.touches[1].clientY;
+						initialOffsetX = parseFloat(curImg.data('translate-x'));
+						initialOffsetY = parseFloat(curImg.data('translate-y'));
+						pinchOffsetX = (initialPointerOffsetX + initialPointerOffsetX2) / 2;
+						pinchOffsetY = (initialPointerOffsetY + initialPointerOffsetY2) / 2;
+						initialPinchDistance = Math.sqrt(((initialPointerOffsetX - initialPointerOffsetX2) * (initialPointerOffsetX - initialPointerOffsetX2)) + ((initialPointerOffsetY - initialPointerOffsetY2) * (initialPointerOffsetY - initialPointerOffsetY2)));
+					}
+					capture = true;
+				}
+
 				if(mousedown) return true;
 				if( canTransisions ) imageLeft = parseInt( image.css( 'left' ) );
 				mousedown = true;
 				swipeDiff = 0;
 				swipeYDiff = 0;
-				swipeStart = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
-				swipeYStart = e.originalEvent.pageY || e.originalEvent.touches[ 0 ].pageY;
+				swipeStart = e.pageX || e.touches[ 0 ].pageX;
+				swipeYStart = e.pageY || e.touches[ 0 ].pageY;
 				return false;
 			})
-			.on( 'touchmove.'+prefix+' mousemove.'+prefix+' pointermove MSPointerMove', function(e)
+			.on( 'touchmove.'+prefix+' mousemove.'+prefix+' MSPointerMove', function(e)
 			{
 				if(!mousedown) return true;
 				e.preventDefault();
-				swipeEnd = e.originalEvent.pageX || e.originalEvent.touches[ 0 ].pageX;
-				swipeYEnd = e.originalEvent.pageY || e.originalEvent.touches[ 0 ].pageY;
-				swipeDiff = swipeStart - swipeEnd;
-				swipeYDiff = swipeYStart - swipeYEnd;
-				if( options.animationSlide ) {
-					if( canTransisions ) slide( 0, -swipeDiff + 'px' );
-					else image.css( 'left', imageLeft - swipeDiff + 'px' );
+				e = e.originalEvent;
+				/* Initialize helpers */
+				if(e.type == 'touchmove') {
+					if(capture === false) return false;
+					pointerOffsetX = e.touches[0].clientX;
+					pointerOffsetY = e.touches[0].clientY;
+					touchCount = e.touches.length;
+					touchmoveCount++;
+
+					if (touchCount > 1) /* Pinch */ {
+						pointerOffsetX2 = e.touches[1].clientX;
+						pointerOffsetY2 = e.touches[1].clientY;
+						targetPinchDistance = Math.sqrt(((pointerOffsetX - pointerOffsetX2) * (pointerOffsetX - pointerOffsetX2)) + ((pointerOffsetY - pointerOffsetY2) * (pointerOffsetY - pointerOffsetY2)));
+						if (initialPinchDistance === null) {
+							initialPinchDistance = targetPinchDistance;
+						}
+
+						if (Math.abs(initialPinchDistance - targetPinchDistance) >= 1) {
+							/* Initialize helpers */
+							targetScale = minMax(targetPinchDistance / initialPinchDistance * initialScale, 1, options.maxZoom);
+							limitOffsetX = ((imgWidth * targetScale) - containerWidth) / 2;
+							limitOffsetY = ((imgHeight * targetScale) - containerHeight) / 2;
+							scaleDifference = targetScale - initialScale;
+							targetOffsetX = (imgWidth * targetScale) <= containerWidth ? 0: minMax(initialOffsetX - ((((((pinchOffsetX - containerOffsetX) - (containerWidth / 2)) - initialOffsetX) / (targetScale - scaleDifference))) * scaleDifference), limitOffsetX * (-1), limitOffsetX);
+							targetOffsetY = (imgHeight * targetScale) <= containerHeight ? 0 : minMax(initialOffsetY - ((((((pinchOffsetY - containerOffsetY) - (containerHeight / 2)) - initialOffsetY) / (targetScale - scaleDifference))) * scaleDifference), limitOffsetY * (-1), limitOffsetY);
+
+							zoomPanElement(targetOffsetX + "px", targetOffsetY + "px", targetScale);
+
+							if (targetScale > 1) {
+								zoomed = true;
+								$('.sl-caption').fadeOut(200);
+							}
+
+							initialPinchDistance = targetPinchDistance;
+							initialScale = targetScale;
+							initialOffsetX = targetOffsetX;
+							initialOffsetY = targetOffsetY;
+						}
+					} else {
+						targetScale = initialScale;
+						limitOffsetX = ((imgWidth * targetScale) - containerWidth) / 2;
+						limitOffsetY = ((imgHeight * targetScale) - containerHeight) / 2;
+						targetOffsetX = (imgWidth * targetScale) <= containerWidth ? 0 : minMax(pointerOffsetX - (initialPointerOffsetX - initialOffsetX), limitOffsetX * (-1), limitOffsetX);
+						targetOffsetY = (imgHeight * targetScale) <= containerHeight ? 0 : minMax(pointerOffsetY - (initialPointerOffsetY - initialOffsetY), limitOffsetY * (-1), limitOffsetY);
+
+						if (Math.abs(targetOffsetX) === Math.abs(limitOffsetX)) {
+							initialOffsetX = targetOffsetX;
+							initialPointerOffsetX = pointerOffsetX;
+						}
+
+						if (Math.abs(targetOffsetY) === Math.abs(limitOffsetY)) {
+							initialOffsetY = targetOffsetY;
+							initialPointerOffsetY = pointerOffsetY;
+						}
+
+						setZoomData(initialScale,targetOffsetX,targetOffsetY);
+						zoomPanElement(targetOffsetX + "px", targetOffsetY + "px", targetScale);
+					}
+				}
+				if(!zoomed) {
+					swipeEnd = e.pageX || e.touches[ 0 ].pageX;
+					swipeYEnd = e.pageY || e.touches[ 0 ].pageY;
+					swipeDiff = swipeStart - swipeEnd;
+					swipeYDiff = swipeYStart - swipeYEnd;
+					if( options.animationSlide ) {
+						if( canTransisions ) slide( 0, -swipeDiff + 'px' );
+						else image.css( 'left', imageLeft - swipeDiff + 'px' );
+					}
 				}
 			})
 			.on( 'touchend.'+prefix+' mouseup.'+prefix+' touchcancel.'+prefix+' mouseleave.'+prefix+' pointerup pointercancel MSPointerUp MSPointerCancel',function(e)
 			{
+				e = e.originalEvent;
+				if(touchDevice && e.type =='touchend') {
+					touchCount = e.touches.length;
+					if (touchCount === 0) /* No touch */ {
+						/* Set attributes */
+						setZoomData(initialScale,targetOffsetX,targetOffsetY);
+						if(initialScale == 1) {
+							zoomed = false;
+							$('.sl-caption').fadeIn(200);
+						}
+						initialPinchDistance = null;
+						capture = false;
+					} else if (touchCount === 1) /* Single touch */ {
+						initialPointerOffsetX = e.touches[0].clientX;
+						initialPointerOffsetY = e.touches[0].clientY;
+					} else if (touchCount > 1) /* Pinch */ {
+						initialPinchDistance = null;
+					}
+				}
+
 				if(mousedown){
 					mousedown = false;
 					var possibleDir = true;
@@ -449,6 +638,7 @@ $.fn.simpleLightbox = function( options )
 					var elem = objects.eq(index);
 					curImg
 					.attr('src', elem.attr(options.sourceAttr));
+
 					if(loaded.indexOf(elem.attr(options.sourceAttr)) == -1){
 						spinner.show();
 					}

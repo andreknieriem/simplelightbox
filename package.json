@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "1.15.1",
+  "version": "1.16.0",
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": "dist/simple-lightbox.js",
 	"style": "dist/simplelightbox.scss",
@@ -17,6 +17,7 @@
     "gallery",
     "jquery-plugin",
     "touchfriendly",
+    "pinch",
     "responsive",
     "popup",
     "dialog"
@@ -30,5 +31,5 @@
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
   },
-  "homepage": "https://andrerinas.de/simplelightbox.html"
+  "homepage": "http://simplelightbox.com/"
 }
