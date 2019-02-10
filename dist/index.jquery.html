@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Lightbox - Demo Page</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="https://unpkg.com/chota@latest">
+    <link rel="stylesheet" href="simple-lightbox.min.css">
+
+    <style>
+        .images img {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <h1>simplelightbox ES6 test</h1>
+
+            <div class="images">
+                <a href="https://i.imgur.com/dfRGsXt.jpg" rel="a"><img src="https://i.imgur.com/dfRGsXtm.jpg"
+                                                                       title="dfRGsXtm"></a>
+                <a href="https://i.imgur.com/3ib8cjV.jpg" rel="b"><img src="https://i.imgur.com/3ib8cjVm.jpg"
+                                                                       title="3ib8cjVm"></a>
+                <a href="https://i.imgur.com/l2daZcg.jpg" rel="a"><img src="https://i.imgur.com/l2daZcgm.jpg"
+                                                                       title="l2daZcgm"></a>
+                <a href="https://i.imgur.com/vK94EoY.jpg" rel="b"><img src="https://i.imgur.com/vK94EoYm.jpg"
+                                                                       title="vK94EoYm"></a>
+                <a href="https://i.imgur.com/bNIWX2H.jpg" rel="b"><img src="https://i.imgur.com/bNIWX2Hm.jpg"
+                                                                       title="bNIWX2Hm"></a>
+                <a href="https://i.imgur.com/3j7ZHOO.jpg" rel="b"><img src="https://i.imgur.com/3j7ZHOOm.jpg"
+                                                                       title="3j7ZHOOm"></a>
+                <a href="https://i.imgur.com/xEs6qid.jpg" rel="b"><img src="https://i.imgur.com/xEs6qidm.jpg"
+                                                                       title="xEs6qidm"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script
+        src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+<script src="simple-lightbox.jquery.min.js"></script>
+<script>
+    $(function(){
+        $('.images a').simpleLightbox();
+    });
+</script>
+
+</body>
+</html>

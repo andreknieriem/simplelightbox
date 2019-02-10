@@ -3,13 +3,27 @@
   "version": "1.16.0",
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": "dist/simple-lightbox.js",
-	"style": "dist/simplelightbox.scss",
+  "style": "dist/simplelightbox.scss",
   "repository": {
     "type": "git",
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "dependencies": {
-  "jquery": ">=1.7.0"
+    "jquery": ">=1.7.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.0",
+    "@babel/polyfill": "^7.2.5",
+    "@babel/preset-env": "^7.3.1",
+    "gulp": "^4.0.0",
+    "gulp-append-prepend": "^1.0.6",
+    "gulp-babel": "^8.0.0-beta.2",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.2",
+    "gulp-uglify": "^3.0.1",
+    "node-sass": "^4.11.0",
+    "through2": "^3.0.0"
   },
   "keywords": [
     "lightbox",

@@ -1,0 +1,6 @@
+/**
+	By André Rinas, www.andrerinas.de
+	Documentation, www.simplelightbox.de
+	Available for use under the MIT License
+	Version 1.16.0 (ES6+noquery port by Martin Tillmann)
+*/
