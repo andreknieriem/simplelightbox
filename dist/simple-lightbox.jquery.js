@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 1.16.0 (ES6+noquery port by Martin Tillmann)
+	Version 1.16.1 (ES6+noquery port by Martin Tillmann)
 */
 "use strict";
 
@@ -648,8 +648,8 @@ function () {
           _this6.controlCoordinates.containerWidth = _this6.getDimensions(_this6.domNodes.image).width;
           _this6.controlCoordinates.imgHeight = _this6.getDimensions(_this6.currentImage).height;
           _this6.controlCoordinates.imgWidth = _this6.getDimensions(_this6.currentImage).width;
-          _this6.controlCoordinates.containerOffsetX = _this6.getOffset(_this6.domNodes.image).left;
-          _this6.controlCoordinates.containerOffsetY = _this6.getOffset(_this6.domNodes.image).top;
+          _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
+          _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
 
           if (_this6.controlCoordinates.touchCount === 1)
             /* Single touch */
@@ -885,15 +885,6 @@ function () {
       return {
         height: height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom,
         width: width - borderLeftWidth - borderRightWidth - paddingLeft - paddingRight
-      };
-    }
-  }, {
-    key: "getOffset",
-    value: function getOffset(element) {
-      var box = element.getBoundingClientRect();
-      return {
-        top: box.top + window.pageYOffset - document.documentElement.clientTop,
-        left: box.left + window.pageXOffset - document.documentElement.clientLeft
       };
     }
   }, {

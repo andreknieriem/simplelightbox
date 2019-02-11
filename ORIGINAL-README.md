@@ -15,6 +15,8 @@ Touch-friendly image lightbox for mobile and desktop with jQuery
 * Works in every modern Browser, even in IE 9+
 * Can use jQuery 1.x,2.x and 3.x
 * Keyboard support
+* Pinch to zoom
+* Double-tap to zoom
 
 ### Install
 ```sh
@@ -163,6 +165,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
+**1.16.1 - Fixed pinch to zoom offset error on scrolling #123**  
 **1.16.0 - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79**  
 **1.15.1 - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen**  
 **1.15.0 - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74**  

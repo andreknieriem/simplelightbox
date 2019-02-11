@@ -609,8 +609,8 @@ class SimpleLightbox {
                 this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
                 this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
                 this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
-                this.controlCoordinates.containerOffsetX = this.getOffset(this.domNodes.image).left;
-                this.controlCoordinates.containerOffsetY = this.getOffset(this.domNodes.image).top;
+                this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
+                this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
 
                 if (this.controlCoordinates.touchCount === 1) /* Single touch */ {
                     if (!this.controlCoordinates.doubleTapped) {
@@ -828,15 +828,6 @@ class SimpleLightbox {
         return {
             height: height - borderBottomWidth - borderTopWidth - paddingTop - paddingBottom,
             width: width - borderLeftWidth - borderRightWidth - paddingLeft - paddingRight
-        };
-    }
-
-    getOffset(element) {
-        let box = element.getBoundingClientRect();
-
-        return {
-            top: box.top + window.pageYOffset - document.documentElement.clientTop,
-            left: box.left + window.pageXOffset - document.documentElement.clientLeft
         };
     }
 
