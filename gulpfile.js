@@ -60,14 +60,14 @@ const customCompression = (chunk, enc, cb) => {
     cb(null, chunk);
 };
 
-gulp.task("default", function () {
+gulp.task("default", () => {
     return gulp.src("src/simple-lightbox.js")
         .pipe(babel())
         .pipe(gap.prependFile('./src/license-notice.txt'))
         .pipe(gulp.dest("dist"));
 });
 
-gulp.task("jquery", function () {
+gulp.task("jquery", () => {
     return gulp.src("src/simple-lightbox.js")
         .pipe(gap.appendFile('./src/jquery-plugin-wrap.js'))
         .pipe(babel())
