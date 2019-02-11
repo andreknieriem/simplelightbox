@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.16.0
+	1.16.1
 */
 ;( function( $, window, document, undefined )
 {
@@ -331,7 +331,7 @@ $.fn.simpleLightbox = function( options )
 			curImg.css(styles);
 		},
 		minMax = function(value, min, max) {
-		    return (value < min) ? min : (value > max) ? max : value;
+			return (value < min) ? min : (value > max) ? max : value;
 		},
 		setZoomData = function(initialScale,targetOffsetX,targetOffsetY) {
 			curImg.data('scale',initialScale);
@@ -422,8 +422,8 @@ $.fn.simpleLightbox = function( options )
 					containerWidth = image.width();
 					imgHeight = curImg.height();
 					imgWidth = curImg.width();
-					containerOffsetX = image.offset().left;
-					containerOffsetY = image.offset().top;
+					containerOffsetX = image.position().left;
+					containerOffsetY = image.position().top;
 
 					if (touchCount === 1) /* Single touch */ {
 						if(!doubleTapped) {
