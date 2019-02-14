@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.16.1
+	1.16.2
 */
 ;( function( $, window, document, undefined )
 {
@@ -49,7 +49,8 @@ $.fn.simpleLightbox = function( options )
 		history: true,
 		throttleInterval: 0,
 		doubleTapZoom: 2,
-		maxZoom: 10
+		maxZoom: 10,
+		htmlClass: 'has-lightbox'
 	}, options);
 
 	// global variables
@@ -176,6 +177,7 @@ $.fn.simpleLightbox = function( options )
 		openImage = function(elem){
 			elem.trigger($.Event('show.simplelightbox'));
 			if(options.disableScroll) globalScrollbarwidth = handleScrollbar('hide');
+			if(options.htmlClass && options.htmlClass != '') $('html').addClass(options.htmlClass);
 			wrapper.appendTo('body');
 			image.appendTo(wrapper);
 			if(options.overlay) overlay.appendTo($('body'));
@@ -659,6 +661,7 @@ $.fn.simpleLightbox = function( options )
 			}
 			$('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter').fadeOut('fast', function(){
 				if(options.disableScroll) handleScrollbar('show');
+				if(options.htmlClass && options.htmlClass != '') $('html').removeClass(options.htmlClass);
 				$('.sl-wrapper, .sl-overlay').remove();
 				removeEvents();
 				if(!triggered) elem.trigger($.Event('closed.simplelightbox'));
