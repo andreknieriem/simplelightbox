@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v1.16.1</sup></h1>
+				<h1>SimpleLightbox <sup>v1.16.2</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -339,6 +339,12 @@ npm install simplelightbox</code>
 					<td>int</td>
 					<td>maximum zoom level on pinching</td>
 					</tr>
+					<tr>
+					<td>htmlClass</td>
+					<td>has-lightbox</td>
+					<td>string</td>
+					<td>added class to html element if lightbox is open. If empty or false no class is set</td>
+					</tr>
 					</tbody>
 					</table>
 			</div>
@@ -549,6 +555,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>1.16.2</strong> - Added featured #124 - Add a class to html element if lightbox is open<br />
 				<strong>1.16.1</strong> - Fixed pinch to zoom offset error on scrolling #123<br />
 				<strong>1.16.0</strong> - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79<br />
 				<strong>1.15.1</strong> - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen<br />
