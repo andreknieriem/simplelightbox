@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 1.16.1 (ES6+noquery port by Martin Tillmann)
+	Version 1.16.2 (ES6+noquery port by Martin Tillmann)
 */
 "use strict";
 
@@ -60,7 +60,8 @@ function () {
       history: true,
       throttleInterval: 0,
       doubleTapZoom: 2,
-      maxZoom: 10
+      maxZoom: 10,
+      htmlClass: 'has-lightbox'
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
@@ -355,6 +356,10 @@ function () {
       this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), 300, function () {
         if (_this2.options.disableScroll) {
           _this2.toggleScrollbar('show');
+        }
+
+        if (_this2.options.htmlClass && _this2.options.htmlClass !== '') {
+          document.querySelector('html').classList.remove(_this2.options.htmlClass);
         }
 
         document.body.removeChild(_this2.domNodes.wrapper);
@@ -961,6 +966,10 @@ function () {
 
       if (this.options.disableScroll) {
         this.globalScrollbarWidth = this.toggleScrollbar('hide');
+      }
+
+      if (this.options.htmlClass && this.options.htmlClass !== '') {
+        document.querySelector('html').classList.add(this.options.htmlClass);
       }
 
       document.body.appendChild(this.domNodes.wrapper);

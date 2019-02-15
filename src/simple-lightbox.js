@@ -38,7 +38,8 @@ class SimpleLightbox {
         history: true,
         throttleInterval: 0,
         doubleTapZoom: 2,
-        maxZoom: 10
+        maxZoom: 10,
+        htmlClass: 'has-lightbox'
     };
 
     transitionPrefix;
@@ -324,10 +325,15 @@ class SimpleLightbox {
                 this.toggleScrollbar('show');
             }
 
+            if(this.options.htmlClass && this.options.htmlClass !== ''){
+                document.querySelector('html').classList.remove(this.options.htmlClass);
+            }
+
             document.body.removeChild(this.domNodes.wrapper);
             document.body.removeChild(this.domNodes.overlay);
 
             element.dispatchEvent(new Event('closed.simplelightbox'));
+
             this.isClosing = false;
         });
 
@@ -893,9 +899,12 @@ class SimpleLightbox {
     openImage(element) {
         element.dispatchEvent(new Event('show.' + this.eventNamespace));
 
-
         if (this.options.disableScroll) {
             this.globalScrollbarWidth = this.toggleScrollbar('hide');
+        }
+
+        if (this.options.htmlClass && this.options.htmlClass !== '') {
+            document.querySelector('html').classList.add(this.options.htmlClass);
         }
 
         document.body.appendChild(this.domNodes.wrapper);

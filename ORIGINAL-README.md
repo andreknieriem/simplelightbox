@@ -75,8 +75,9 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
 | history | true | bool | enable history back closes lightbox instead of reloading the page |
 | throttleInterval | 0 | int | time to wait between slides |
-| doubleTapZoom | 2 | int | zoom level if double tapping on image
-| maxZoom | 10 | int | maximum zoom level on pinching
+| doubleTapZoom | 2 | int | zoom level if double tapping on image |
+| maxZoom | 10 | int | maximum zoom level on pinching |
+| htmlClass | 'has-lightbox' | string or false | added class to html element if lightbox is open. If empty or false no class is set |
 ### Events
 | Name | Description |
 | ---- | ----------- |
@@ -165,6 +166,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
+**1.16.2 - Added featured #124 - Add a class to html element if lightbox is open**  
 **1.16.1 - Fixed pinch to zoom offset error on scrolling #123**  
 **1.16.0 - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79**  
 **1.15.1 - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen**  
