@@ -411,8 +411,10 @@ $.fn.simpleLightbox = function( options )
 				touchmoveCount = 0;
 
 			image
-			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e)
-			{
+			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e) {
+				if (e.target.tagName === 'A' && e.type == 'touchstart') {
+					return true;
+				}
 				e = e.originalEvent;
 				if(e.type == 'mousedown') {
 
