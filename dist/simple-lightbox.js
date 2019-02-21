@@ -50,7 +50,9 @@ $.fn.simpleLightbox = function( options )
 		throttleInterval: 0,
 		doubleTapZoom: 2,
 		maxZoom: 10,
-		htmlClass: 'has-lightbox'
+		htmlClass: 'has-lightbox',
+		windowHeight: window.innerHeight,
+		windowWidth: window.innerWidth,
 	}, options);
 
 	// global variables
@@ -208,8 +210,8 @@ $.fn.simpleLightbox = function( options )
 		adjustImage = function(dir){
 			if(!curImg.length) return;
 			var tmpImage 	 = new Image(),
-			windowWidth	 = window.innerWidth * options.widthRatio,
-			windowHeight = window.innerHeight * options.heightRatio;
+			windowWidth	 = options.windowWidth * options.widthRatio,
+			windowHeight = options.windowHeight * options.heightRatio;
 			tmpImage.src	= curImg.attr( 'src' );
 			curImg.data('scale',1);
 			curImg.data('translate-x',0);
@@ -263,8 +265,8 @@ $.fn.simpleLightbox = function( options )
 				}
 
 				$('.sl-image').css({
-					'top':    ( window.innerHeight - imageHeight ) / 2 + 'px',
-					'left':   ( window.innerWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px',
+					'top':    ( options.windowHeight - imageHeight ) / 2 + 'px',
+					'left':   ( options.windowWidth - imageWidth - globalScrollbarwidth)/ 2 + 'px',
 					'width':  imageWidth + 'px',
 					'height': imageHeight + 'px'
 				});
@@ -677,7 +679,7 @@ $.fn.simpleLightbox = function( options )
 		handleScrollbar = function(type){
 			var scrollbarWidth = 0;
 			if(type == 'hide'){
-				var fullWindowWidth = window.innerWidth;
+				var fullWindowWidth = options.windowWidth;
 				if (!fullWindowWidth) {
 					var documentElementRect = document.documentElement.getBoundingClientRect();
 					fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
