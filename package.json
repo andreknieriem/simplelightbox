@@ -6,7 +6,7 @@
   "style": "dist/simplelightbox.scss",
   "repository": {
     "type": "git",
-    "url": "https://github.com/andreknieriem/simplelightbox.git"
+    "url": "https://github.com/caagsoftware/simplelightbox.git"
   },
   "dependencies": {
     "jquery": ">=1.7.0"
