@@ -1,8 +1,8 @@
-/*
+/*!
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.16.2
+	1.16.3
 */
 ;( function( $, window, document, undefined )
 {
@@ -413,6 +413,9 @@ $.fn.simpleLightbox = function( options )
 			image
 			.on( 'touchstart.'+prefix+' mousedown.'+prefix, function(e)
 			{
+				if (e.target.tagName === 'A' && e.type == 'touchstart') {
+					return true;
+				}
 				e = e.originalEvent;
 				if(e.type == 'mousedown') {
 
