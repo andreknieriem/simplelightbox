@@ -77,7 +77,7 @@ var lightbox = $('.gallery a').simpleLightbox(options);
 | throttleInterval | 0 | int | time to wait between slides |
 | doubleTapZoom | 2 | int | zoom level if double tapping on image |
 | maxZoom | 10 | int | maximum zoom level on pinching |
-| htmlClass | 'has-lightbox' | string or false | added class to html element if lightbox is open. If empty or false no class is set |
+| htmlClass | 'has-lightbox' | string or false | adds class to html element if lightbox is open. If empty or false no class is set |
 ### Events
 | Name | Description |
 | ---- | ----------- |
