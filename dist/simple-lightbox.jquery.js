@@ -1,8 +1,8 @@
-/**
+/*!
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 1.16.2 (ES6+noquery port by Martin Tillmann)
+	Version 1.16.3 (ES6+noquery port by Martin Tillmann)
 */
 "use strict";
 
@@ -206,7 +206,7 @@ function () {
     } // disable rightclick
 
 
-    if (true || this.options.disableRightClick) {
+    if (this.options.disableRightClick) {
       this.addEventListener(document.body, 'contextmenu.' + this.eventNamespace, function (event) {
         if (event.target.classList.contains('sl-overlay')) {
           event.preventDefault();
@@ -645,6 +645,10 @@ function () {
         _this6.loadImage(event.target.classList.contains('sl-next') ? 1 : -1);
       });
       this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], function (event) {
+        if (event.target.tagName === 'A' && event.type === 'touchstart') {
+          return true;
+        }
+
         if (event.type !== 'mousedown') {
           _this6.controlCoordinates.touchCount = event.touches.length;
           _this6.controlCoordinates.initialPointerOffsetX = event.touches[0].clientX;

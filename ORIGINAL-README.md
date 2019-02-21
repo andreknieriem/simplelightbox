@@ -166,6 +166,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
+**1.16.3 - Merged pull request #126,#127 - Thanks to jieter**
 **1.16.2 - Added featured #124 - Add a class to html element if lightbox is open**  
 **1.16.1 - Fixed pinch to zoom offset error on scrolling #123**  
 **1.16.0 - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79**  
@@ -216,7 +217,7 @@ $add-vendor-prefixes: true !default;
 **1.0.0 - Initial Release**
 
 ### Author
-[Andre Rinas](http://andrerinas.de/) - [Github](https://github.com/andreknieriem/)
+[Andre Rinas](https://andrerinas.de/) - [Github](https://github.com/andreknieriem/)
 
 ### Contributors
 [nicekiwi](https://github.com/nicekiwi)  

@@ -177,7 +177,7 @@ class SimpleLightbox {
         }
 
         // disable rightclick
-        if (true || this.options.disableRightClick) {
+        if (this.options.disableRightClick) {
             this.addEventListener(document.body, 'contextmenu.' + this.eventNamespace, (event) => {
                 if (event.target.classList.contains('sl-overlay')) {
                     event.preventDefault();
@@ -325,7 +325,7 @@ class SimpleLightbox {
                 this.toggleScrollbar('show');
             }
 
-            if(this.options.htmlClass && this.options.htmlClass !== ''){
+            if (this.options.htmlClass && this.options.htmlClass !== '') {
                 document.querySelector('html').classList.remove(this.options.htmlClass);
             }
 
@@ -607,6 +607,10 @@ class SimpleLightbox {
         });
 
         this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], (event) => {
+            if (event.target.tagName === 'A' && event.type === 'touchstart') {
+                return true;
+            }
+
             if (event.type !== 'mousedown') {
                 this.controlCoordinates.touchCount = event.touches.length;
                 this.controlCoordinates.initialPointerOffsetX = event.touches[0].clientX;
