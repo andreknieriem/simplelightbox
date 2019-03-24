@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.16.3
+	1.17.0
 */
 ;( function( $, window, document, undefined )
 {
@@ -418,7 +418,19 @@ $.fn.simpleLightbox = function( options )
 				}
 				e = e.originalEvent;
 				if(e.type == 'mousedown') {
+					initialPointerOffsetX = e.clientX;
+					initialPointerOffsetY = e.clientY;
+					containerHeight = image.height();
+					containerWidth = image.width();
+					imgHeight = curImg.height();
+					imgWidth = curImg.width();
+					containerOffsetX = image.position().left;
+					containerOffsetY = image.position().top;
 
+					initialOffsetX = parseFloat(curImg.data('translate-x'));
+					initialOffsetY = parseFloat(curImg.data('translate-y'));
+
+					capture = true;
 				} else {
 					touchCount = e.touches.length;
 					initialPointerOffsetX = e.touches[0].clientX;
@@ -544,6 +556,31 @@ $.fn.simpleLightbox = function( options )
 						zoomPanElement(targetOffsetX + "px", targetOffsetY + "px", targetScale);
 					}
 				}
+				/* Mouse Move implementation */
+				if(e.type == 'mousemove' && mousedown){
+					if(e.type == 'touchmove') return true;
+					if(capture === false) return false;
+					pointerOffsetX = e.clientX;
+					pointerOffsetY = e.clientY;
+					targetScale = initialScale;
+					limitOffsetX = ((imgWidth * targetScale) - containerWidth) / 2;
+					limitOffsetY = ((imgHeight * targetScale) - containerHeight) / 2;
+					targetOffsetX = (imgWidth * targetScale) <= containerWidth ? 0 : minMax(pointerOffsetX - (initialPointerOffsetX - initialOffsetX), limitOffsetX * (-1), limitOffsetX);
+					targetOffsetY = (imgHeight * targetScale) <= containerHeight ? 0 : minMax(pointerOffsetY - (initialPointerOffsetY - initialOffsetY), limitOffsetY * (-1), limitOffsetY);
+
+					if (Math.abs(targetOffsetX) === Math.abs(limitOffsetX)) {
+						initialOffsetX = targetOffsetX;
+						initialPointerOffsetX = pointerOffsetX;
+					}
+
+					if (Math.abs(targetOffsetY) === Math.abs(limitOffsetY)) {
+						initialOffsetY = targetOffsetY;
+						initialPointerOffsetY = pointerOffsetY;
+					}
+
+					setZoomData(initialScale,targetOffsetX,targetOffsetY);
+					zoomPanElement(targetOffsetX + "px", targetOffsetY + "px", targetScale);
+				}
 				if(!zoomed) {
 					swipeEnd = e.pageX || e.touches[ 0 ].pageX;
 					swipeYEnd = e.pageY || e.touches[ 0 ].pageY;
@@ -597,6 +634,38 @@ $.fn.simpleLightbox = function( options )
 						close();
 					}
 				}
+			})
+			/** Detect Double click on image*/
+			.on( 'dblclick', function(e)
+			{
+				initialPointerOffsetX = e.clientX;
+				initialPointerOffsetY = e.clientY;
+				containerHeight = image.height();
+				containerWidth = image.width();
+				imgHeight = curImg.height();
+				imgWidth = curImg.width();
+				containerOffsetX = image.position().left;
+				containerOffsetY = image.position().top;
+
+				curImg.addClass('sl-transition');
+				if(!zoomed) {
+					initialScale = options.doubleTapZoom;
+					setZoomData(0,0, initialScale);
+					zoomPanElement(0 + "px", 0 + "px", initialScale);
+					$('.sl-caption').fadeOut(200);
+					zoomed = true;
+				} else {
+					initialScale = 1;
+					setZoomData(0,0,initialScale);
+					zoomPanElement(0 + "px", 0 + "px", initialScale);
+					zoomed = false;
+				}
+
+				setTimeout(function(){
+					curImg.removeClass('sl-transition');
+				}, 200);
+				capture = true;
+				return false;
 			});
 		},
 		removeEvents = function(){
