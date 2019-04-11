@@ -166,6 +166,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
+**1.17.1 - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134**  
 **1.17.0 - Merged pull request #132. Added double click to zoom for desktop browsers - Thanks to coderkan**  
 **1.16.3 - Merged pull request #126,#127 - Thanks to jieter**  
 **1.16.2 - Added featured #124 - Add a class to html element if lightbox is open**  

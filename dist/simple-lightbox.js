@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.17.0
+	1.17.1
 */
 ;( function( $, window, document, undefined )
 {
@@ -28,7 +28,7 @@ $.fn.simpleLightbox = function( options )
 		closeText: '×',
 		swipeClose: true,
 		showCounter: true,
-		fileExt: 'png|jpg|jpeg|gif',
+		fileExt: 'png|jpg|jpeg|gif|webp',
 		animationSlide: true,
 		animationSpeed: 250,
 		preloading: true,
@@ -88,6 +88,7 @@ $.fn.simpleLightbox = function( options )
 			return $related;
 		},
 		objects = (options.rel && options.rel !== false) ? getRelated(options.rel, $(this)) : this,
+		tagname = objects.get()[0].tagName,
 		transPrefix = transPrefix(),
 		globalScrollbarwidth = 0,
 		canTransisions = (transPrefix !== false) ? true : false,
@@ -161,7 +162,7 @@ $.fn.simpleLightbox = function( options )
 			if(!options.fileExt) return true;
 			var filEext = /\.([0-9a-z]+)(?=[?#])|(\.)(?:[\w]+)$/gmi;
 			var testExt = $( element ).attr( options.sourceAttr ).match(filEext);
-			return testExt && $( element ).prop( 'tagName' ).toLowerCase() == 'a' && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( testExt );
+			return testExt && $( element ).prop( 'tagName' ).toUpperCase() == tagname && ( new RegExp( '\.(' + options.fileExt + ')$', 'i' ) ).test( testExt );
 		},
 		setup = function(){
 			if(options.close) closeBtn.appendTo(wrapper);
