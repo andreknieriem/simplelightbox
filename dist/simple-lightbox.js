@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.17.1
+	1.17.2
 */
 ;( function( $, window, document, undefined )
 {
@@ -25,7 +25,7 @@ $.fn.simpleLightbox = function( options )
 		captionPosition: 'bottom',
 		captionClass: '',
 		close: true,
-		closeText: '×',
+		closeText: '&times;',
 		swipeClose: true,
 		showCounter: true,
 		fileExt: 'png|jpg|jpeg|gif|webp',
@@ -660,6 +660,7 @@ $.fn.simpleLightbox = function( options )
 					setZoomData(0,0,initialScale);
 					zoomPanElement(0 + "px", 0 + "px", initialScale);
 					zoomed = false;
+					$('.sl-caption').fadeIn(200);
 				}
 
 				setTimeout(function(){
