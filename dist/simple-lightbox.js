@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	1.17.2
+	1.17.3
 */
 ;( function( $, window, document, undefined )
 {
@@ -346,7 +346,7 @@ $.fn.simpleLightbox = function( options )
 			$( window ).on( 'resize.'+prefix, adjustImage );
 
 			// close lightbox on close btn
-			$( document ).on('click.'+prefix+ ' touchstart.'+prefix, '.sl-close', function(e){
+			$( '.sl-wrapper' ).on('click.'+prefix+ ' touchstart.'+prefix, '.sl-close', function(e){
 				e.preventDefault();
 				if(opened){ close();}
 			});
@@ -672,7 +672,7 @@ $.fn.simpleLightbox = function( options )
 		},
 		removeEvents = function(){
 			nav.off('click', 'button');
-			$( document ).off('click.'+prefix, '.sl-close');
+			$( '.sl-wrapper' ).off('click.'+prefix, '.sl-close');
 			$( window ).off( 'resize.'+prefix);
 			$( window ).off( 'hashchange.'+prefix);
 		},

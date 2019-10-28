@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "1.17.2",
+  "version": "1.17.3",
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simplelightbox.scss",
@@ -31,7 +31,7 @@
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
   },
-  "homepage": "http://simplelightbox.com/",
+  "homepage": "https://simplelightbox.com/",
   "scripts": {
     "minify": "uglifyjs dist/simple-lightbox.js --compress --comments '/^\/*!/' --mangle --output dist/simple-lightbox.min.js"
   },
