@@ -36,6 +36,17 @@ Simple include simplelightbox.css and simple-lightbox.js to your page
 var lightbox = $('.gallery a').simpleLightbox(options);
 ```
 
+### Markup
+For the default setup, you just need links that are pointing to images.
+```markup
+<div class="gallery">
+    <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""/></a>
+    <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"/></a>
+</div>
+```
+The markup inside the A-Tags can be whatever you want. In this example thumbnails of the big images. The Title Tag is by default used to show a caption.
+For a whole example just look at the demo folder.
+
 ### JavaScript Options
 | Property | Default | Type | Description |
 | -------- | ------- | ---- | ----------- |
