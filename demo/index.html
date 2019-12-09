@@ -1,88 +1,756 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-	<title>Simple Lightbox - Responsive touch friendly Image lightbox</title>
-	<link href='https://fonts.googleapis.com/css?family=Slabo+27px' rel='stylesheet' type='text/css'>
-	<link href='../dist/simplelightbox.min.css' rel='stylesheet' type='text/css'>
-	<link href='demo.css' rel='stylesheet' type='text/css'>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
+<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simplelightbox.min.css" />
+<link rel="stylesheet" href="demo.css" />
+<title>SimpleLightbox by André Rinas</title>
 </head>
 <body>
-	<div class="container">
-		<h1 class="align-center">Simple Lightbox Demo Page</h1>
-		<div class="gallery">
-			<a href="images/image1.jpg" class="big"><img src="images/thumbs/thumb1.jpg" alt="" title="Beautiful Image" /></a>
-			<a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title=""/></a>
-			<a href="images/image3.jpg"><img src="images/thumbs/thumb3.jpg" alt="" title="Beautiful Image"/></a>
-			<a href="images/image4.jpg"><img src="images/thumbs/thumb4.jpg" alt="" title=""/></a>
-			<div class="clear"></div>
-
-			<a href="images/image5.jpg"><img src="images/thumbs/thumb5.jpg" alt="" title=""/></a>
-			<a href="images/image6.jpg"><img src="images/thumbs/thumb6.jpg" alt="" title=""/></a>
-			<a href="images/image7.jpg" class="big"><img src="images/thumbs/thumb7.jpg" alt="" title=""/></a>
-			<a href="images/image8.jpg"><img src="images/thumbs/thumb8.jpg" alt="" title=""/></a>
-			<div class="clear"></div>
-
-			<a href="images/image9.jpg" class="big"><img src="images/thumbs/thumb9.jpg" alt="" title=""/></a>
-			<a href="images/image10.jpg"><img src="images/thumbs/thumb10.jpg" alt="" title=""/></a>
-			<a href="images/image11.jpg"><img src="images/thumbs/thumb11.jpg" alt="" title=""/></a>
-			<a href="images/image12.jpg"><img src="images/thumbs/thumb12.jpg" alt="" title=""/></a>
-			<div class="clear"></div>
-
+<header>
+	<div class="gradient"></div>
+	<div class="header-container">
+		<div class="container demo-container">
+			<div class="info">
+				<h1>SimpleLightbox <sup>v2.0.0</sup></h1>
+				<span class="subline">Touch-friendly image lightbox</span>
+				<nav>
+					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
+					<a class="btn wordpress" target="_blank" href="https://wordpress.org/plugins/simplelightbox/">Wordpress</a>
+					<a class="btn typo3" target="_blank" href="https://extensions.typo3.org/extension/simplelightbox/">TYPO3</a><br><br>
+					<a class="btn accent-color scrolllink" href="#documentation">Documentation</a>
+					<a class="btn accent-color" target="_blank" href="https://github.com/andreknieriem/simplelightbox/archive/master.zip">Download</a>
+					<a class="btn github" target="_blank" href="https://github.com/andreknieriem/simplelightbox">Github</a>
+				</nav>
+			</div>
+			<div class="small-demo">
+				<a href="img/full/01.jpg"><img src="img/thumb/01.jpg" alt="" /></a>
+				<a href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" /></a>
+				<a href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
+				<a href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" /></a>
+				<a href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" /></a>
+				<a href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
+				<div class="clearing"></div>
+				<div class="caption">
+					Click on an image to see it in action
+				</div>
+			</div>
+			<div class="clearing"></div>
 		</div>
-		<br><br>
-			<p>All images are free availabled on <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
-			<p>Documentation and download <a target="_blank" href="http://andreknieriem.de/simple-lightbox/">here</a></p>
+		<a class="scroll-hint scrolllink" href="#documentation"><span class="scrollwheel"></span></a>
 	</div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script type="text/javascript" src="../dist/simple-lightbox.js"></script>
-<script>
-	$(function(){
-		var $gallery = $('.gallery a').simpleLightbox();
+</header>
+<div class="flyin-navi">
+	<div class="container">
+		<ul>
+			<li><a class="scrolllink" href="#install">Install</a></li>
+			<li><a class="scrolllink" href="#usage">Usage</a></li>
+			<li><a class="scrolllink" href="#options">Options</a></li>
+			<li><a class="scrolllink" href="#events">Events</a></li>
+			<li><a class="scrolllink" href="#publicmethods">Public Methods</a></li>
+			<li><a class="scrolllink" href="#multiple">Multiple</a></li>
+			<li><a class="scrolllink" href="#customization">Customization</a></li>
+		</ul>
+	</div>
+</div>
+<section>
+	<div class="container" id="documentation">
+		<h1>Documentation</h1>
+		<div class="row">
+			<div class="col-left" id="install">
+				<h2>Install</h2>
+			</div>
+			<div class="col-right">
+				<p>
+					To install SimpleLightbox you can do the following:
+				</p>
+				<pre>
+<code class="language-bash">// YARN
+yarn add simplelightbox
 
-		$gallery.on('show.simplelightbox', function(){
-			console.log('Requested for showing');
-		})
-		.on('shown.simplelightbox', function(){
-			console.log('Shown');
-		})
-		.on('close.simplelightbox', function(){
-			console.log('Requested for closing');
-		})
-		.on('closed.simplelightbox', function(){
-			console.log('Closed');
-		})
-		.on('change.simplelightbox', function(){
-			console.log('Requested for change');
-		})
-		.on('next.simplelightbox', function(){
-			console.log('Requested for next');
-		})
-		.on('prev.simplelightbox', function(){
-			console.log('Requested for prev');
-		})
-		.on('nextImageLoaded.simplelightbox', function(){
-			console.log('Next image loaded');
-		})
-		.on('prevImageLoaded.simplelightbox', function(){
-			console.log('Prev image loaded');
-		})
-		.on('changed.simplelightbox', function(){
-			console.log('Image changed');
-		})
-		.on('nextDone.simplelightbox', function(){
-			console.log('Image changed to next');
-		})
-		.on('prevDone.simplelightbox', function(){
-			console.log('Image changed to prev');
-		})
-		.on('error.simplelightbox', function(e){
-			console.log('No image found, go to the next/prev');
-			console.log(e);
+//Bower
+bower install simplelightbox
+
+//NPM
+npm install simplelightbox</code>
+				</pre>
+				<p>
+					Simple include <strong>simplelight-box.css</strong> and <strong>simple-lightbox.js</strong> to your page and use:
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="usage">
+				<h2>Usage</h2>
+			</div>
+			<div class="col-right">
+				<p>
+					When using the standalone variant (`simple-lightbox(.min).js`)
+				</p>
+				<pre class="language-javascript"><code class="language-javascript">var lightbox = new SimpleLightbox('.gallery a', { /* options */ });</code></pre>
+				<p>
+					When using the standalone variant (`simple-lightbox(.min).js`)
+				</p>
+				<pre class="language-javascript"><code class="language-javascript">var lightbox = $('.gallery a').simpleLightbox({ /* options */ });</code></pre>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-left" id="usage">
+				<h2>Markup</h2>
+			</div>
+			<div class="col-right">
+				<p>For the default setup, you just need links that are pointing to images.</p>
+				<pre class="language-markup"><code class="language-markup">&lt;div class="gallery"&gt;
+    &lt;a href="images/image1.jpg"&gt;&lt;img src="images/thumbs/thumb1.jpg" alt="" title=""/&gt;&lt;/a&gt;
+    &lt;a href="images/image2.jpg"&gt;&lt;img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"/&gt;&lt;/a&gt;
+&lt;/div&gt;</code></pre>
+				<p>
+				The markup inside the A-Tags can be whatever you want. In this example thumbnails of the big images. The Title Tag is by default used to show a caption.
+				For a whole example just look at the demo folder.
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="options">
+				<h2>JavaScript Options</h2>
+			</div>
+			<div class="col-right">
+				<table>
+					<thead>
+					<tr>
+					<th>Property</th>
+					<th>Default</th>
+					<th>Type</th>
+					<th>Description</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+					<td>sourceAttr</td>
+					<td>href</td>
+					<td>string</td>
+					<td>the attribute used for large images</td>
+					</tr>
+					<tr>
+					<td>overlay</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show an overlay or not</td>
+					</tr>
+					<tr>
+					<td>spinner</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show spinner or not</td>
+					</tr>
+					<tr>
+					<td>nav</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show arrow-navigation or not</td>
+					</tr>
+					<tr>
+					<td>navText</td>
+					<td>['←','→']</td>
+					<td>array</td>
+					<td>text or html for the navigation arrows</td>
+					</tr>
+					<tr>
+					<td>captions</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show captions if availabled or not</td>
+					</tr>
+					<tr>
+					<td>captionSelector</td>
+					<td>'img'</td>
+					<td>string</td>
+					<td>set the element where the caption is. Set it to "self" for the A-Tag itself</td>
+					</tr>
+					<tr>
+					<td>captionType</td>
+					<td>'attr'</td>
+					<td>string</td>
+					<td>how to get the caption. You can choose between attr, data or text</td>
+					</tr>
+					<tr>
+					<td>captionsData</td>
+					<td>title</td>
+					<td>string</td>
+					<td>get the caption from given attribute</td>
+					</tr>
+					<tr>
+					<td>captionPosition</td>
+					<td>'bottom'</td>
+					<td>string</td>
+					<td>the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!)</td>
+					</tr>
+					<tr>
+					<td>captionDelay</td>
+					<td>0</td>
+					<td>int</td>
+					<td>adds a delay before the caption shows (in ms)</td>
+					</tr>
+					<tr>
+					<td>captionClass</td>
+					<td>''</td>
+					<td>string</td>
+					<td>adds an additional class to the sl-caption</td>
+					</tr>
+					<tr>
+					<td>close</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show the close button or not</td>
+					</tr>
+					<tr>
+					<td>closeText</td>
+					<td>'×'</td>
+					<td>string</td>
+					<td>text or html for the close button</td>
+					</tr>
+					<tr>
+					<td>swipeClose</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>swipe up or down to close gallery</td>
+					</tr>
+					<tr>
+					<td>showCounter</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show current image index or not</td>
+					</tr>
+					<tr>
+					<td>fileExt</td>
+					<td>'png|jpg|jpeg|gif'</td>
+					<td>regexp or false</td>
+					<td>list of fileextensions the plugin works with or false for disable the check</td>
+					</tr>
+					<tr>
+					<td>animationSpeed</td>
+					<td>250</td>
+					<td>int</td>
+					<td>how long takes the slide animation</td>
+					</tr>
+					<tr>
+					<td>animationSlide</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>weather to slide in new photos or not, disable to fade</td>
+					</tr>
+					<tr>
+					<td>preloading</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>allows preloading next und previous images</td>
+					</tr>
+					<tr>
+					<td>enableKeyboard</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>allow keyboard arrow navigation and close with ESC key</td>
+					</tr>
+					<tr>
+					<td>loop</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>enables looping through images</td>
+					</tr>
+					<tr>
+					<td>rel</td>
+					<td>false</td>
+					<td>mixed</td>
+					<td>group images by rel attribute of link with same selector.</td>
+					</tr>
+					<tr>
+					<td>docClose</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>closes the lightbox when clicking outside</td>
+					</tr>
+					<tr>
+					<td>swipeTolerance</td>
+					<td>50</td>
+					<td>int</td>
+					<td>how much pixel you have to swipe, until next or previous image</td>
+					</tr>
+					<tr>
+					<td>className</td>
+					<td>'simple-lightbox'</td>
+					<td>string</td>
+					<td>adds a class to the wrapper of the lightbox</td>
+					</tr>
+					<tr>
+					<td>widthRatio</td>
+					<td>0.8</td>
+					<td>float</td>
+					<td>Ratio of image width to screen width</td>
+					</tr>
+					<tr>
+					<td>heightRatio</td>
+					<td>0.9</td>
+					<td>float</td>
+					<td>Ratio of image height to screen height</td>
+					</tr>
+					<td>scaleImageToRatio</td>
+					<td>false</td>
+					<td>bool</td>
+					<td>scales the image up to the defined ratio size</td>
+					</tr>
+					<tr>
+					<td>disableRightClick</td>
+					<td>false</td>
+					<td>bool</td>
+					<td>disable rightclick on image or not</td>
+					</tr>
+					<tr>
+					<td>disableScroll</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>stop scrolling page if lightbox is opened</td>
+					</tr>
+					<tr>
+					<td>alertError</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>show an alert, if image was not found. If false error will be ignored</td>
+					</tr>
+					<tr>
+					<td>alertErrorMessage</td>
+					<td>'Image not found, next image will be loaded'</td>
+					<td>string</td>
+					<td>the message displayed if image was not found</td>
+					</tr>
+					<tr>
+					<td>additionalHtml</td>
+					<td>false</td>
+					<td>string</td>
+					<td>Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added</td>
+					</tr>
+					<tr>
+					<td>history</td>
+					<td>true</td>
+					<td>bool</td>
+					<td>enable history back closes lightbox instead of reloading the page</td>
+					</tr>
+					<tr>
+					<td>throttleInterval</td>
+					<td>0</td>
+					<td>int</td>
+					<td>time to wait between slides</td>
+					</tr>
+					<tr>
+					<td>doubleTapZoom</td>
+					<td>2</td>
+					<td>int</td>
+					<td>zoom level if double tapping on image</td>
+					</tr>
+					<tr>
+					<td>maxZoom</td>
+					<td>10</td>
+					<td>int</td>
+					<td>maximum zoom level on pinching</td>
+					</tr>
+					<tr>
+					<td>htmlClass</td>
+					<td>has-lightbox</td>
+					<td>string</td>
+					<td>adds class to html element if lightbox is open. If empty or false no class is set</td>
+					</tr>
+					</tbody>
+					</table>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="events">
+				<h2>Events</h2>
+			</div>
+			<div class="col-right">
+				<table>
+				<thead>
+				<tr>
+				<th>Name</th>
+				<th>Description</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr>
+				<td>show.simplelightbox</td>
+				<td>this event fires before the lightbox opens</td>
+				</tr>
+				<tr>
+				<td>shown.simplelightbox</td>
+				<td>this event fires after the lightbox was opened</td>
+				</tr>
+				<tr>
+				<td>close.simplelightbox</td>
+				<td>this event fires before the lightbox closes</td>
+				</tr>
+				<tr>
+				<td>closed.simplelightbox</td>
+				<td>this event fires after the lightbox was closed</td>
+				</tr>
+				<tr>
+				<td>change.simplelightbox</td>
+				<td>this event fires before image changes</td>
+				</tr>
+				<tr>
+				<td>changed.simplelightbox</td>
+				<td>this event fires after image was changed</td>
+				</tr>
+				<tr>
+				<td>next.simplelightbox</td>
+				<td>this event fires before next image arrives</td>
+				</tr>
+				<tr>
+				<td>nextDone.simplelightbox</td>
+				<td>this event fires after next image was arrived</td>
+				</tr>
+				<tr>
+				<td>prev.simplelightbox</td>
+				<td>this event fires before previous image arrives</td>
+				</tr>
+				<tr>
+				<td>prevDone.simplelightbox</td>
+				<td>this event fires after previous image was arrived</td>
+				</tr>
+				<tr>
+				<td>nextImageLoaded.simplelightbox</td>
+				<td>this event fires after next image was loaded (if preload activated)</td>
+				</tr>
+				<tr>
+				<td>prevImageLoaded.simplelightbox</td>
+				<td>this event fires after previous image was loaded (if preload activated)</td>
+				</tr>
+				<tr>
+				<td>error.simplelightbox</td>
+				<td>this event fires on image load error</td>
+				</tr>
+				</tbody>
+				</table>
+				<h4>Examples</h4>
+				<pre>
+<code class="language-javascript">$('.gallery a').on('show.simplelightbox', function () {
+	// do something…
+});
+
+$('.gallery a').on('error.simplelightbox', function (e) {
+	console.log(e); // some usefull information
+});</code>
+</pre>
+
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="publicmethods">
+				<h2>Public Methods</h2>
+			</div>
+			<div class="col-right">
+				<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>open</td>
+<td>Opens the lightbox with an given Element</td>
+</tr>
+<tr>
+<td>close</td>
+<td>Closes current openend Lightbox</td>
+</tr>
+<tr>
+<td>next</td>
+<td>Go to next image</td>
+</tr>
+<tr>
+<td>prev</td>
+<td>Go to previous image</td>
+</tr>
+<tr>
+<td>destroy</td>
+<td>Destroys the instance of  the lightbox</td>
+</tr>
+<tr>
+<td>refresh</td>
+<td>Destroys and reinitilized the lightbox, needed for eg. Ajax Calls, or after dom manipulations</td>
+</tr>
+</tbody>
+</table>
+<h4>Example</h4>
+<pre>
+<code class="language-javascript">var gallery = $('.gallery a').simpleLightbox();
+
+gallery.next(); // Next Image</code>
+</pre>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="multiple">
+				<h2>Multiple Lightboxes on one page</h2>
+			</div>
+			<div class="col-right">
+				<p>
+					You can have multiple lightboxes on one page, if you give them different selectors. Here is a small example:
+				</p>
+<pre>
+<code class="language-javascript">var lightbox1 = $('.lighbox-1 a').simpleLightbox();
+var lightbox2 = $('.lighbox-2 a').simpleLightbox();</code>
+</pre>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left" id="customization">
+				<h2>Customization</h2>
+			</div>
+			<div class="col-right">
+				<p>
+					You can customize Simplelightbox by changing the style in simplelightbox.css.
+				</p>
+				<p>
+					If you are using SASS, you can customize Simplelightbox with the following variables
+				</p>
+<pre>
+<code class="language-css">$sl-font-family: Arial, Baskerville, monospace;
+$sl-overlay-background: #fff;
+$sl-navigation-color: #000;
+$sl-caption-color: #fff;
+$sl-caption-background: #000;
+$sl-overlay-opacity: 0.7;
+
+$sl-counter-fontsize: 1rem;
+$sl-caption-fontsize: 1rem;
+$sl-close-fontsize: 3rem;
+
+$sl-breakpoint-medium: 35.5em; // 568px, when 1rem == 16px
+$sl-breakpoint-large:  50em;   // 800px, when 1rem == 16px
+
+$sl-arrow-fontsize-small:  2rem;
+$sl-arrow-fontsize-medium: 3rem;
+$sl-arrow-fontsize-large:  3rem;
+$sl-img-border-small:  0 none;
+$sl-img-border-medium: 0 none;
+$sl-img-border-large:  0 none;
+$sl-iframe-border-small:  0 none;
+$sl-iframe-border-medium: 0 none;
+$sl-iframe-border-large:  0 none;
+
+$add-vendor-prefixes: true !default;</code>
+</pre>
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left">
+				<h2>Changelog</h2>
+			</div>
+			<div class="col-right">
+				<strong>2.0.0</strong> - 2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
+				<strong>1.17.3</strong> - Fixed new chrome passive error #155<br />
+				<strong>1.17.2</strong> - Fixed caption keeps disappeared on double click #139 and added better close symbol #133<br />
+				<strong>1.17.1</strong> - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134<br />
+				<strong>1.17.0</strong> - Merged pull request #132. Added double click to zoom for desktop browsers - Thanks to coderkan<br />
+				<strong>1.16.3</strong> - Merged pull request #126,#127 - Thanks to jieter<br />
+				<strong>1.16.2</strong> - Added featured #124 - Add a class to html element if lightbox is open<br />
+				<strong>1.16.1</strong> - Fixed pinch to zoom offset error on scrolling #123<br />
+				<strong>1.16.0</strong> - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79<br />
+				<strong>1.15.1</strong> - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen<br />
+				<strong>1.15.0</strong> - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74<br />
+				<strong>1.14.0</strong> - Merged pull request #107 and #108. Thanks to RaphaelHaettich<br />
+				<strong>1.13.0</strong> - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich<br />
+				<strong>1.12.2</strong> - Bugfix for #89<br />
+				<strong>1.12.1</strong> - Bugfix for #88,#87 and remove bind/unbind #84<br />
+				<strong>1.12.0</strong> - New option captionClass #81, bugfix for #82<br />
+				<strong>1.11.1</strong> - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59<br />
+				<strong>1.11.0</strong> - New option for src of image. e.g data attribute #70<br />
+				<strong>1.10.7</strong> - Added Bootstrap compatibility #69<br />
+				<strong>1.10.6</strong> - Merged pull requests #65. Thanks to mstaniuk<br />
+				<strong>1.10.5</strong> - Merged pull requests #60 and #61. Thanks to slavanga<br />
+				<strong>1.10.4</strong> - Bugfix von #58<br />
+				<strong>1.10.3</strong> - Merged pull requests #55, #56 and #57. Thanks to karland<br />
+				<strong>1.10.2</strong> - Aligned navigation and close buttons #51, fixed image error bug #52<br />
+				<strong>1.10.1</strong> - Added support for jQuery 3.x #50<br />
+				<strong>1.10.0</strong> - Implemented feature-request #48, history back, some bugfixing and code styling<br />
+				<strong>1.9.0</strong> - Implemented feature-request #16, added rel option for grouping images<br />
+				<strong>1.8.6</strong> - Implemented feature-request #46, added refresh method<br />
+				<strong>1.8.5</strong> - Implemented feature-request #44<br />
+				<strong>1.8.4</strong> - Bugfix for #41 and added option for additional html inside images #40<br />
+				<strong>1.8.3</strong> - Bugfix for #38 and small other fix for loop false option<br />
+				<strong>1.8.2</strong> - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!<br />
+				<strong>1.8.1</strong> - Bugfix for #31, #32 and #33<br />
+				<strong>1.8.0</strong> - New API Events (changed open to show) and little fix in function open() brought by Geoffrey Crofte and some other small bugfixes<br />
+				<strong>1.7.2</strong> - Bugfix von #25 and #27<br />
+				<strong>1.7.1</strong> - Bugfix von #22 with new option alertError and merged pull request #23<br />
+				<strong>1.7.0</strong> - Add support for fading between photos, Bugfix for single image navigation, option for caption delay<br />
+				<strong>1.6.0</strong> - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.<br />
+				<strong>1.5.1</strong> - Bugfix for multiple lightboxes on one page<br />
+				<strong>1.5.0</strong> - Added options for disabling rightclick and scrolling, changed default prev- and next-button text<br />
+				<strong>1.4.6</strong> - Option for fileExt can now be false to enable pictures like example.com/pic/200/100<br />
+				<strong>1.4.5</strong> - Bugfix lightbox opening does not work on mobile devices<br />
+				<strong>1.4.4</strong> - Bugfix no drag&amp;drop in FF, changed default close text, only output data if lightbox is opened<br />
+				<strong>1.4.3</strong> - Bugfix z-index for spinner to low, added sass files<br />
+				<strong>1.4.2</strong> - Bugfix for issue #2 - Drop Event does not fire when mouse leaves window<br />
+				<strong>1.4.1</strong> - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute<br />
+				<strong>1.4.0</strong> - Caption Attribute can now be what, you want, or data-title. Fixed some small issues<br />
+				<strong>1.3.1</strong> - Bugfix: disable keyboard control if lightbox is closed<br />
+				<strong>1.3.0</strong> - Added current index indicator/counter<br />
+				<strong>1.2.0</strong> - Added option for captions attribute (title or data-title)<br />
+				<strong>1.1.2</strong> - Bugfix for looping images<br />
+				<strong>1.1.1</strong> - Bugfix for loading indicator and removed a log-event<br />
+				<strong>1.1.0</strong> - Added classname for lightbox wrapper and width/height ratio<br />
+				<strong>1.0.0</strong> - Initial Release
+			</div>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="container">
+		<div class="row">
+			<div class="col-left">
+				<h2>Author/<br />Contributors</h2>
+			</div>
+			<div class="col-right">
+				<p>
+					<a target="_blank" href="https://andrerinas.de/">Andre Rinas</a> - <a target="_blank" href="https://github.com/andreknieriem/">Github</a>
+				</p>
+				<p>
+					<a href="https://github.com/Mtillmann">Martin Tillmann</a><br>
+					<a href="https://github.com/nicekiwi">nicekiwi</a><br>
+					<a href="https://github.com/helloilya">helloilya</a><br>
+					<a href="https://github.com/bitstarr">bitstarr</a><br>
+					<a href="http://geoffrey.crofte.fr/">Geoffrey Crofte</a> - <a href="https://github.com/creativejuiz/">Github</a><br>
+					<a href="http://webseiten-anders.de/">Karl Anders</a> - <a href="https://github.com/karland/">Github</a>
+				</p>
+			</div>
+		</div>
+	</div>
+</section>
+<footer>
+	<div class="container">
+		Images from <a href="https://unsplash.com/" target="_blank">Unsplash</a> &middot; Thanks to <a target="_blank" href="http://prismjs.com/">PrismJS</a> for syntax highlighting.
+	</div>
+</footer>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/michalsnik/aos@2.1.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js"></script>
+<script src="../dist/simple-lightbox.min.js"></script>
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-22248575-1', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview', '/#simplelightbox')
+
+	/* http://prismjs.com/download.html?themes=prism&languages=markup+css+clike+javascript+bash */
+	var _self="undefined"!=typeof window?window:"undefined"!=typeof WorkerGlobalScope&&self instanceof WorkerGlobalScope?self:{},Prism=function(){var e=/\blang(?:uage)?-(\w+)\b/i,t=0,n=_self.Prism={manual:_self.Prism&&_self.Prism.manual,util:{encode:function(e){return e instanceof a?new a(e.type,n.util.encode(e.content),e.alias):"Array"===n.util.type(e)?e.map(n.util.encode):e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/\u00a0/g," ")},type:function(e){return Object.prototype.toString.call(e).match(/\[object (\w+)\]/)[1]},objId:function(e){return e.__id||Object.defineProperty(e,"__id",{value:++t}),e.__id},clone:function(e){var t=n.util.type(e);switch(t){case"Object":var a={};for(var r in e)e.hasOwnProperty(r)&&(a[r]=n.util.clone(e[r]));return a;case"Array":return e.map&&e.map(function(e){return n.util.clone(e)})}return e}},languages:{extend:function(e,t){var a=n.util.clone(n.languages[e]);for(var r in t)a[r]=t[r];return a},insertBefore:function(e,t,a,r){r=r||n.languages;var i=r[e];if(2==arguments.length){a=arguments[1];for(var l in a)a.hasOwnProperty(l)&&(i[l]=a[l]);return i}var o={};for(var s in i)if(i.hasOwnProperty(s)){if(s==t)for(var l in a)a.hasOwnProperty(l)&&(o[l]=a[l]);o[s]=i[s]}return n.languages.DFS(n.languages,function(t,n){n===r[e]&&t!=e&&(this[t]=o)}),r[e]=o},DFS:function(e,t,a,r){r=r||{};for(var i in e)e.hasOwnProperty(i)&&(t.call(e,i,e[i],a||i),"Object"!==n.util.type(e[i])||r[n.util.objId(e[i])]?"Array"!==n.util.type(e[i])||r[n.util.objId(e[i])]||(r[n.util.objId(e[i])]=!0,n.languages.DFS(e[i],t,i,r)):(r[n.util.objId(e[i])]=!0,n.languages.DFS(e[i],t,null,r)))}},plugins:{},highlightAll:function(e,t){var a={callback:t,selector:'code[class*="language-"], [class*="language-"] code, code[class*="lang-"], [class*="lang-"] code'};n.hooks.run("before-highlightall",a);for(var r,i=a.elements||document.querySelectorAll(a.selector),l=0;r=i[l++];)n.highlightElement(r,e===!0,a.callback)},highlightElement:function(t,a,r){for(var i,l,o=t;o&&!e.test(o.className);)o=o.parentNode;o&&(i=(o.className.match(e)||[,""])[1].toLowerCase(),l=n.languages[i]),t.className=t.className.replace(e,"").replace(/\s+/g," ")+" language-"+i,o=t.parentNode,/pre/i.test(o.nodeName)&&(o.className=o.className.replace(e,"").replace(/\s+/g," ")+" language-"+i);var s=t.textContent,u={element:t,language:i,grammar:l,code:s};if(n.hooks.run("before-sanity-check",u),!u.code||!u.grammar)return u.code&&(n.hooks.run("before-highlight",u),u.element.textContent=u.code,n.hooks.run("after-highlight",u)),n.hooks.run("complete",u),void 0;if(n.hooks.run("before-highlight",u),a&&_self.Worker){var g=new Worker(n.filename);g.onmessage=function(e){u.highlightedCode=e.data,n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(u.element),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},g.postMessage(JSON.stringify({language:u.language,code:u.code,immediateClose:!0}))}else u.highlightedCode=n.highlight(u.code,u.grammar,u.language),n.hooks.run("before-insert",u),u.element.innerHTML=u.highlightedCode,r&&r.call(t),n.hooks.run("after-highlight",u),n.hooks.run("complete",u)},highlight:function(e,t,r){var i=n.tokenize(e,t);return a.stringify(n.util.encode(i),r)},matchGrammar:function(e,t,a,r,i,l,o){var s=n.Token;for(var u in a)if(a.hasOwnProperty(u)&&a[u]){if(u==o)return;var g=a[u];g="Array"===n.util.type(g)?g:[g];for(var c=0;c<g.length;++c){var h=g[c],f=h.inside,d=!!h.lookbehind,m=!!h.greedy,p=0,y=h.alias;if(m&&!h.pattern.global){var v=h.pattern.toString().match(/[imuy]*$/)[0];h.pattern=RegExp(h.pattern.source,v+"g")}h=h.pattern||h;for(var b=r,k=i;b<t.length;k+=t[b].length,++b){var w=t[b];if(t.length>e.length)return;if(!(w instanceof s)){h.lastIndex=0;var _=h.exec(w),P=1;if(!_&&m&&b!=t.length-1){if(h.lastIndex=k,_=h.exec(e),!_)break;for(var A=_.index+(d?_[1].length:0),j=_.index+_[0].length,x=b,O=k,S=t.length;S>x&&(j>O||!t[x].type&&!t[x-1].greedy);++x)O+=t[x].length,A>=O&&(++b,k=O);if(t[b]instanceof s||t[x-1].greedy)continue;P=x-b,w=e.slice(k,O),_.index-=k}if(_){d&&(p=_[1].length);var A=_.index+p,_=_[0].slice(p),j=A+_.length,N=w.slice(0,A),C=w.slice(j),E=[b,P];N&&(++b,k+=N.length,E.push(N));var L=new s(u,f?n.tokenize(_,f):_,y,_,m);if(E.push(L),C&&E.push(C),Array.prototype.splice.apply(t,E),1!=P&&n.matchGrammar(e,t,a,b,k,!0,u),l)break}else if(l)break}}}}},tokenize:function(e,t){var a=[e],r=t.rest;if(r){for(var i in r)t[i]=r[i];delete t.rest}return n.matchGrammar(e,a,t,0,0,!1),a},hooks:{all:{},add:function(e,t){var a=n.hooks.all;a[e]=a[e]||[],a[e].push(t)},run:function(e,t){var a=n.hooks.all[e];if(a&&a.length)for(var r,i=0;r=a[i++];)r(t)}}},a=n.Token=function(e,t,n,a,r){this.type=e,this.content=t,this.alias=n,this.length=0|(a||"").length,this.greedy=!!r};if(a.stringify=function(e,t,r){if("string"==typeof e)return e;if("Array"===n.util.type(e))return e.map(function(n){return a.stringify(n,t,e)}).join("");var i={type:e.type,content:a.stringify(e.content,t,r),tag:"span",classes:["token",e.type],attributes:{},language:t,parent:r};if("comment"==i.type&&(i.attributes.spellcheck="true"),e.alias){var l="Array"===n.util.type(e.alias)?e.alias:[e.alias];Array.prototype.push.apply(i.classes,l)}n.hooks.run("wrap",i);var o=Object.keys(i.attributes).map(function(e){return e+'="'+(i.attributes[e]||"").replace(/"/g,"&quot;")+'"'}).join(" ");return"<"+i.tag+' class="'+i.classes.join(" ")+'"'+(o?" "+o:"")+">"+i.content+"</"+i.tag+">"},!_self.document)return _self.addEventListener?(_self.addEventListener("message",function(e){var t=JSON.parse(e.data),a=t.language,r=t.code,i=t.immediateClose;_self.postMessage(n.highlight(r,n.languages[a],a)),i&&_self.close()},!1),_self.Prism):_self.Prism;var r=document.currentScript||[].slice.call(document.getElementsByTagName("script")).pop();return r&&(n.filename=r.src,!document.addEventListener||n.manual||r.hasAttribute("data-manual")||("loading"!==document.readyState?window.requestAnimationFrame?window.requestAnimationFrame(n.highlightAll):window.setTimeout(n.highlightAll,16):document.addEventListener("DOMContentLoaded",n.highlightAll))),_self.Prism}();"undefined"!=typeof module&&module.exports&&(module.exports=Prism),"undefined"!=typeof global&&(global.Prism=Prism);
+	Prism.languages.markup={comment:/<!--[\s\S]*?-->/,prolog:/<\?[\s\S]+?\?>/,doctype:/<!DOCTYPE[\s\S]+?>/i,cdata:/<!\[CDATA\[[\s\S]*?]]>/i,tag:{pattern:/<\/?(?!\d)[^\s>\/=$<]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\\1|\\?(?!\1)[\s\S])*\1|[^\s'">=]+))?)*\s*\/?>/i,inside:{tag:{pattern:/^<\/?[^\s>\/]+/i,inside:{punctuation:/^<\/?/,namespace:/^[^\s>\/:]+:/}},"attr-value":{pattern:/=(?:('|")[\s\S]*?(\1)|[^\s>]+)/i,inside:{punctuation:/[=>"']/}},punctuation:/\/?>/,"attr-name":{pattern:/[^\s>\/]+/,inside:{namespace:/^[^\s>\/:]+:/}}}},entity:/&#?[\da-z]{1,8};/i},Prism.languages.markup.tag.inside["attr-value"].inside.entity=Prism.languages.markup.entity,Prism.hooks.add("wrap",function(a){"entity"===a.type&&(a.attributes.title=a.content.replace(/&amp;/,"&"))}),Prism.languages.xml=Prism.languages.markup,Prism.languages.html=Prism.languages.markup,Prism.languages.mathml=Prism.languages.markup,Prism.languages.svg=Prism.languages.markup;
+	Prism.languages.css={comment:/\/\*[\s\S]*?\*\//,atrule:{pattern:/@[\w-]+?.*?(;|(?=\s*\{))/i,inside:{rule:/@[\w-]+/}},url:/url\((?:(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|.*?)\)/i,selector:/[^\{\}\s][^\{\};]*?(?=\s*\{)/,string:{pattern:/("|')(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},property:/(\b|\B)[\w-]+(?=\s*:)/i,important:/\B!important\b/i,"function":/[-a-z0-9]+(?=\()/i,punctuation:/[(){};:]/},Prism.languages.css.atrule.inside.rest=Prism.util.clone(Prism.languages.css),Prism.languages.markup&&(Prism.languages.insertBefore("markup","tag",{style:{pattern:/(<style[\s\S]*?>)[\s\S]*?(?=<\/style>)/i,lookbehind:!0,inside:Prism.languages.css,alias:"language-css"}}),Prism.languages.insertBefore("inside","attr-value",{"style-attr":{pattern:/\s*style=("|').*?\1/i,inside:{"attr-name":{pattern:/^\s*style/i,inside:Prism.languages.markup.tag.inside},punctuation:/^\s*=\s*['"]|['"]\s*$/,"attr-value":{pattern:/.+/i,inside:Prism.languages.css}},alias:"language-css"}},Prism.languages.markup.tag));
+	Prism.languages.clike={comment:[{pattern:/(^|[^\\])\/\*[\s\S]*?\*\//,lookbehind:!0},{pattern:/(^|[^\\:])\/\/.*/,lookbehind:!0}],string:{pattern:/(["'])(\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/,greedy:!0},"class-name":{pattern:/((?:\b(?:class|interface|extends|implements|trait|instanceof|new)\s+)|(?:catch\s+\())[a-z0-9_\.\\]+/i,lookbehind:!0,inside:{punctuation:/(\.|\\)/}},keyword:/\b(if|else|while|do|for|return|in|instanceof|function|new|try|throw|catch|finally|null|break|continue)\b/,"boolean":/\b(true|false)\b/,"function":/[a-z0-9_]+(?=\()/i,number:/\b-?(?:0x[\da-f]+|\d*\.?\d+(?:e[+-]?\d+)?)\b/i,operator:/--?|\+\+?|!=?=?|<=?|>=?|==?=?|&&?|\|\|?|\?|\*|\/|~|\^|%/,punctuation:/[{}[\];(),.:]/};
+	Prism.languages.javascript=Prism.languages.extend("clike",{keyword:/\b(as|async|await|break|case|catch|class|const|continue|debugger|default|delete|do|else|enum|export|extends|finally|for|from|function|get|if|implements|import|in|instanceof|interface|let|new|null|of|package|private|protected|public|return|set|static|super|switch|this|throw|try|typeof|var|void|while|with|yield)\b/,number:/\b-?(0[xX][\dA-Fa-f]+|0[bB][01]+|0[oO][0-7]+|\d*\.?\d+([Ee][+-]?\d+)?|NaN|Infinity)\b/,"function":/[_$a-zA-Z\xA0-\uFFFF][_$a-zA-Z0-9\xA0-\uFFFF]*(?=\()/i,operator:/-[-=]?|\+[+=]?|!=?=?|<<?=?|>>?>?=?|=(?:==?|>)?|&[&=]?|\|[|=]?|\*\*?=?|\/=?|~|\^=?|%=?|\?|\.{3}/}),Prism.languages.insertBefore("javascript","keyword",{regex:{pattern:/(^|[^\/])\/(?!\/)(\[[^\]\r\n]+]|\\.|[^\/\\\[\r\n])+\/[gimyu]{0,5}(?=\s*($|[\r\n,.;})]))/,lookbehind:!0,greedy:!0}}),Prism.languages.insertBefore("javascript","string",{"template-string":{pattern:/`(?:\\\\|\\?[^\\])*?`/,greedy:!0,inside:{interpolation:{pattern:/\$\{[^}]+\}/,inside:{"interpolation-punctuation":{pattern:/^\$\{|\}$/,alias:"punctuation"},rest:Prism.languages.javascript}},string:/[\s\S]+/}}}),Prism.languages.markup&&Prism.languages.insertBefore("markup","tag",{script:{pattern:/(<script[\s\S]*?>)[\s\S]*?(?=<\/script>)/i,lookbehind:!0,inside:Prism.languages.javascript,alias:"language-javascript"}}),Prism.languages.js=Prism.languages.javascript;
+	!function(e){var t={variable:[{pattern:/\$?\(\([\s\S]+?\)\)/,inside:{variable:[{pattern:/(^\$\(\([\s\S]+)\)\)/,lookbehind:!0},/^\$\(\(/],number:/\b-?(?:0x[\dA-Fa-f]+|\d*\.?\d+(?:[Ee]-?\d+)?)\b/,operator:/--?|-=|\+\+?|\+=|!=?|~|\*\*?|\*=|\/=?|%=?|<<=?|>>=?|<=?|>=?|==?|&&?|&=|\^=?|\|\|?|\|=|\?|:/,punctuation:/\(\(?|\)\)?|,|;/}},{pattern:/\$\([^)]+\)|`[^`]+`/,inside:{variable:/^\$\(|^`|\)$|`$/}},/\$(?:[a-z0-9_#\?\*!@]+|\{[^}]+\})/i]};e.languages.bash={shebang:{pattern:/^#!\s*\/bin\/bash|^#!\s*\/bin\/sh/,alias:"important"},comment:{pattern:/(^|[^"{\\])#.*/,lookbehind:!0},string:[{pattern:/((?:^|[^<])<<\s*)(?:"|')?(\w+?)(?:"|')?\s*\r?\n(?:[\s\S])*?\r?\n\2/g,lookbehind:!0,greedy:!0,inside:t},{pattern:/(["'])(?:\\\\|\\?[^\\])*?\1/g,greedy:!0,inside:t}],variable:t.variable,"function":{pattern:/(^|\s|;|\||&)(?:alias|apropos|apt-get|aptitude|aspell|awk|basename|bash|bc|bg|builtin|bzip2|cal|cat|cd|cfdisk|chgrp|chmod|chown|chroot|chkconfig|cksum|clear|cmp|comm|command|cp|cron|crontab|csplit|cut|date|dc|dd|ddrescue|df|diff|diff3|dig|dir|dircolors|dirname|dirs|dmesg|du|egrep|eject|enable|env|ethtool|eval|exec|expand|expect|export|expr|fdformat|fdisk|fg|fgrep|file|find|fmt|fold|format|free|fsck|ftp|fuser|gawk|getopts|git|grep|groupadd|groupdel|groupmod|groups|gzip|hash|head|help|hg|history|hostname|htop|iconv|id|ifconfig|ifdown|ifup|import|install|jobs|join|kill|killall|less|link|ln|locate|logname|logout|look|lpc|lpr|lprint|lprintd|lprintq|lprm|ls|lsof|make|man|mkdir|mkfifo|mkisofs|mknod|more|most|mount|mtools|mtr|mv|mmv|nano|netstat|nice|nl|nohup|notify-send|npm|nslookup|open|op|passwd|paste|pathchk|ping|pkill|popd|pr|printcap|printenv|printf|ps|pushd|pv|pwd|quota|quotacheck|quotactl|ram|rar|rcp|read|readarray|readonly|reboot|rename|renice|remsync|rev|rm|rmdir|rsync|screen|scp|sdiff|sed|seq|service|sftp|shift|shopt|shutdown|sleep|slocate|sort|source|split|ssh|stat|strace|su|sudo|sum|suspend|sync|tail|tar|tee|test|time|timeout|times|touch|top|traceroute|trap|tr|tsort|tty|type|ulimit|umask|umount|unalias|uname|unexpand|uniq|units|unrar|unshar|uptime|useradd|userdel|usermod|users|uuencode|uudecode|v|vdir|vi|vmstat|wait|watch|wc|wget|whereis|which|who|whoami|write|xargs|xdg-open|yes|zip)(?=$|\s|;|\||&)/,lookbehind:!0},keyword:{pattern:/(^|\s|;|\||&)(?:let|:|\.|if|then|else|elif|fi|for|break|continue|while|in|case|function|select|do|done|until|echo|exit|return|set|declare)(?=$|\s|;|\||&)/,lookbehind:!0},"boolean":{pattern:/(^|\s|;|\||&)(?:true|false)(?=$|\s|;|\||&)/,lookbehind:!0},operator:/&&?|\|\|?|==?|!=?|<<<?|>>|<=?|>=?|=~/,punctuation:/\$?\(\(?|\)\)?|\.\.|[{}[\];]/};var a=t.variable[1].inside;a["function"]=e.languages.bash["function"],a.keyword=e.languages.bash.keyword,a.boolean=e.languages.bash.boolean,a.operator=e.languages.bash.operator,a.punctuation=e.languages.bash.punctuation}(Prism);
+
+	var docStart = $('#documentation').offset().top,
+	inPageItems = [];
+
+	(function() {
+		$('header').css('min-height',Math.max($(window).height(),620));
+
+		$('body').fadeIn(200);
+
+		var $gallery = new SimpleLightbox('.small-demo a', {});
+
+		interval = window.setInterval(function(){
+			$('.scrollwheel').animate({
+				top: 14
+			},400, function(){
+				$('.scrollwheel').animate({
+					top: 10
+				},400);
+			})
+		},1000);
+
+		$('.flyin-navi a').each(function(i,item){
+			var elem = $(this),
+			item = {
+				refElement: $(elem.attr('href')),
+				parent: elem.parent()
+			}
+			inPageItems.push(item);
 		});
-	});
+
+		$(window).resize(function(){
+			$('header').height(Math.max($(window).height(),620));
+		});
+
+		$('.scrolllink').click(function(e){
+			e.preventDefault();
+			var target = $(this).attr('href');
+			$('html, body').animate({ scrollTop: ($(target).offset().top -50 )}, 'slow');
+		});
+
+		$(window).scroll(function(){
+			var top = $( document ).scrollTop(),
+			inpageNav = $('.flyin-navi');
+			docStart = $('#documentation').offset().top;
+
+			if(top > docStart) {
+				inpageNav.fadeIn('fast');
+			} else {
+				inpageNav.fadeOut('fast');
+			}
+
+			$.each(inPageItems, function(i,item){
+				if(top > item.refElement.offset().top -52){
+					if(!item.parent.hasClass('active')){
+						$('.flyin-navi li').removeClass('active');
+						item.parent.addClass('active');
+					}
+				}
+				else{
+					item.parent.removeClass('active');
+				}
+			});
+		});
+	})();
 </script>
 </body>
 </html>
