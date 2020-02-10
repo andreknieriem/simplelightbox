@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.00
+	Version 2.0.0
 */
 "use strict";
 
@@ -79,6 +79,10 @@ function () {
     _defineProperty(this, "isAnimating", false);
 
     _defineProperty(this, "isClosing", false);
+
+    _defineProperty(this, "urlChangedOnce", false);
+
+    _defineProperty(this, "hashReseted", false);
 
     _defineProperty(this, "historyHasChanges", false);
 
@@ -233,8 +237,6 @@ function () {
             _this.close();
           }
 
-          console.log(_this.isAnimating);
-
           if (!_this.isAnimating && ['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
             _this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
           } // if (['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
@@ -355,7 +357,11 @@ function () {
       element.dispatchEvent(new Event('close.simplelightbox'));
 
       if (this.options.history) {
-        this.resetHash();
+        this.historyHasChanges = false;
+
+        if (!this.hashReseted) {
+          this.resetHash();
+        }
       }
 
       this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), 300, function () {
@@ -614,6 +620,7 @@ function () {
     key: "hashchangeHandler",
     value: function hashchangeHandler() {
       if (this.isOpen && this.hash === this.initialLocationHash) {
+        this.hashReseted = true;
         this.close();
       }
     }
@@ -653,7 +660,6 @@ function () {
       });
       this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], function (event) {
         if (event.target.tagName === 'A' && event.type === 'touchstart') {
-          console.log('WHAT');
           return true;
         }
 
@@ -993,6 +999,7 @@ function () {
     value: function updateHash() {
       var newHash = 'pid=' + (this.currentImageIndex + 1),
           newURL = window.location.href.split('#')[0] + '#' + newHash;
+      this.hashReseted = false;
 
       if (this.pushStateSupport) {
         window.history[this.historyHasChanges ? 'replaceState' : 'pushState']('', document.title, newURL);
@@ -1005,16 +1012,27 @@ function () {
         }
       }
 
+      if (!this.historyHasChanges) {
+        this.urlChangedOnce = true;
+      }
+
       this.historyHasChanges = true;
     }
   }, {
     key: "resetHash",
     value: function resetHash() {
-      if (this.pushStateSupport) {
-        history.pushState('', document.title, window.location.pathname + window.location.search);
+      this.hashReseted = true;
+
+      if (this.urlChangedOnce) {
+        history.back();
       } else {
-        window.location.hash = '';
-      } //in case an history operation is still pending
+        if (this.pushStateSupport) {
+          history.pushState('', document.title, window.location.pathname + window.location.search);
+        } else {
+          window.location.hash = '';
+        }
+      } //
+      //in case an history operation is still pending
 
 
       clearTimeout(this.historyUpdateTimeout);
@@ -1022,6 +1040,8 @@ function () {
   }, {
     key: "updateURL",
     value: function updateURL() {
+      clearTimeout(this.historyUpdateTimeout);
+
       if (!this.historyHasChanges) {
         this.updateHash(); // first time
       } else {
@@ -1095,7 +1115,7 @@ function () {
       this.fadeIn(this.domNodes.overlay, 300);
       this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], 300);
       this.show(this.domNodes.spinner);
-      this.domNodes.counter.querySelector('.sl-current').innerHtml = this.currentImageIndex + 1;
+      this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
       this.adjustImage();
 
       if (this.options.preloading) {

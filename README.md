@@ -188,7 +188,7 @@ $add-vendor-prefixes: true !default;
 
 
 ### Changelog
-**2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation  
+**2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation**    
 **1.17.3 - Fixed new chrome passive error #155**  
 **1.17.2 - Fixed caption keeps disappeared on double click #139 and added better close symbol #133**  
 **1.17.1 - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134**  

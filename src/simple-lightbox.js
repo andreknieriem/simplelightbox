@@ -55,7 +55,8 @@ class SimpleLightbox {
     isOpen = false;
     isAnimating = false;
     isClosing = false;
-
+    urlChangedOnce = false;
+    hashReseted = false;
     historyHasChanges = false;
     historyUpdateTimeout = null;
 
@@ -202,7 +203,6 @@ class SimpleLightbox {
                     if (event.key === 'Escape') {
                         this.close();
                     }
-                    console.log(this.isAnimating);
                     if(!this.isAnimating && ['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
                       this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
                     }
@@ -321,7 +321,10 @@ class SimpleLightbox {
         element.dispatchEvent(new Event('close.simplelightbox'));
 
         if (this.options.history) {
-            this.resetHash();
+            this.historyHasChanges = false;
+            if(!this.hashReseted) {
+                this.resetHash();
+            }
         }
 
         this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), 300, () => {
@@ -354,8 +357,6 @@ class SimpleLightbox {
         this.controlCoordinates.capture = false;
         this.controlCoordinates.initialScale = this.minMax(1, 1, this.options.maxZoom);
         this.controlCoordinates.doubleTapped = false;
-
-
     }
 
     get hash() {
@@ -575,6 +576,7 @@ class SimpleLightbox {
 
     hashchangeHandler() {
         if (this.isOpen && this.hash === this.initialLocationHash) {
+            this.hashReseted = true;
             this.close();
         }
     }
@@ -614,7 +616,6 @@ class SimpleLightbox {
 
         this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], (event) => {
             if (event.target.tagName === 'A' && event.type === 'touchstart') {
-              console.log('WHAT');
                 return true;
             }
 
@@ -931,6 +932,8 @@ class SimpleLightbox {
         let newHash = 'pid=' + (this.currentImageIndex + 1),
             newURL = window.location.href.split('#')[0] + '#' + newHash;
 
+        this.hashReseted = false;
+
         if (this.pushStateSupport) {
             window.history[this.historyHasChanges ? 'replaceState' : 'pushState']('', document.title, newURL);
         } else {
@@ -941,21 +944,31 @@ class SimpleLightbox {
                 window.location.hash = newHash;
             }
         }
+        if(!this.historyHasChanges) {
+            this.urlChangedOnce = true;
+        }
 
         this.historyHasChanges = true;
     }
 
     resetHash() {
-        if (this.pushStateSupport) {
-            history.pushState('', document.title, window.location.pathname + window.location.search);
+        this.hashReseted = true;
+        if(this.urlChangedOnce) {
+            history.back();
         } else {
-            window.location.hash = '';
+            if (this.pushStateSupport) {
+                history.pushState('', document.title, window.location.pathname + window.location.search);
+            } else {
+                window.location.hash = '';
+            }
         }
+        //
         //in case an history operation is still pending
         clearTimeout(this.historyUpdateTimeout);
     }
 
     updateURL() {
+        clearTimeout(this.historyUpdateTimeout);
         if (!this.historyHasChanges) {
             this.updateHash(); // first time
         } else {
@@ -1031,8 +1044,7 @@ class SimpleLightbox {
         this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], 300);
 
         this.show(this.domNodes.spinner);
-
-        this.domNodes.counter.querySelector('.sl-current').innerHtml = this.currentImageIndex + 1;
+        this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
 
         this.adjustImage();
         if (this.options.preloading) {
