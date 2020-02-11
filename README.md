@@ -1,5 +1,5 @@
 # simplelightbox
-Touch-friendly image lightbox for mobile and desktop with jQuery
+Touch-friendly image lightbox for mobile and desktop
 
 ### Features
 * responsive
@@ -13,7 +13,7 @@ Touch-friendly image lightbox for mobile and desktop with jQuery
 * Android, iOs and Windows phone support
 * CSS3 Transitions with fallback for older browsers
 * Works in every modern Browser, even in IE 9+
-* Can use jQuery 1.x,2.x and 3.x
+* Can use jQuery 1.x,2.x and 3.x, but don't need
 * Keyboard support
 * Pinch to zoom
 * Double-tap to zoom
@@ -30,10 +30,17 @@ bower install simplelightbox
 npm install simplelightbox
 ```
 
+After that include simple-lightbox(.min).css and simple-lightbox(.min).js to your page.
+
 ### Usage
-Simple include simplelightbox.css and simple-lightbox.js to your page
+When using the standalone variant (`simple-lightbox(.min).js`)
 ```javascript
-var lightbox = $('.gallery a').simpleLightbox(options);
+new SimpleLightbox('.some-element a', { /* options */ });
+```
+
+The jquery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (v1.x):
+```javascript
+$('.some-element a').simpleLightbox({ /* options */ });
 ```
 
 ### Markup
@@ -120,7 +127,7 @@ $('.gallery a').on('error.simplelightbox', function (e) {
 ### Public Methods
 | Name | Description |
 | ---- | ----------- |
-| open | Opens the lightbox with an given jQuery Element |
+| open | Opens the lightbox with an given Element |
 | close | Closes current openend Lightbox |
 | next | Go to next image |
 | prev | Go to previous image |
@@ -175,8 +182,15 @@ $sl-iframe-border-large:  0 none;
 $add-vendor-prefixes: true !default;
 ```
 
+### Contributing
+**using gulp**  
+Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and src/simple-lightbox.scss. Both files will be compiled to dist/simple-lightbox.js and dist/simple-lightbox.css respectively. Open dist/index.html in your browser to inspect your changes...
+
+**Building**  
+Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation**    
 **1.17.3 - Fixed new chrome passive error #155**  
 **1.17.2 - Fixed caption keeps disappeared on double click #139 and added better close symbol #133**  
 **1.17.1 - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134**  
@@ -235,6 +249,7 @@ $add-vendor-prefixes: true !default;
 [Andre Rinas](https://www.andrerinas.de/) - [Github](https://github.com/andreknieriem/)
 
 ### Contributors
+[Martin Tillmann](https://github.com/Mtillmann)  
 [nicekiwi](https://github.com/nicekiwi)  
 [helloilya](https://github.com/helloilya)  
 [bitstarr](https://github.com/bitstarr)  

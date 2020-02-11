@@ -1,3 +1,9 @@
+/*!
+	By André Rinas, www.andrerinas.de
+	Documentation, www.simplelightbox.de
+	Available for use under the MIT License
+	Version 2.0.0
+*/
 body.hidden-scroll {
   overflow: hidden; }
 
@@ -14,6 +20,8 @@ body.hidden-scroll {
 
 .sl-wrapper {
   z-index: 1040; }
+  .sl-wrapper * {
+    box-sizing: border-box; }
   .sl-wrapper button {
     border: 0 none;
     background: transparent;
