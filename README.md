@@ -30,11 +30,7 @@ bower install simplelightbox
 npm install simplelightbox
 ```
 
-### Usage
-Simple include simple-lightbox.css and simple-lightbox.js to your page
-```javascript
-var lightbox = $('.gallery a').simpleLightbox(options);
-```
+After that include simple-lightbox(.min).css and simple-lightbox(.min).js to your page.
 
 ### Usage
 When using the standalone variant (`simple-lightbox(.min).js`)
@@ -42,7 +38,7 @@ When using the standalone variant (`simple-lightbox(.min).js`)
 new SimpleLightbox('.some-element a', { /* options */ });
 ```
 
-The jquery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (f1.x):
+The jquery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (v1.x):
 ```javascript
 $('.some-element a').simpleLightbox({ /* options */ });
 ```
@@ -186,6 +182,12 @@ $sl-iframe-border-large:  0 none;
 $add-vendor-prefixes: true !default;
 ```
 
+### Contributing
+**using gulp**  
+Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and src/simple-lightbox.scss. Both files will be compiled to dist/simple-lightbox.js and dist/simple-lightbox.css respectively. Open dist/index.html in your browser to inspect your changes...
+
+**Building**  
+Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
 **2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation**    
