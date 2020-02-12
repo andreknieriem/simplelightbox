@@ -125,13 +125,15 @@ class SimpleLightbox {
             this.elements = ((typeof elements.length !== 'undefined') && elements.length > 0) ? Array.from(elements) : [elements];
         }
 
+        this.relatedElements = [];
+
         this.transitionPrefix = this.calculateTransitionPrefix();
         this.transitionCapable = this.transitionPrefix !== false;
         this.initialLocationHash = this.hash;
 
         // this should be handled by attribute selector IMHO! => 'a[rel=bla]'...
         if (this.options.rel) {
-            this.elements = Array.from(this.elements).filter(element => element.getAttribute('rel') === this.options.rel);
+            this.elements = this.getRelated(this.options.rel);
         }
 
         this.createDomNodes();
@@ -140,12 +142,12 @@ class SimpleLightbox {
             this.domNodes.wrapper.appendChild(this.domNodes.closeButton);
         }
 
-        if (this.options.showCounter) {
-            if (this.elements.length > 1) {
-                this.domNodes.wrapper.appendChild(this.domNodes.counter);
-                this.domNodes.counter.querySelector('.sl-total').innerHTML = this.elements.length;
-            }
-        }
+        // if (this.options.showCounter) {
+        //     if (this.elements.length > 1) {
+        //         this.domNodes.wrapper.appendChild(this.domNodes.counter);
+        //         this.domNodes.counter.querySelector('.sl-total').innerHTML = this.elements.length;
+        //     }
+        // }
 
         if (this.options.nav) {
             this.domNodes.wrapper.appendChild(this.domNodes.navigation);
@@ -317,7 +319,7 @@ class SimpleLightbox {
         }
 
         this.isClosing = true;
-        let element = this.elements[this.currentImageIndex];
+        let element = this.relatedElements[this.currentImageIndex];
         element.dispatchEvent(new Event('close.simplelightbox'));
 
         if (this.options.history) {
@@ -365,7 +367,7 @@ class SimpleLightbox {
 
     preload() {
         let index = this.currentImageIndex,
-            length = this.elements.length,
+            length = this.relatedElements.length,
             next = (index + 1 < 0) ? length - 1 : (index + 1 >= length - 1) ? 0 : index + 1,
             prev = (index - 1 < 0) ? length - 1 : (index - 1 >= length - 1) ? 0 : index - 1,
             nextImage = new Image(),
@@ -376,32 +378,32 @@ class SimpleLightbox {
             if (this.loadedImages.indexOf(src) === -1) { //is this condition even required... setting multiple times will not change usage...
                 this.loadedImages.push(src);
             }
-            this.elements[index].dispatchEvent(new Event('nextImageLoaded.' + this.eventNamespace));
+            this.relatedElements[index].dispatchEvent(new Event('nextImageLoaded.' + this.eventNamespace));
         });
-        nextImage.setAttribute('src', this.elements[next].getAttribute(this.options.sourceAttr));
+        nextImage.setAttribute('src', this.relatedElements[next].getAttribute(this.options.sourceAttr));
 
         prevImage.addEventListener('load', (event) => {
             let src = event.target.getAttribute('src');
             if (this.loadedImages.indexOf(src) === -1) {
                 this.loadedImages.push(src);
             }
-            this.elements[index].dispatchEvent(new Event('prevImageLoaded.' + this.eventNamespace));
+            this.relatedElements[index].dispatchEvent(new Event('prevImageLoaded.' + this.eventNamespace));
         });
-        prevImage.setAttribute('src', this.elements[prev].getAttribute(this.options.sourceAttr));
+        prevImage.setAttribute('src', this.relatedElements[prev].getAttribute(this.options.sourceAttr));
     }
 
     loadImage(direction) {
 
-        this.elements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
-        this.elements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
+        this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
+        this.relatedElements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
 
         let newIndex = this.currentImageIndex + direction;
 
-        if (this.isAnimating || (newIndex < 0 || newIndex >= this.elements.length) && this.options.loop === false) {
+        if (this.isAnimating || (newIndex < 0 || newIndex >= this.relatedElements.length) && this.options.loop === false) {
             return false;
         }
 
-        this.currentImageIndex = (newIndex < 0) ? this.elements.length - 1 : (newIndex > this.elements.length - 1) ? 0 : newIndex;
+        this.currentImageIndex = (newIndex < 0) ? this.relatedElements.length - 1 : (newIndex > this.relatedElements.length - 1) ? 0 : newIndex;
 
         this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
 
@@ -413,7 +415,7 @@ class SimpleLightbox {
         this.fadeOut(this.domNodes.image, 300, () => {
           this.isAnimating = true;
             setTimeout(() => {
-                let element = this.elements[this.currentImageIndex];
+                let element = this.relatedElements[this.currentImageIndex];
                 this.currentImage.setAttribute('src', element.getAttribute(this.options.sourceAttr));
 
                 if (this.loadedImages.indexOf(element.getAttribute(this.options.sourceAttr)) === -1) {
@@ -447,7 +449,7 @@ class SimpleLightbox {
         this.zoomPanElement(0, 0, 1);
 
         tmpImage.addEventListener('error', (event) => {
-            this.elements[this.currentImageIndex].dispatchEvent(new Event('error.' + this.eventNamespace));
+            this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('error.' + this.eventNamespace));
             this.isAnimating = false;
             this.isOpen = false;
             this.domNodes.spinner.style.display = 'none';
@@ -467,8 +469,8 @@ class SimpleLightbox {
 
         tmpImage.addEventListener('load', (event) => {
             if (typeof direction !== 'undefined') {
-                this.elements[this.currentImageIndex].dispatchEvent(new Event('changed.' + this.eventNamespace));
-                this.elements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'nextDone' : 'prevDone') + '.' + this.eventNamespace));
+                this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('changed.' + this.eventNamespace));
+                this.relatedElements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'nextDone' : 'prevDone') + '.' + this.eventNamespace));
             }
 
             // history
@@ -500,7 +502,7 @@ class SimpleLightbox {
 
             this.isOpen = true;
 
-            let captionContainer = this.options.captionSelector === 'self' ? this.elements[this.currentImageIndex] : this.elements[this.currentImageIndex].querySelector(this.options.captionSelector),
+            let captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector),
                 captionText;
 
             if (this.options.captionType === 'data') {
@@ -515,19 +517,21 @@ class SimpleLightbox {
                 if (this.currentImageIndex === 0) {
                     this.hide(this.domNodes.navigation.querySelector('.sl-prev'));
                 }
-                if (this.currentImageIndex >= this.elements.length - 1) {
+                if (this.currentImageIndex >= this.relatedElements.length - 1) {
                     this.hide(this.domNodes.navigation.querySelector('.sl-next'));
                 }
                 if (this.currentImageIndex > 0) {
                     this.show(this.domNodes.navigation.querySelector('.sl-prev'));
                 }
-                if (this.currentImageIndex < this.elements.length - 1) {
+                if (this.currentImageIndex < this.relatedElements.length - 1) {
                     this.show(this.domNodes.navigation.querySelector('.sl-next'));
                 }
             }
 
-            if (this.elements.length === 1) {
+            if (this.relatedElements.length === 1) {
                 this.hide(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+            } else {
+                this.show(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
             }
 
             if (direction === 1 || direction === -1) {
@@ -852,7 +856,7 @@ class SimpleLightbox {
                     if (this.currentImageIndex === 0 && this.controlCoordinates.swipeDiff < 0) {
                         possibleDir = false;
                     }
-                    if (this.currentImageIndex >= this.elements.length - 1 && this.controlCoordinates.swipeDiff > 0) {
+                    if (this.currentImageIndex >= this.relatedElements.length - 1 && this.controlCoordinates.swipeDiff > 0) {
                         possibleDir = false;
                     }
                 }
@@ -1000,24 +1004,13 @@ class SimpleLightbox {
     }
 
     getRelated(rel) {
-        // index = 0;
-        console.log(rel);
+        let elems;
         if (rel && rel !== false && rel !== 'nofollow') {
-        //     $related = $('.' + boxElement).filter(function () {
-        //         var options = $.data(this, colorbox);
-        //         var settings = new Settings(this, options);
-        //         return (settings.get('rel') === rel);
-        //     });
-        //     index = $related.index(settings.el);
-        //
-        //     // Check direct calls to Colorbox.
-        //     if (index === -1) {
-        //         $related = $related.add(settings.el);
-        //         index = $related.length - 1;
-        //     }
-        // } else {
-        //     $related = $(settings.el);
+            elems = Array.from(this.elements).filter(element => element.getAttribute('rel') === rel);
+        } else {
+            elems = this.elements;
         }
+        return elems;
     }
 
     openImage(element) {
@@ -1038,11 +1031,19 @@ class SimpleLightbox {
             document.body.appendChild(this.domNodes.overlay);
         }
 
-        this.getRelated(element.rel);
+        this.relatedElements = this.getRelated(element.rel);
+
+        if (this.options.showCounter) {
+            if (this.relatedElements.length == 1 && this.domNodes.wrapper.contains(this.domNodes.counter)) {
+                this.domNodes.wrapper.removeChild(this.domNodes.counter);
+            } else if(this.relatedElements.length > 1 && !this.domNodes.wrapper.contains(this.domNodes.counter)) {
+                this.domNodes.wrapper.appendChild(this.domNodes.counter);
+            }
+        }
 
         this.isAnimating = true;
 
-        this.currentImageIndex = this.elements.indexOf(element);
+        this.currentImageIndex = this.relatedElements.indexOf(element);
 
         let targetURL = element.getAttribute(this.options.sourceAttr);
 
@@ -1068,6 +1069,7 @@ class SimpleLightbox {
 
         this.show(this.domNodes.spinner);
         this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
+        this.domNodes.counter.querySelector('.sl-total').innerHTML = this.relatedElements.length;
 
         this.adjustImage();
         if (this.options.preloading) {

@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.0.0
+	Version 2.1.0
 */
 "use strict";
 
@@ -156,28 +156,26 @@ function () {
       this.elements = typeof elements.length !== 'undefined' && elements.length > 0 ? Array.from(elements) : [elements];
     }
 
+    this.relatedElements = [];
     this.transitionPrefix = this.calculateTransitionPrefix();
     this.transitionCapable = this.transitionPrefix !== false;
     this.initialLocationHash = this.hash; // this should be handled by attribute selector IMHO! => 'a[rel=bla]'...
 
     if (this.options.rel) {
-      this.elements = Array.from(this.elements).filter(function (element) {
-        return element.getAttribute('rel') === _this.options.rel;
-      });
+      this.elements = this.getRelated(this.options.rel);
     }
 
     this.createDomNodes();
 
     if (this.options.close) {
       this.domNodes.wrapper.appendChild(this.domNodes.closeButton);
-    }
+    } // if (this.options.showCounter) {
+    //     if (this.elements.length > 1) {
+    //         this.domNodes.wrapper.appendChild(this.domNodes.counter);
+    //         this.domNodes.counter.querySelector('.sl-total').innerHTML = this.elements.length;
+    //     }
+    // }
 
-    if (this.options.showCounter) {
-      if (this.elements.length > 1) {
-        this.domNodes.wrapper.appendChild(this.domNodes.counter);
-        this.domNodes.counter.querySelector('.sl-total').innerHTML = this.elements.length;
-      }
-    }
 
     if (this.options.nav) {
       this.domNodes.wrapper.appendChild(this.domNodes.navigation);
@@ -353,7 +351,7 @@ function () {
       }
 
       this.isClosing = true;
-      var element = this.elements[this.currentImageIndex];
+      var element = this.relatedElements[this.currentImageIndex];
       element.dispatchEvent(new Event('close.simplelightbox'));
 
       if (this.options.history) {
@@ -398,7 +396,7 @@ function () {
       var _this3 = this;
 
       var index = this.currentImageIndex,
-          length = this.elements.length,
+          length = this.relatedElements.length,
           next = index + 1 < 0 ? length - 1 : index + 1 >= length - 1 ? 0 : index + 1,
           prev = index - 1 < 0 ? length - 1 : index - 1 >= length - 1 ? 0 : index - 1,
           nextImage = new Image(),
@@ -411,9 +409,9 @@ function () {
           _this3.loadedImages.push(src);
         }
 
-        _this3.elements[index].dispatchEvent(new Event('nextImageLoaded.' + _this3.eventNamespace));
+        _this3.relatedElements[index].dispatchEvent(new Event('nextImageLoaded.' + _this3.eventNamespace));
       });
-      nextImage.setAttribute('src', this.elements[next].getAttribute(this.options.sourceAttr));
+      nextImage.setAttribute('src', this.relatedElements[next].getAttribute(this.options.sourceAttr));
       prevImage.addEventListener('load', function (event) {
         var src = event.target.getAttribute('src');
 
@@ -421,24 +419,24 @@ function () {
           _this3.loadedImages.push(src);
         }
 
-        _this3.elements[index].dispatchEvent(new Event('prevImageLoaded.' + _this3.eventNamespace));
+        _this3.relatedElements[index].dispatchEvent(new Event('prevImageLoaded.' + _this3.eventNamespace));
       });
-      prevImage.setAttribute('src', this.elements[prev].getAttribute(this.options.sourceAttr));
+      prevImage.setAttribute('src', this.relatedElements[prev].getAttribute(this.options.sourceAttr));
     }
   }, {
     key: "loadImage",
     value: function loadImage(direction) {
       var _this4 = this;
 
-      this.elements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
-      this.elements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
+      this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
+      this.relatedElements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
       var newIndex = this.currentImageIndex + direction;
 
-      if (this.isAnimating || (newIndex < 0 || newIndex >= this.elements.length) && this.options.loop === false) {
+      if (this.isAnimating || (newIndex < 0 || newIndex >= this.relatedElements.length) && this.options.loop === false) {
         return false;
       }
 
-      this.currentImageIndex = newIndex < 0 ? this.elements.length - 1 : newIndex > this.elements.length - 1 ? 0 : newIndex;
+      this.currentImageIndex = newIndex < 0 ? this.relatedElements.length - 1 : newIndex > this.relatedElements.length - 1 ? 0 : newIndex;
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
 
       if (this.options.animationSlide) {
@@ -448,7 +446,7 @@ function () {
       this.fadeOut(this.domNodes.image, 300, function () {
         _this4.isAnimating = true;
         setTimeout(function () {
-          var element = _this4.elements[_this4.currentImageIndex];
+          var element = _this4.relatedElements[_this4.currentImageIndex];
 
           _this4.currentImage.setAttribute('src', element.getAttribute(_this4.options.sourceAttr));
 
@@ -484,7 +482,7 @@ function () {
       this.currentImage.dataset.translateY = 0;
       this.zoomPanElement(0, 0, 1);
       tmpImage.addEventListener('error', function (event) {
-        _this5.elements[_this5.currentImageIndex].dispatchEvent(new Event('error.' + _this5.eventNamespace));
+        _this5.relatedElements[_this5.currentImageIndex].dispatchEvent(new Event('error.' + _this5.eventNamespace));
 
         _this5.isAnimating = false;
         _this5.isOpen = false;
@@ -503,9 +501,9 @@ function () {
       });
       tmpImage.addEventListener('load', function (event) {
         if (typeof direction !== 'undefined') {
-          _this5.elements[_this5.currentImageIndex].dispatchEvent(new Event('changed.' + _this5.eventNamespace));
+          _this5.relatedElements[_this5.currentImageIndex].dispatchEvent(new Event('changed.' + _this5.eventNamespace));
 
-          _this5.elements[_this5.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'nextDone' : 'prevDone') + '.' + _this5.eventNamespace));
+          _this5.relatedElements[_this5.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'nextDone' : 'prevDone') + '.' + _this5.eventNamespace));
         } // history
 
 
@@ -535,7 +533,7 @@ function () {
         _this5.fadeIn(_this5.currentImage, 300);
 
         _this5.isOpen = true;
-        var captionContainer = _this5.options.captionSelector === 'self' ? _this5.elements[_this5.currentImageIndex] : _this5.elements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
+        var captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
             captionText;
 
         if (_this5.options.captionType === 'data') {
@@ -551,7 +549,7 @@ function () {
             _this5.hide(_this5.domNodes.navigation.querySelector('.sl-prev'));
           }
 
-          if (_this5.currentImageIndex >= _this5.elements.length - 1) {
+          if (_this5.currentImageIndex >= _this5.relatedElements.length - 1) {
             _this5.hide(_this5.domNodes.navigation.querySelector('.sl-next'));
           }
 
@@ -559,13 +557,15 @@ function () {
             _this5.show(_this5.domNodes.navigation.querySelector('.sl-prev'));
           }
 
-          if (_this5.currentImageIndex < _this5.elements.length - 1) {
+          if (_this5.currentImageIndex < _this5.relatedElements.length - 1) {
             _this5.show(_this5.domNodes.navigation.querySelector('.sl-next'));
           }
         }
 
-        if (_this5.elements.length === 1) {
+        if (_this5.relatedElements.length === 1) {
           _this5.hide(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+        } else {
+          _this5.show(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
         }
 
         if (direction === 1 || direction === -1) {
@@ -912,7 +912,7 @@ function () {
               possibleDir = false;
             }
 
-            if (_this6.currentImageIndex >= _this6.elements.length - 1 && _this6.controlCoordinates.swipeDiff > 0) {
+            if (_this6.currentImageIndex >= _this6.relatedElements.length - 1 && _this6.controlCoordinates.swipeDiff > 0) {
               possibleDir = false;
             }
           }
@@ -1074,6 +1074,21 @@ function () {
       this.domNodes.image.style[this.transitionPrefix + 'transition'] = this.transitionPrefix + 'transform ' + speed + 's linear';
     }
   }, {
+    key: "getRelated",
+    value: function getRelated(rel) {
+      var elems;
+
+      if (rel && rel !== false && rel !== 'nofollow') {
+        elems = Array.from(this.elements).filter(function (element) {
+          return element.getAttribute('rel') === rel;
+        });
+      } else {
+        elems = this.elements;
+      }
+
+      return elems;
+    }
+  }, {
     key: "openImage",
     value: function openImage(element) {
       var _this8 = this;
@@ -1095,8 +1110,18 @@ function () {
         document.body.appendChild(this.domNodes.overlay);
       }
 
+      this.relatedElements = this.getRelated(element.rel);
+
+      if (this.options.showCounter) {
+        if (this.relatedElements.length == 1 && this.domNodes.wrapper.contains(this.domNodes.counter)) {
+          this.domNodes.wrapper.removeChild(this.domNodes.counter);
+        } else if (this.relatedElements.length > 1 && !this.domNodes.wrapper.contains(this.domNodes.counter)) {
+          this.domNodes.wrapper.appendChild(this.domNodes.counter);
+        }
+      }
+
       this.isAnimating = true;
-      this.currentImageIndex = this.elements.indexOf(element);
+      this.currentImageIndex = this.relatedElements.indexOf(element);
       var targetURL = element.getAttribute(this.options.sourceAttr);
       this.currentImage = document.createElement('img');
       this.currentImage.style.display = 'none';
@@ -1116,6 +1141,7 @@ function () {
       this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], 300);
       this.show(this.domNodes.spinner);
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
+      this.domNodes.counter.querySelector('.sl-total').innerHTML = this.relatedElements.length;
       this.adjustImage();
 
       if (this.options.preloading) {

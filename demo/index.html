@@ -28,10 +28,10 @@
 			<div class="small-demo">
 				<a rel="rel1" href="img/full/01.jpg"><img src="img/thumb/01.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" /></a>
-				<a rel="rel1" href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
+				<a rel="rel3" href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" /></a>
-				<a rel="rel2" href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
+				<a rel="rel3" href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
 				<div class="clearing"></div>
 				<div class="caption">
 					Click on an image to see it in action
@@ -571,14 +571,15 @@ $add-vendor-prefixes: true !default;</code>
 		</div>
 	</div>
 </section>
-<section>
+<section class="changelog">
 	<div class="container">
 		<div class="row">
 			<div class="col-left">
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
-				<strong>2.0.0</strong> - 2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
+				<strong>2.1.0</strong> - Added rel grouping feature #16<br />
+				<strong>2.0.0</strong> - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
 				<strong>1.17.3</strong> - Fixed new chrome passive error #155<br />
 				<strong>1.17.2</strong> - Fixed caption keeps disappeared on double click #139 and added better close symbol #133<br />
 				<strong>1.17.1</strong> - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134<br />
@@ -749,6 +750,10 @@ $add-vendor-prefixes: true !default;</code>
 				}
 			});
 		});
+
+		// set all github links
+		// $('body').html().matchAll(/#\d{1,4}/)
+
 	})();
 </script>
 </body>
