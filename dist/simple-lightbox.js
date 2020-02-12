@@ -1074,6 +1074,28 @@ function () {
       this.domNodes.image.style[this.transitionPrefix + 'transition'] = this.transitionPrefix + 'transform ' + speed + 's linear';
     }
   }, {
+    key: "getRelated",
+    value: function getRelated(rel) {
+      // index = 0;
+      console.log(rel);
+
+      if (rel && rel !== false && rel !== 'nofollow') {//     $related = $('.' + boxElement).filter(function () {
+        //         var options = $.data(this, colorbox);
+        //         var settings = new Settings(this, options);
+        //         return (settings.get('rel') === rel);
+        //     });
+        //     index = $related.index(settings.el);
+        //
+        //     // Check direct calls to Colorbox.
+        //     if (index === -1) {
+        //         $related = $related.add(settings.el);
+        //         index = $related.length - 1;
+        //     }
+        // } else {
+        //     $related = $(settings.el);
+      }
+    }
+  }, {
     key: "openImage",
     value: function openImage(element) {
       var _this8 = this;
@@ -1095,6 +1117,7 @@ function () {
         document.body.appendChild(this.domNodes.overlay);
       }
 
+      this.getRelated(element.rel);
       this.isAnimating = true;
       this.currentImageIndex = this.elements.indexOf(element);
       var targetURL = element.getAttribute(this.options.sourceAttr);

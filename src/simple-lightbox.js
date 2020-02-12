@@ -999,6 +999,27 @@ class SimpleLightbox {
         this.domNodes.image.style[this.transitionPrefix + 'transition'] = this.transitionPrefix + 'transform ' + speed + 's linear';
     }
 
+    getRelated(rel) {
+        // index = 0;
+        console.log(rel);
+        if (rel && rel !== false && rel !== 'nofollow') {
+        //     $related = $('.' + boxElement).filter(function () {
+        //         var options = $.data(this, colorbox);
+        //         var settings = new Settings(this, options);
+        //         return (settings.get('rel') === rel);
+        //     });
+        //     index = $related.index(settings.el);
+        //
+        //     // Check direct calls to Colorbox.
+        //     if (index === -1) {
+        //         $related = $related.add(settings.el);
+        //         index = $related.length - 1;
+        //     }
+        // } else {
+        //     $related = $(settings.el);
+        }
+    }
+
     openImage(element) {
         element.dispatchEvent(new Event('show.' + this.eventNamespace));
 
@@ -1016,6 +1037,8 @@ class SimpleLightbox {
         if (this.options.overlay) {
             document.body.appendChild(this.domNodes.overlay);
         }
+
+        this.getRelated(element.rel);
 
         this.isAnimating = true;
 
