@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.0.0</sup></h1>
+				<h1>SimpleLightbox <sup>v2.1.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -26,15 +26,15 @@
 				</nav>
 			</div>
 			<div class="small-demo">
-				<a rel="rel1" href="img/full/01.jpg"><img src="img/thumb/01.jpg" alt="" /></a>
+				<a href="img/full/01.jpg"><img src="img/thumb/01.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" /></a>
 				<a rel="rel3" href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" /></a>
 				<a rel="rel2" href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" /></a>
-				<a rel="rel3" href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
+				<a rel="rel1" href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
 				<div class="clearing"></div>
 				<div class="caption">
-					Click on an image to see it in action
+					Click on an image to see it in action. Note, that the lightbox is grouped by rel attribute.
 				</div>
 			</div>
 			<div class="clearing"></div>
@@ -271,7 +271,7 @@ npm install simplelightbox</code>
 					<td>rel</td>
 					<td>false</td>
 					<td>mixed</td>
-					<td>group images by rel attribute of link with same selector.</td>
+					<td>This can be used as an anchor rel alternative for Simplelightbox. This allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping.</td>
 					</tr>
 					<tr>
 					<td>docClose</td>
@@ -697,6 +697,7 @@ $add-vendor-prefixes: true !default;</code>
 		$('body').fadeIn(200);
 
 		var $gallery = new SimpleLightbox('.small-demo a', {});
+		var $gallery2 = new SimpleLightbox('.small-demo2 a', {});
 
 		interval = window.setInterval(function(){
 			$('.scrollwheel').animate({

@@ -79,7 +79,7 @@ For a whole example just look at the demo folder.
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
-| rel | false | mixed | group images by rel attribute of link with same selector.
+| rel | false | mixed | This can be used as an anchor rel alternative for Simplelightbox. This allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
 | docClose | true | bool | closes the lightbox when clicking outside |
 | swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
