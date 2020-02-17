@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.0.0</sup></h1>
+				<h1>SimpleLightbox <sup>v2.1.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -368,6 +368,12 @@ npm install simplelightbox</code>
 						<td>string</td>
 						<td>adds class to html element if lightbox is open. If empty or false no class is set</td>
 					</tr>
+					<tr>
+						<td>rtl</td>
+						<td>false</td>
+						<td>bool</td>
+						<td>change direction to rigth-to-left</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -578,7 +584,8 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
-				<strong>2.0.0</strong> - 2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
+				<strong>2.1.0</strong> - Added rel grouping feature #16 and added rtl support #161<br />
+				<strong>2.0.0</strong> - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
 				<strong>1.17.3</strong> - Fixed new chrome passive error #155<br />
 				<strong>1.17.2</strong> - Fixed caption keeps disappeared on double click #139 and added better close symbol #133<br />
 				<strong>1.17.1</strong> - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134<br />
