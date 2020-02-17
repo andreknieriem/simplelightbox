@@ -39,7 +39,8 @@ class SimpleLightbox {
         throttleInterval: 0,
         doubleTapZoom: 2,
         maxZoom: 10,
-        htmlClass: 'has-lightbox'
+        htmlClass: 'has-lightbox',
+        rtl: false
     };
 
     transitionPrefix;
@@ -116,7 +117,7 @@ class SimpleLightbox {
 
     constructor(elements, options) {
 
-        this.options = Object.assign(this.defaultOptions, options)
+        this.options = Object.assign(this.defaultOptions, options);
 
         if (typeof elements === 'string') {
             this.initialSelector = elements;
@@ -208,9 +209,6 @@ class SimpleLightbox {
                     if(!this.isAnimating && ['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
                       this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
                     }
-                    // if (['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
-                    //     this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
-                    // }
                 }
             }, this.options.throttleInterval));
         }
@@ -252,6 +250,9 @@ class SimpleLightbox {
         this.domNodes.wrapper.classList.add('sl-wrapper');
         if (this.options.className) {
             this.domNodes.wrapper.classList.add(this.options.className);
+        }
+        if(this.options.rtl) {
+            this.domNodes.wrapper.classList.add('sl-dir-rtl');
         }
     }
 
@@ -393,6 +394,10 @@ class SimpleLightbox {
     }
 
     loadImage(direction) {
+        let slideDirection = direction;
+        if(this.options.rtl) {
+            direction = -direction;
+        }
 
         this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
         this.relatedElements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
@@ -409,7 +414,7 @@ class SimpleLightbox {
 
 
         if (this.options.animationSlide) {
-            this.slide(this.options.animationSpeed / 1000, (-100 * direction) - this.controlCoordinates.swipeDiff + 'px');
+            this.slide(this.options.animationSpeed / 1000, (-100 * slideDirection) - this.controlCoordinates.swipeDiff + 'px');
         }
 
         this.fadeOut(this.domNodes.image, 300, () => {
@@ -426,7 +431,7 @@ class SimpleLightbox {
                   this.domNodes.image.removeChild(this.domNodes.caption);
                 }
 
-                this.adjustImage(direction);
+                this.adjustImage(slideDirection);
                 if (this.options.preloading) this.preload();
             }, 100);
         });

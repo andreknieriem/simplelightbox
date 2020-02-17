@@ -95,6 +95,8 @@ body.hidden-scroll {
           .sl-wrapper .sl-navigation button.sl-prev {
             left: 20px;
             font-size: 3rem; } }
+  .sl-wrapper.sl-dir-rtl .sl-navigation {
+    direction: ltr; }
   .sl-wrapper .sl-image {
     position: fixed;
     -ms-touch-action: none;

@@ -61,7 +61,8 @@ function () {
       throttleInterval: 0,
       doubleTapZoom: 2,
       maxZoom: 10,
-      htmlClass: 'has-lightbox'
+      htmlClass: 'has-lightbox',
+      rtl: false
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
@@ -237,10 +238,7 @@ function () {
 
           if (!_this.isAnimating && ['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
             _this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
-          } // if (['ArrowLeft', 'ArrowRight'].indexOf(event.key) > -1) {
-          //     this.loadImage(event.key === 'ArrowRight' ? 1 : -1);
-          // }
-
+          }
         }
       }, this.options.throttleInterval));
     }
@@ -280,6 +278,10 @@ function () {
 
       if (this.options.className) {
         this.domNodes.wrapper.classList.add(this.options.className);
+      }
+
+      if (this.options.rtl) {
+        this.domNodes.wrapper.classList.add('sl-dir-rtl');
       }
     }
   }, {
@@ -428,6 +430,12 @@ function () {
     value: function loadImage(direction) {
       var _this4 = this;
 
+      var slideDirection = direction;
+
+      if (this.options.rtl) {
+        direction = -direction;
+      }
+
       this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('change.' + this.eventNamespace));
       this.relatedElements[this.currentImageIndex].dispatchEvent(new Event((direction === 1 ? 'next' : 'prev') + '.' + this.eventNamespace));
       var newIndex = this.currentImageIndex + direction;
@@ -440,7 +448,7 @@ function () {
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
 
       if (this.options.animationSlide) {
-        this.slide(this.options.animationSpeed / 1000, -100 * direction - this.controlCoordinates.swipeDiff + 'px');
+        this.slide(this.options.animationSpeed / 1000, -100 * slideDirection - this.controlCoordinates.swipeDiff + 'px');
       }
 
       this.fadeOut(this.domNodes.image, 300, function () {
@@ -458,7 +466,7 @@ function () {
             _this4.domNodes.image.removeChild(_this4.domNodes.caption);
           }
 
-          _this4.adjustImage(direction);
+          _this4.adjustImage(slideDirection);
 
           if (_this4.options.preloading) _this4.preload();
         }, 100);

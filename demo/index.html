@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
 <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css" />
+<link rel="stylesheet" href="../dist/simple-lightbox.css" />
 <link rel="stylesheet" href="demo.css" />
 <title>SimpleLightbox by André Rinas</title>
 </head>
@@ -368,6 +368,12 @@ npm install simplelightbox</code>
 					<td>string</td>
 					<td>adds class to html element if lightbox is open. If empty or false no class is set</td>
 					</tr>
+					<tr>
+					<td>rtl</td>
+					<td>false</td>
+					<td>bool</td>
+					<td>change direction to rigth-to-left</td>
+					</tr>
 					</tbody>
 					</table>
 			</div>
@@ -697,7 +703,6 @@ $add-vendor-prefixes: true !default;</code>
 		$('body').fadeIn(200);
 
 		var $gallery = new SimpleLightbox('.small-demo a', {});
-		var $gallery2 = new SimpleLightbox('.small-demo2 a', {});
 
 		interval = window.setInterval(function(){
 			$('.scrollwheel').animate({

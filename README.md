@@ -79,7 +79,7 @@ For a whole example just look at the demo folder.
 | preloading | true | bool | allows preloading next und previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
-| rel | false | mixed | This can be used as an anchor rel alternative for Simplelightbox. This allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
+| rel | false | mixed | By default, false means, that the lightbox groups by rel automatically. This option can be used as an anchor rel alternative for Simplelightbox. It allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
 | docClose | true | bool | closes the lightbox when clicking outside |
 | swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
 | className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
@@ -96,6 +96,7 @@ For a whole example just look at the demo folder.
 | doubleTapZoom | 2 | int | zoom level if double tapping on image |
 | maxZoom | 10 | int | maximum zoom level on pinching |
 | htmlClass | 'has-lightbox' | string or false | adds class to html element if lightbox is open. If empty or false no class is set |
+| rtl | false | bool | change direction to rigth-to-left |
 ### Events
 | Name | Description |
 | ---- | ----------- |
@@ -190,7 +191,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
-**2.1.0 - Added rel grouping feature #16**      
+**2.1.0 - Added rel grouping feature #16 and added rtl support #161**      
 **2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation**    
 **1.17.3 - Fixed new chrome passive error #155**  
 **1.17.2 - Fixed caption keeps disappeared on double click #139 and added better close symbol #133**  
