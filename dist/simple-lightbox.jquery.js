@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.1.0
+	Version 2.1.1
 */
 "use strict";
 
@@ -544,12 +544,14 @@ function () {
         var captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
             captionText;
 
-        if (_this5.options.captionType === 'data') {
-          captionText = captionContainer.dataset[_this5.options.captionsData];
-        } else if (_this5.options.captionType === 'text') {
-          captionText = captionContainer.innerHTML;
-        } else {
-          captionText = captionContainer.getAttribute(_this5.options.captionsData);
+        if (_this5.options.captions && captionContainer) {
+          if (_this5.options.captionType === 'data') {
+            captionText = captionContainer.dataset[_this5.options.captionsData];
+          } else if (_this5.options.captionType === 'text') {
+            captionText = captionContainer.innerHTML;
+          } else {
+            captionText = captionContainer.getAttribute(_this5.options.captionsData);
+          }
         }
 
         if (!_this5.options.loop) {

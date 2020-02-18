@@ -191,6 +191,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.1.1 - Fixed captions bug #162**      
 **2.1.0 - Added rel grouping feature #16 and added rtl support #161**      
 **2.0.0 - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation**    
 **1.17.3 - Fixed new chrome passive error #155**  
