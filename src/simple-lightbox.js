@@ -341,6 +341,7 @@ class SimpleLightbox {
 
             document.body.removeChild(this.domNodes.wrapper);
             document.body.removeChild(this.domNodes.overlay);
+            this.domNodes.additionalHtml = null;
 
             element.dispatchEvent(new Event('closed.simplelightbox'));
 

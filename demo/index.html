@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.1.1</sup></h1>
+				<h1>SimpleLightbox <sup>v2.1.2</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -584,6 +584,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>2.1.2</strong> - Fixed additionalHtml bug #163<br />
 				<strong>2.1.1</strong> - Fixed captions bug #162<br />
 				<strong>2.1.0</strong> - Added rel grouping feature #16<br />
 				<strong>2.0.0</strong> - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
@@ -703,7 +704,9 @@ $add-vendor-prefixes: true !default;</code>
 
 		$('body').fadeIn(200);
 
-		var $gallery = new SimpleLightbox('.small-demo a', {});
+		var $gallery = new SimpleLightbox('.small-demo a', {
+			additionalHtml: '<p>Ein Test</p>'
+		});
 
 		interval = window.setInterval(function(){
 			$('.scrollwheel').animate({

@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.1.1
+	Version 2.1.2
 */
 "use strict";
 
@@ -375,6 +375,7 @@ function () {
 
         document.body.removeChild(_this2.domNodes.wrapper);
         document.body.removeChild(_this2.domNodes.overlay);
+        _this2.domNodes.additionalHtml = null;
         element.dispatchEvent(new Event('closed.simplelightbox'));
         _this2.isClosing = false;
       });
