@@ -162,13 +162,14 @@ class SimpleLightbox {
 
             if (this.isValidLink(event.currentTarget)) {
                 event.preventDefault();
-                if (this.isAnimating) {
-                    return false;
-                }
-
-                this.initialImageIndex = this.elements.indexOf(event.currentTarget);
-                this.openImage(event.currentTarget);
             }
+            
+            if (this.isAnimating) {
+                return false;
+            }
+
+            this.initialImageIndex = this.elements.indexOf(event.currentTarget);
+            this.openImage(event.currentTarget);
         });
 
         // close addEventListener click addEventListener doc
