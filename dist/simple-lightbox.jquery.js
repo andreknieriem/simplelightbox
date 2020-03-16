@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.1.2
+	Version 2.1.3
 */
 "use strict";
 
@@ -659,15 +659,15 @@ function () {
         }, 40);
       }
 
-      this.addEventListener(this.domNodes.navigation, 'click.' + this.eventNamespace, function (event) {
-        if (!event.target.tagName.match(/button/i)) {
+      this.addEventListener(this.domNodes.navigation.getElementsByTagName('button'), 'click.' + this.eventNamespace, function (event) {
+        if (!event.currentTarget.tagName.match(/button/i)) {
           return true;
         }
 
         event.preventDefault();
         _this6.controlCoordinates.swipeDiff = 0;
 
-        _this6.loadImage(event.target.classList.contains('sl-next') ? 1 : -1);
+        _this6.loadImage(event.currentTarget.classList.contains('sl-next') ? 1 : -1);
       });
       this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], function (event) {
         if (event.target.tagName === 'A' && event.type === 'touchstart') {
@@ -1599,7 +1599,7 @@ function () {
             for (var _iterator16 = events[Symbol.iterator](), _step16; !(_iteratorNormalCompletion16 = (_step16 = _iterator16.next()).done); _iteratorNormalCompletion16 = true) {
               var event = _step16.value;
 
-              if (event in element.fullyNamespacedEvents) {
+              if (typeof element.fullyNamespacedEvents !== 'undefined' && event in element.fullyNamespacedEvents) {
                 element.removeEventListener(event, element.fullyNamespacedEvents[event]);
               }
             }
@@ -1662,7 +1662,7 @@ function () {
       this.removeEventListener(this.elements, 'click.' + this.eventNamespace);
       this.removeEventListener(document.body, 'contextmenu.' + this.eventNamespace);
       this.removeEventListener(document.body, 'keyup.' + this.eventNamespace);
-      this.removeEventListener(this.domNodes.navigation, 'click.' + this.eventNamespace);
+      this.removeEventListener(this.domNodes.navigation.getElementsByTagName('button'), 'click.' + this.eventNamespace);
       this.removeEventListener(this.domNodes.closeButton, 'click.' + this.eventNamespace);
       this.removeEventListener(window, 'resize.' + this.eventNamespace);
       this.removeEventListener(window, 'hashchange.' + this.eventNamespace);
