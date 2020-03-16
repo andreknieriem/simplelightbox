@@ -614,15 +614,14 @@ class SimpleLightbox {
             }, 40);
         }
 
-        this.addEventListener(this.domNodes.navigation, 'click.' + this.eventNamespace, (event) => {
-            if (!event.target.tagName.match(/button/i)) {
+        this.addEventListener(this.domNodes.navigation.getElementsByTagName('button'), 'click.' + this.eventNamespace, (event) => {
+            if (!event.currentTarget.tagName.match(/button/i)) {
                 return true;
             }
 
             event.preventDefault();
             this.controlCoordinates.swipeDiff = 0;
-            this.loadImage(event.target.classList.contains('sl-next') ? 1 : -1);
-
+            this.loadImage(event.currentTarget.classList.contains('sl-next') ? 1 : -1);
         });
 
         this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], (event) => {
@@ -1211,7 +1210,7 @@ class SimpleLightbox {
         events = this.wrap(events);
         for (let element of this.elements) {
             for (let event of events) {
-                if (event in element.fullyNamespacedEvents) {
+                if (typeof element.fullyNamespacedEvents !== 'undefined' && event in element.fullyNamespacedEvents) {
                     element.removeEventListener(event, element.fullyNamespacedEvents[event]);
                 }
             }
@@ -1260,7 +1259,7 @@ class SimpleLightbox {
         this.removeEventListener(document.body, 'contextmenu.' + this.eventNamespace);
         this.removeEventListener(document.body, 'keyup.' + this.eventNamespace);
 
-        this.removeEventListener(this.domNodes.navigation, 'click.' + this.eventNamespace);
+        this.removeEventListener(this.domNodes.navigation.getElementsByTagName('button'), 'click.' + this.eventNamespace);
         this.removeEventListener(this.domNodes.closeButton, 'click.' + this.eventNamespace);
         this.removeEventListener(window, 'resize.' + this.eventNamespace);
         this.removeEventListener(window, 'hashchange.' + this.eventNamespace);
