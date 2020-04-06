@@ -1,14 +1,14 @@
 {
   "name": "simplelightbox",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "homepage": "https://simplelightbox.com/",
   "authors": [
     "André Rinas <info@andrerinas.de> (https://www.andrerinas.de)"
   ],
   "description": "Touch-friendly image lightbox for mobile and desktop with jQuery",
   "main": [
-    "dist/simplelightbox.css",
-    "dist/simplelightbox.min.css",
+    "dist/simple-lightbox.css",
+    "dist/simple-lightbox.min.css",
 	"dist/simple-lightbox.js",
 	"dist/simple-lightbox.min.js"
   ],

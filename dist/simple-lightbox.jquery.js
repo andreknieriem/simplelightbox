@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.1.3
+	Version 2.1.4
 */
 "use strict";
 
@@ -940,6 +940,7 @@ function () {
         }
       });
       this.addEventListener(this.domNodes.image, ['dblclick'], function (event) {
+        if (_this6.isTouchDevice) return;
         _this6.controlCoordinates.initialPointerOffsetX = event.clientX;
         _this6.controlCoordinates.initialPointerOffsetY = event.clientY;
         _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;

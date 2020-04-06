@@ -880,42 +880,43 @@ class SimpleLightbox {
         });
 
         this.addEventListener(this.domNodes.image, ['dblclick'], (event) => {
-          this.controlCoordinates.initialPointerOffsetX = event.clientX;
-          this.controlCoordinates.initialPointerOffsetY = event.clientY;
-          this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
-  				this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
-          this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
-          this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
-          this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
-          this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
+            if(this.isTouchDevice) return;
+            this.controlCoordinates.initialPointerOffsetX = event.clientX;
+            this.controlCoordinates.initialPointerOffsetY = event.clientY;
+            this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
+            this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
+            this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
+            this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
+            this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
+            this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
 
-          this.currentImage.classList.add('sl-transition');
+            this.currentImage.classList.add('sl-transition');
 
-          if(!this.controlCoordinates.zoomed) {
-            this.controlCoordinates.initialScale = this.options.doubleTapZoom;
-            this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
-            this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
-            if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
-                this.fadeOut(this.domNodes.caption, 200);
+            if(!this.controlCoordinates.zoomed) {
+                this.controlCoordinates.initialScale = this.options.doubleTapZoom;
+                this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
+                this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
+                if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
+                    this.fadeOut(this.domNodes.caption, 200);
+                }
+                this.controlCoordinates.zoomed = true;
+            } else {
+                this.controlCoordinates.initialScale = 1;
+                this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
+                this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
+                this.controlCoordinates.zoomed = false;
+                if (this.domNodes.caption.style.display === 'none') {
+                    this.fadeIn(this.domNodes.caption, 200);
+                }
             }
-            this.controlCoordinates.zoomed = true;
-          } else {
-            this.controlCoordinates.initialScale = 1;
-            this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
-            this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
-            this.controlCoordinates.zoomed = false;
-            if (this.domNodes.caption.style.display === 'none') {
-                this.fadeIn(this.domNodes.caption, 200);
-            }
-          }
-          setTimeout(() => {
-              if (this.currentImage) {
-                  this.currentImage.classList.remove('sl-transition');
-              }
-          }, 200);
+            setTimeout(() => {
+                if (this.currentImage) {
+                    this.currentImage.classList.remove('sl-transition');
+                }
+            }, 200);
 
-          this.controlCoordinates.capture = true;
-          return false;
+            this.controlCoordinates.capture = true;
+            return false;
         });
 
     }
