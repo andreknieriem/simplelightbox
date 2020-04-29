@@ -191,7 +191,8 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
-**2.1.4 - Fixed bug  #168 doubletap zoom on touch devices**  
+**2.1.5 - Fixed bug #169 open method with jQuery and #171 error while pan on mobile devices**  
+**2.1.4 - Fixed bug #168 doubletap zoom on touch devices**  
 **2.1.3 - Fixed bug in destroy method #167 and big with html in  navText #165**  
 **2.1.2 - Fixed additionalHtml bug #163**      
 **2.1.1 - Fixed captions bug #162**      

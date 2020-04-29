@@ -143,13 +143,6 @@ class SimpleLightbox {
             this.domNodes.wrapper.appendChild(this.domNodes.closeButton);
         }
 
-        // if (this.options.showCounter) {
-        //     if (this.elements.length > 1) {
-        //         this.domNodes.wrapper.appendChild(this.domNodes.counter);
-        //         this.domNodes.counter.querySelector('.sl-total').innerHTML = this.elements.length;
-        //     }
-        // }
-
         if (this.options.nav) {
             this.domNodes.wrapper.appendChild(this.domNodes.navigation);
         }
@@ -664,7 +657,7 @@ class SimpleLightbox {
                         this.currentImage.classList.add('sl-transition');
                         if (!this.controlCoordinates.zoomed) {
                             this.controlCoordinates.initialScale = this.options.doubleTapZoom;
-                            this.setZoomData(0, 0, this.controlCoordinates.initialScale);
+                            this.setZoomData(this.controlCoordinates.initialScale,0, 0);
                             this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
 
 
@@ -675,7 +668,7 @@ class SimpleLightbox {
                             this.controlCoordinates.zoomed = true;
                         } else {
                             this.controlCoordinates.initialScale = 1;
-                            this.setZoomData(0, 0, this.controlCoordinates.initialScale);
+                            this.setZoomData(this.controlCoordinates.initialScale,0, 0);
                             this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
                             this.controlCoordinates.zoomed = false;
                         }
@@ -688,14 +681,14 @@ class SimpleLightbox {
                         return false;
                     }
 
-                    this.controlCoordinatesinitialOffsetX = parseFloat(this.currentImage.dataset.translateX);
-                    this.controlCoordinatesinitialOffsetY = parseFloat(this.currentImage.dataset.translateY);
+                    this.controlCoordinates.initialOffsetX  = parseFloat(this.currentImage.dataset.translateX);
+                    this.controlCoordinates.initialOffsetY = parseFloat(this.currentImage.dataset.translateY);
                 }
                 else if (this.controlCoordinates.touchCount === 2) /* Pinch */ {
                     this.controlCoordinates.initialPointerOffsetX2 = event.touches[1].clientX;
                     this.controlCoordinates.initialPointerOffsetY2 = event.touches[1].clientY;
-                    this.controlCoordinatesinitialOffsetX = parseFloat(this.currentImage.dataset.translateX);
-                    this.controlCoordinatesinitialOffsetY = parseFloat(this.currentImage.dataset.translateY);
+                    this.controlCoordinates.initialOffsetX = parseFloat(this.currentImage.dataset.translateX);
+                    this.controlCoordinates.initialOffsetY = parseFloat(this.currentImage.dataset.translateY);
                     this.controlCoordinates.pinchOffsetX = (this.controlCoordinates.initialPointerOffsetX + this.controlCoordinates.initialPointerOffsetX2) / 2;
                     this.controlCoordinates.pinchOffsetY = (this.controlCoordinates.initialPointerOffsetY + this.controlCoordinates.initialPointerOffsetY2) / 2;
                     this.controlCoordinates.initialPinchDistance = Math.sqrt(((this.controlCoordinates.initialPointerOffsetX - this.controlCoordinates.initialPointerOffsetX2) * (this.controlCoordinates.initialPointerOffsetX - this.controlCoordinates.initialPointerOffsetX2)) + ((this.controlCoordinates.initialPointerOffsetY - this.controlCoordinates.initialPointerOffsetY2) * (this.controlCoordinates.initialPointerOffsetY - this.controlCoordinates.initialPointerOffsetY2)));
@@ -1223,8 +1216,13 @@ class SimpleLightbox {
 
     open(elem) {
         elem = elem || this.elements[0];
+        if(typeof jQuery !== "undefined" && elem instanceof jQuery) {
+            elem = elem.get(0);
+        }
         this.initialImageIndex = this.elements.indexOf(elem);
-        this.openImage(elem);
+        if(this.initialImageIndex > -1) {
+            this.openImage(elem);
+        }
     }
 
     next() {

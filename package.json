@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "description": "Touch-friendly modern image lightbox for mobile and desktop with optional jQuery support",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simple-lightbox.css",
@@ -9,17 +9,17 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
+    "@babel/core": "^7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.8.4",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.9.5",
     "gulp": "^4.0.0",
     "gulp-append-prepend": "^1.0.6",
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^4.1.0",
     "gulp-uglify": "^3.0.1",
-    "node-sass": "^4.13.1",
+    "node-sass": "^4.14.0",
     "through2": "^3.0.0"
   },
   "keywords": [
