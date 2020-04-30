@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <title>Simple Lightbox - Responsive touch friendly Image lightbox</title>
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="../dist/simple-lightbox.css?v2.1.5" />
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            line-height: 34px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .container .gallery a img {
+            float: left;
+            width: 25%;
+            height: auto;
+            border: 2px solid #fff;
+            -webkit-transition: -webkit-transform .15s ease;
+            -moz-transition: -moz-transform .15s ease;
+            -o-transition: -o-transform .15s ease;
+            -ms-transition: -ms-transform .15s ease;
+            transition: transform .15s ease;
+            position: relative;
+        }
+
+        .clear {
+            clear: both;
+        }
+
+        a {
+            color: #009688;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #01695f;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1 class="align-center">Simple Lightbox Demo Page</h1>
+    <div class="gallery">
+        <a href="img/full/01.jpg" class="big"><img src="img/thumb/01.jpg" alt="" title="Beautiful Image" /></a>
+        <a href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" title=""/></a>
+        <a href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" title="Beautiful Image"/></a>
+        <a href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" title=""/></a>
+        <a href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" title=""/></a>
+        <a href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" title=""/></a>
+        <div class="clear"></div>
+    </div>
+    <br>
+    <p>All images are free availabled on <a href="https://unsplash.com/" target="_blank">Unsplash</a></p>
+    <p>Documentation and download <a target="_blank" href="https://simplelightbox.com">here</a></p>
+</div>
+<script src="../dist/simple-lightbox.js?v2.1.5"></script>
+<script>
+    (function() {
+        var $gallery = new SimpleLightbox('.gallery a', {});
+    })();
+</script>
+</body>
+</html>
