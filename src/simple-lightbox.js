@@ -1287,3 +1287,5 @@ class SimpleLightbox {
         return this;
     }
 }
+
+export default SimpleLightbox;

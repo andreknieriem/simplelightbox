@@ -191,6 +191,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.2.0 - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164**  
 **2.1.5 - Fixed bug #169 open method with jQuery and #171 error while pan on mobile devices**  
 **2.1.4 - Fixed bug #168 doubletap zoom on touch devices**  
 **2.1.3 - Fixed bug in destroy method #167 and big with html in  navText #165**  
@@ -263,4 +264,5 @@ Just call `gulp build` to have all files and variants created inside dist!
 [Geoffrey Crofte](http://geoffrey.crofte.fr/) - [Github](https://github.com/creativejuiz/)  
 [Karl Anders](http://webseiten-anders.de/) - [Github](https://github.com/karland/)  
 [Raphael Hättich](https://github.com/RaphaelHaettich)  
+[Serafin Lichtenhahn](https://github.com/seralichtenhahn)  
 [Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  
