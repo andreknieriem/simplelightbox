@@ -830,7 +830,9 @@ class SimpleLightbox {
                 this.controlCoordinates.touchCount = event.touches.length;
                 if (this.controlCoordinates.touchCount === 0) /* No touch */ {
                     /* Set attributes */
-                    this.setZoomData(this.controlCoordinates.initialScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
+                    if (this.currentImage) {
+                        this.setZoomData(this.controlCoordinates.initialScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
+                    }
                     if (this.controlCoordinates.initialScale === 1) {
                         this.controlCoordinates.zoomed = false;
                         if (this.domNodes.caption.style.display === 'none') {
@@ -1287,5 +1289,3 @@ class SimpleLightbox {
         return this;
     }
 }
-
-export default SimpleLightbox;
