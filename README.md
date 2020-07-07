@@ -76,7 +76,7 @@ For a whole example just look at the demo folder.
 | fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check |
 | animationSpeed | 250 | int | how long takes the slide animation |
 | animationSlide | true | bool | weather to slide in new photos or not, disable to fade |
-| preloading | true | bool | allows preloading next und previous images |
+| preloading | true | bool | allows preloading next and previous images |
 | enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
 | loop | true | bool | enables looping through images |
 | rel | false | mixed | By default, false means, that the lightbox groups by rel automatically. This option can be used as an anchor rel alternative for Simplelightbox. It allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
