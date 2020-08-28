@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.2.1
+	Version 2.2.2
 */
 "use strict";
 
@@ -89,6 +89,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
     _defineProperty(this, "isAnimating", false);
 
     _defineProperty(this, "isClosing", false);
+
+    _defineProperty(this, "isFadeIn", false);
 
     _defineProperty(this, "urlChangedOnce", false);
 
@@ -1265,6 +1267,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
         _iterator5.f();
       }
 
+      this.isFadeIn = false;
+
       var step = 16.66666 / (duration || 300),
           fade = function fade() {
         var currentOpacity = parseFloat(elements[0].style.opacity);
@@ -1329,6 +1333,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
         _iterator8.f();
       }
 
+      this.isFadeIn = true;
+
       var opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
           step = 16.66666 * opacityTarget / (duration || 300),
           fade = function fade() {
@@ -1349,6 +1355,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
             _iterator9.f();
           }
 
+          if (!_this10.isFadeIn) return;
           requestAnimationFrame(fade);
         } else {
           var _iterator10 = _createForOfIteratorHelper(elements),

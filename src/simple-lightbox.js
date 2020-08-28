@@ -56,6 +56,7 @@ class SimpleLightbox {
     isOpen = false;
     isAnimating = false;
     isClosing = false;
+    isFadeIn = false;
     urlChangedOnce = false;
     hashReseted = false;
     historyHasChanges = false;
@@ -1121,6 +1122,8 @@ class SimpleLightbox {
             element.style.opacity = 1;
         }
 
+        this.isFadeIn = false;
+
         let step = 16.66666 / (duration || 300),
             fade = () => {
                 let currentOpacity = parseFloat(elements[0].style.opacity);
@@ -1148,6 +1151,7 @@ class SimpleLightbox {
             element.style.display = display || "block";
         }
 
+        this.isFadeIn = true;
 
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
             step = (16.66666 * opacityTarget) / (duration || 300),
@@ -1157,6 +1161,7 @@ class SimpleLightbox {
                     for (let element of elements) {
                         element.style.opacity = currentOpacity;
                     }
+                    if(!this.isFadeIn) return;
                     requestAnimationFrame(fade);
                 } else {
                     for (let element of elements) {
