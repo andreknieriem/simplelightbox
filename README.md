@@ -191,10 +191,12 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.2.2 - Fixed direct closing on load error #182**  
+**2.2.1 - Fixed bug #174 and problem with ES Modules**  
 **2.2.0 - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164**  
 **2.1.5 - Fixed bug #169 open method with jQuery and #171 error while pan on mobile devices**  
 **2.1.4 - Fixed bug #168 doubletap zoom on touch devices**  
-**2.1.3 - Fixed bug in destroy method #167 and big with html in  navText #165**  
+**2.1.3 - Fixed bug in destroy method #167 and bug with html in  navText #165**  
 **2.1.2 - Fixed additionalHtml bug #163**      
 **2.1.1 - Fixed captions bug #162**      
 **2.1.0 - Added rel grouping feature #16 and added rtl support #161**      
