@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.2.1</sup></h1>
+				<h1>SimpleLightbox <sup>v2.2.2</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -588,67 +588,68 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
-				<strong>2.2.1</strong> - Fixed bug #174 and error with ES Modules<br />
-				<strong>2.2.0</strong> - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164<br />
-				<strong>2.1.5</strong> - Fixed bug #169 open method and #171 error while pan on mobile devices<br />
-				<strong>2.1.4</strong> - Fixed bug #168 doubletap zoom on touch devices<br />
-				<strong>2.1.3</strong> - Fixed bug in destroy method #167 and big with html in navText #165<br />
-				<strong>2.1.2</strong> - Fixed additionalHtml bug #163<br />
-				<strong>2.1.1</strong> - Fixed captions bug #162<br />
-				<strong>2.1.0</strong> - Added rel grouping feature #16 and added rtl support #161<br />
-				<strong>2.0.0</strong> - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br />
-				<strong>1.17.3</strong> - Fixed new chrome passive error #155<br />
-				<strong>1.17.2</strong> - Fixed caption keeps disappeared on double click #139 and added better close symbol #133<br />
-				<strong>1.17.1</strong> - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134<br />
-				<strong>1.17.0</strong> - Merged pull request #132. Added double click to zoom for desktop browsers - Thanks to coderkan<br />
-				<strong>1.16.3</strong> - Merged pull request #126,#127 - Thanks to jieter<br />
-				<strong>1.16.2</strong> - Added featured #124 - Add a class to html element if lightbox is open<br />
-				<strong>1.16.1</strong> - Fixed pinch to zoom offset error on scrolling #123<br />
-				<strong>1.16.0</strong> - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79<br />
-				<strong>1.15.1</strong> - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen<br />
-				<strong>1.15.0</strong> - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74<br />
-				<strong>1.14.0</strong> - Merged pull request #107 and #108. Thanks to RaphaelHaettich<br />
-				<strong>1.13.0</strong> - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich<br />
-				<strong>1.12.2</strong> - Bugfix for #89<br />
-				<strong>1.12.1</strong> - Bugfix for #88,#87 and remove bind/unbind #84<br />
-				<strong>1.12.0</strong> - New option captionClass #81, bugfix for #82<br />
-				<strong>1.11.1</strong> - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59<br />
-				<strong>1.11.0</strong> - New option for src of image. e.g data attribute #70<br />
-				<strong>1.10.7</strong> - Added Bootstrap compatibility #69<br />
-				<strong>1.10.6</strong> - Merged pull requests #65. Thanks to mstaniuk<br />
-				<strong>1.10.5</strong> - Merged pull requests #60 and #61. Thanks to slavanga<br />
-				<strong>1.10.4</strong> - Bugfix von #58<br />
-				<strong>1.10.3</strong> - Merged pull requests #55, #56 and #57. Thanks to karland<br />
-				<strong>1.10.2</strong> - Aligned navigation and close buttons #51, fixed image error bug #52<br />
-				<strong>1.10.1</strong> - Added support for jQuery 3.x #50<br />
-				<strong>1.10.0</strong> - Implemented feature-request #48, history back, some bugfixing and code styling<br />
-				<strong>1.9.0</strong> - Implemented feature-request #16, added rel option for grouping images<br />
-				<strong>1.8.6</strong> - Implemented feature-request #46, added refresh method<br />
-				<strong>1.8.5</strong> - Implemented feature-request #44<br />
-				<strong>1.8.4</strong> - Bugfix for #41 and added option for additional html inside images #40<br />
-				<strong>1.8.3</strong> - Bugfix for #38 and small other fix for loop false option<br />
-				<strong>1.8.2</strong> - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!<br />
-				<strong>1.8.1</strong> - Bugfix for #31, #32 and #33<br />
-				<strong>1.8.0</strong> - New API Events (changed open to show) and little fix in function open() brought by Geoffrey Crofte and some other small bugfixes<br />
-				<strong>1.7.2</strong> - Bugfix von #25 and #27<br />
-				<strong>1.7.1</strong> - Bugfix von #22 with new option alertError and merged pull request #23<br />
-				<strong>1.7.0</strong> - Add support for fading between photos, Bugfix for single image navigation, option for caption delay<br />
-				<strong>1.6.0</strong> - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.<br />
-				<strong>1.5.1</strong> - Bugfix for multiple lightboxes on one page<br />
-				<strong>1.5.0</strong> - Added options for disabling rightclick and scrolling, changed default prev- and next-button text<br />
-				<strong>1.4.6</strong> - Option for fileExt can now be false to enable pictures like example.com/pic/200/100<br />
-				<strong>1.4.5</strong> - Bugfix lightbox opening does not work on mobile devices<br />
-				<strong>1.4.4</strong> - Bugfix no drag&amp;drop in FF, changed default close text, only output data if lightbox is opened<br />
-				<strong>1.4.3</strong> - Bugfix z-index for spinner to low, added sass files<br />
-				<strong>1.4.2</strong> - Bugfix for issue #2 - Drop Event does not fire when mouse leaves window<br />
-				<strong>1.4.1</strong> - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute<br />
-				<strong>1.4.0</strong> - Caption Attribute can now be what, you want, or data-title. Fixed some small issues<br />
-				<strong>1.3.1</strong> - Bugfix: disable keyboard control if lightbox is closed<br />
-				<strong>1.3.0</strong> - Added current index indicator/counter<br />
-				<strong>1.2.0</strong> - Added option for captions attribute (title or data-title)<br />
-				<strong>1.1.2</strong> - Bugfix for looping images<br />
-				<strong>1.1.1</strong> - Bugfix for loading indicator and removed a log-event<br />
-				<strong>1.1.0</strong> - Added classname for lightbox wrapper and width/height ratio<br />
+				<strong>2.2.2</strong> - Fixed direct closing on load error #182<br>
+				<strong>2.2.1</strong> - Fixed bug #174 and error with ES Modules<br>
+				<strong>2.2.0</strong> - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164<br>
+				<strong>2.1.5</strong> - Fixed bug #169 open method and #171 error while pan on mobile devices<br>
+				<strong>2.1.4</strong> - Fixed bug #168 doubletap zoom on touch devices<br>
+				<strong>2.1.3</strong> - Fixed bug in destroy method #167 and big with html in navText #165<br>
+				<strong>2.1.2</strong> - Fixed additionalHtml bug #163<br>
+				<strong>2.1.1</strong> - Fixed captions bug #162<br>
+				<strong>2.1.0</strong> - Added rel grouping feature #16 and added rtl support #161<br>
+				<strong>2.0.0</strong> - Complete rewrite. Now uses modern ES6 javascript, without the need of jQuery. Can use jQuery anyway. Developers can use gulp with babel to contribute. Thanks to Mtillmann #129 for the implementation <br>
+				<strong>1.17.3</strong> - Fixed new chrome passive error #155<br>
+				<strong>1.17.2</strong> - Fixed caption keeps disappeared on double click #139 and added better close symbol #133<br>
+				<strong>1.17.1</strong> - Added webp in fileExt list #135, removed hardcoded a-tag in isValidLink function #134<br>
+				<strong>1.17.0</strong> - Merged pull request #132. Added double click to zoom for desktop browsers - Thanks to coderkan<br>
+				<strong>1.16.3</strong> - Merged pull request #126,#127 - Thanks to jieter<br>
+				<strong>1.16.2</strong> - Added featured #124 - Add a class to html element if lightbox is open<br>
+				<strong>1.16.1</strong> - Fixed pinch to zoom offset error on scrolling #123<br>
+				<strong>1.16.0</strong> - Pinch to Zoom feature for touch devices with new options doubleTapZoom and maxZoom #79<br>
+				<strong>1.15.1</strong> - Merged pull request #113,#114,#115 - Thanks to RaphaelHaettich and celsius-jochen<br>
+				<strong>1.15.0</strong> - Merged pull request #111, fixed #101 and added possibility to close lightbox on load #74<br>
+				<strong>1.14.0</strong> - Merged pull request #107 and #108. Thanks to RaphaelHaettich<br>
+				<strong>1.13.0</strong> - Added featured #92 and merged pull request #98 and #99. Thankt to RaphaelHaettich<br>
+				<strong>1.12.2</strong> - Bugfix for #89<br>
+				<strong>1.12.1</strong> - Bugfix for #88,#87 and remove bind/unbind #84<br>
+				<strong>1.12.0</strong> - New option captionClass #81, bugfix for #82<br>
+				<strong>1.11.1</strong> - Merged pull request #76. Thanks to walterebert, added support for images with parameters and file extension check #59<br>
+				<strong>1.11.0</strong> - New option for src of image. e.g data attribute #70<br>
+				<strong>1.10.7</strong> - Added Bootstrap compatibility #69<br>
+				<strong>1.10.6</strong> - Merged pull requests #65. Thanks to mstaniuk<br>
+				<strong>1.10.5</strong> - Merged pull requests #60 and #61. Thanks to slavanga<br>
+				<strong>1.10.4</strong> - Bugfix von #58<br>
+				<strong>1.10.3</strong> - Merged pull requests #55, #56 and #57. Thanks to karland<br>
+				<strong>1.10.2</strong> - Aligned navigation and close buttons #51, fixed image error bug #52<br>
+				<strong>1.10.1</strong> - Added support for jQuery 3.x #50<br>
+				<strong>1.10.0</strong> - Implemented feature-request #48, history back, some bugfixing and code styling<br>
+				<strong>1.9.0</strong> - Implemented feature-request #16, added rel option for grouping images<br>
+				<strong>1.8.6</strong> - Implemented feature-request #46, added refresh method<br>
+				<strong>1.8.5</strong> - Implemented feature-request #44<br>
+				<strong>1.8.4</strong> - Bugfix for #41 and added option for additional html inside images #40<br>
+				<strong>1.8.3</strong> - Bugfix for #38 and small other fix for loop false option<br>
+				<strong>1.8.2</strong> - Better bugfix for #33, finally fixing multiple lightbox on one page slowness issues!<br>
+				<strong>1.8.1</strong> - Bugfix for #31, #32 and #33<br>
+				<strong>1.8.0</strong> - New API Events (changed open to show) and little fix in function open() brought by Geoffrey Crofte and some other small bugfixes<br>
+				<strong>1.7.2</strong> - Bugfix von #25 and #27<br>
+				<strong>1.7.1</strong> - Bugfix von #22 with new option alertError and merged pull request #23<br>
+				<strong>1.7.0</strong> - Add support for fading between photos, Bugfix for single image navigation, option for caption delay<br>
+				<strong>1.6.0</strong> - Option for caption position. Disable prev or next arrow if loop is false and position is first or last.<br>
+				<strong>1.5.1</strong> - Bugfix for multiple lightboxes on one page<br>
+				<strong>1.5.0</strong> - Added options for disabling rightclick and scrolling, changed default prev- and next-button text<br>
+				<strong>1.4.6</strong> - Option for fileExt can now be false to enable pictures like example.com/pic/200/100<br>
+				<strong>1.4.5</strong> - Bugfix lightbox opening does not work on mobile devices<br>
+				<strong>1.4.4</strong> - Bugfix no drag&amp;drop in FF, changed default close text, only output data if lightbox is opened<br>
+				<strong>1.4.3</strong> - Bugfix z-index for spinner to low, added sass files<br>
+				<strong>1.4.2</strong> - Bugfix for issue #2 - Drop Event does not fire when mouse leaves window<br>
+				<strong>1.4.1</strong> - The whole caption Selector is rewritten. You can now select an element and get its text, use data or attribute<br>
+				<strong>1.4.0</strong> - Caption Attribute can now be what, you want, or data-title. Fixed some small issues<br>
+				<strong>1.3.1</strong> - Bugfix: disable keyboard control if lightbox is closed<br>
+				<strong>1.3.0</strong> - Added current index indicator/counter<br>
+				<strong>1.2.0</strong> - Added option for captions attribute (title or data-title)<br>
+				<strong>1.1.2</strong> - Bugfix for looping images<br>
+				<strong>1.1.1</strong> - Bugfix for loading indicator and removed a log-event<br>
+				<strong>1.1.0</strong> - Added classname for lightbox wrapper and width/height ratio<br>
 				<strong>1.0.0</strong> - Initial Release
 			</div>
 		</div>
@@ -658,7 +659,7 @@ $add-vendor-prefixes: true !default;</code>
 	<div class="container">
 		<div class="row">
 			<div class="col-left">
-				<h2>Author/<br />Contributors</h2>
+				<h2>Author/<br>Contributors</h2>
 			</div>
 			<div class="col-right">
 				<p>
