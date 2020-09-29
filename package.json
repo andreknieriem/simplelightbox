@@ -4,6 +4,7 @@
   "description": "Touch-friendly modern image lightbox for mobile and desktop with optional jQuery support",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simple-lightbox.css",
+  "module": "dist/simple-lightbox.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/andreknieriem/simplelightbox.git"

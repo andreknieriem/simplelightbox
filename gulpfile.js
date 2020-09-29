@@ -76,6 +76,14 @@ gulp.task("modules", () => {
         .pipe(gulp.dest("dist"));
 });
 
+gulp.task("esm", () => {
+    return gulp.src("src/simple-lightbox.js")
+        .pipe(gap.appendFile('./src/modules.js'))
+        .pipe(rename('simple-lightbox.esm.js'))
+        .pipe(gap.prependFile('./src/license-notice.txt'))
+        .pipe(gulp.dest("dist"));
+});
+
 gulp.task("jquery", () => {
     return gulp.src("src/simple-lightbox.js")
         .pipe(gap.appendFile('./src/jquery-plugin-wrap.js'))
@@ -132,7 +140,7 @@ gulp.task('sass-minify', () => {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', gulp.series('default', 'modules', 'jquery', 'minify', 'jquery-minify', 'modules-minify', 'sass', 'sass-minify'));
+gulp.task('build', gulp.series('default', 'modules', 'esm', 'jquery', 'minify', 'jquery-minify', 'modules-minify', 'sass', 'sass-minify'));
 
 gulp.task('watch', () => {
     gulp.watch('./src/*.js', gulp.series('default'));
