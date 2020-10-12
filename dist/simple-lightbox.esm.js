@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.2.1
+	Version 2.2.2
 */
 class SimpleLightbox {
 
@@ -46,7 +46,8 @@ class SimpleLightbox {
         doubleTapZoom: 2,
         maxZoom: 10,
         htmlClass: 'has-lightbox',
-        rtl: false
+        rtl: false,
+        fixedClass: 'sl-fixed'
     };
 
     transitionPrefix;
@@ -62,6 +63,7 @@ class SimpleLightbox {
     isOpen = false;
     isAnimating = false;
     isClosing = false;
+    isFadeIn = false;
     urlChangedOnce = false;
     hashReseted = false;
     historyHasChanges = false;
@@ -284,6 +286,7 @@ class SimpleLightbox {
 
     toggleScrollbar(type) {
         let scrollbarWidth = 0;
+        let fixedElements =  [].slice.call(document.querySelectorAll('.'+this.options.fixedClass))
         if (type === 'hide') {
             let fullWindowWidth = window.innerWidth;
             if (!fullWindowWidth) {
@@ -304,11 +307,26 @@ class SimpleLightbox {
                 if (scrollbarWidth > 0) {
                     document.body.classList.add('hidden-scroll');
                     document.body.style.paddingRight = (paddingRight + scrollbarWidth) + 'px';
+
+                    fixedElements.forEach(element => {
+                        const actualPadding = element.style.paddingRight
+                        const calculatedPadding = window.getComputedStyle(element)['padding-right']
+                        element.dataset.originalPaddingRight = actualPadding;
+                        element.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
+                    });
+
                 }
             }
         } else {
             document.body.classList.remove('hidden-scroll');
             document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+
+            fixedElements.forEach(element => {
+                const padding = element.dataset.originalPaddingRight;
+                if (typeof padding !== 'undefined') {
+                    element.style.paddingRight = padding
+                }
+            });
         }
         return scrollbarWidth;
     }
@@ -1127,6 +1145,8 @@ class SimpleLightbox {
             element.style.opacity = 1;
         }
 
+        this.isFadeIn = false;
+
         let step = 16.66666 / (duration || 300),
             fade = () => {
                 let currentOpacity = parseFloat(elements[0].style.opacity);
@@ -1154,6 +1174,7 @@ class SimpleLightbox {
             element.style.display = display || "block";
         }
 
+        this.isFadeIn = true;
 
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
             step = (16.66666 * opacityTarget) / (duration || 300),
@@ -1163,6 +1184,7 @@ class SimpleLightbox {
                     for (let element of elements) {
                         element.style.opacity = currentOpacity;
                     }
+                    if(!this.isFadeIn) return;
                     requestAnimationFrame(fade);
                 } else {
                     for (let element of elements) {

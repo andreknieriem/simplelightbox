@@ -71,7 +71,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       doubleTapZoom: 2,
       maxZoom: 10,
       htmlClass: 'has-lightbox',
-      rtl: false
+      rtl: false,
+      fixedClass: 'sl-fixed'
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
@@ -318,6 +319,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
     key: "toggleScrollbar",
     value: function toggleScrollbar(type) {
       var scrollbarWidth = 0;
+      var fixedElements = [].slice.call(document.querySelectorAll('.' + this.options.fixedClass));
 
       if (type === 'hide') {
         var fullWindowWidth = window.innerWidth;
@@ -339,11 +341,24 @@ var SimpleLightbox = /*#__PURE__*/function () {
           if (scrollbarWidth > 0) {
             document.body.classList.add('hidden-scroll');
             document.body.style.paddingRight = paddingRight + scrollbarWidth + 'px';
+            fixedElements.forEach(function (element) {
+              var actualPadding = element.style.paddingRight;
+              var calculatedPadding = window.getComputedStyle(element)['padding-right'];
+              element.dataset.originalPaddingRight = actualPadding;
+              element.style.paddingRight = "".concat(parseFloat(calculatedPadding) + scrollbarWidth, "px");
+            });
           }
         }
       } else {
         document.body.classList.remove('hidden-scroll');
         document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+        fixedElements.forEach(function (element) {
+          var padding = element.dataset.originalPaddingRight;
+
+          if (typeof padding !== 'undefined') {
+            element.style.paddingRight = padding;
+          }
+        });
       }
 
       return scrollbarWidth;

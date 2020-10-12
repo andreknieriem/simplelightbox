@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.2.1</sup></h1>
+				<h1>SimpleLightbox <sup>v2.4.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -42,7 +42,7 @@
 		<a class="scroll-hint scrolllink" href="#documentation"><span class="scrollwheel"></span></a>
 	</div>
 </header>
-<div class="flyin-navi">
+<div class="flyin-navi sl-fixed">
 	<div class="container">
 		<ul>
 			<li><a class="scrolllink" href="#install">Install</a></li>
@@ -378,6 +378,12 @@ npm install simplelightbox</code>
 					<td>bool</td>
 					<td>change direction to rigth-to-left</td>
 					</tr>
+					<tr>
+					<td>fixedClass</td>
+					<td>sl-fixed</td>
+					<td>string</td>
+					<td>elements with this class are fixed and get the right padding when lightbox opens</td>
+					</tr>
 					</tbody>
 					</table>
 			</div>
@@ -588,6 +594,8 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>2.4.0</strong> - Added new option for fixed elements class #195<br />
+				<strong>2.3.0</strong> - Merged Feature for ESM Modules. Thanks to Serafin Lichtenhahn #173<br />
 				<strong>2.2.1</strong> - Fixed bug #174 and problem with ES Modules<br />
 				<strong>2.2.0</strong> - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164<br />
 				<strong>2.1.5</strong> - Fixed bug #169 open method and #171 error while pan on mobile devices<br />
@@ -686,7 +694,7 @@ $add-vendor-prefixes: true !default;</code>
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/michalsnik/aos@2.1.1/dist/aos.js"></script>
-<script src="../dist/simple-lightbox.js?v2.2.1"></script>
+<script src="../dist/simple-lightbox.js?v2.4.0"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

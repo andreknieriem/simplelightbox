@@ -97,6 +97,8 @@ For a whole example just look at the demo folder.
 | maxZoom | 10 | int | maximum zoom level on pinching |
 | htmlClass | 'has-lightbox' | string or false | adds class to html element if lightbox is open. If empty or false no class is set |
 | rtl | false | bool | change direction to rigth-to-left |
+| fixedClass | 'sl-fixed' | string | elements with this class are fixed and get the right padding when lightbox opens |
+
 ### Events
 | Name | Description |
 | ---- | ----------- |
@@ -191,6 +193,8 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.4.0 - Added new option for fixed elements class #195**  
+**2.3.0 - Merged Feature for ESM Modules. Thanks to Serafin Lichtenhahn #173**  
 **2.2.2 - Fixed direct closing on load error #182**  
 **2.2.1 - Fixed bug #174 and problem with ES Modules**  
 **2.2.0 - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164**  

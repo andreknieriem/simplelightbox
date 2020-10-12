@@ -40,7 +40,8 @@ class SimpleLightbox {
         doubleTapZoom: 2,
         maxZoom: 10,
         htmlClass: 'has-lightbox',
-        rtl: false
+        rtl: false,
+        fixedClass: 'sl-fixed'
     };
 
     transitionPrefix;
@@ -279,6 +280,7 @@ class SimpleLightbox {
 
     toggleScrollbar(type) {
         let scrollbarWidth = 0;
+        let fixedElements =  [].slice.call(document.querySelectorAll('.'+this.options.fixedClass))
         if (type === 'hide') {
             let fullWindowWidth = window.innerWidth;
             if (!fullWindowWidth) {
@@ -299,11 +301,26 @@ class SimpleLightbox {
                 if (scrollbarWidth > 0) {
                     document.body.classList.add('hidden-scroll');
                     document.body.style.paddingRight = (paddingRight + scrollbarWidth) + 'px';
+
+                    fixedElements.forEach(element => {
+                        const actualPadding = element.style.paddingRight
+                        const calculatedPadding = window.getComputedStyle(element)['padding-right']
+                        element.dataset.originalPaddingRight = actualPadding;
+                        element.style.paddingRight = `${parseFloat(calculatedPadding) + scrollbarWidth}px`
+                    });
+
                 }
             }
         } else {
             document.body.classList.remove('hidden-scroll');
             document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+
+            fixedElements.forEach(element => {
+                const padding = element.dataset.originalPaddingRight;
+                if (typeof padding !== 'undefined') {
+                    element.style.paddingRight = padding
+                }
+            });
         }
         return scrollbarWidth;
     }
