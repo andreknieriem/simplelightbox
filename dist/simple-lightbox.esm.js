@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.2.2
+	Version 2.4.1
 */
 class SimpleLightbox {
 
@@ -1318,3 +1318,5 @@ class SimpleLightbox {
     }
 }
 export default SimpleLightbox;
+
+global.SimpleLightbox = SimpleLightbox;

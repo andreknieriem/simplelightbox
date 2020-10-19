@@ -12,7 +12,7 @@ Touch-friendly image lightbox for mobile and desktop
 * preloading next and previous image
 * Android, iOs and Windows phone support
 * CSS3 Transitions with fallback for older browsers
-* Works in every modern Browser, even in IE 9+
+* Works in every modern Browser, even in IE 11
 * Can use jQuery 1.x,2.x and 3.x, but don't need
 * Keyboard support
 * Pinch to zoom
@@ -33,6 +33,7 @@ npm install simplelightbox
 After that include simple-lightbox(.min).css and simple-lightbox(.min).js to your page.
 
 ### Usage
+#### Standalone Plugin
 When using the standalone variant (`simple-lightbox(.min).js`)
 ```javascript
 new SimpleLightbox('.some-element a', { /* options */ });
@@ -41,6 +42,18 @@ new SimpleLightbox('.some-element a', { /* options */ });
 The jquery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (v1.x):
 ```javascript
 $('.some-element a').simpleLightbox({ /* options */ });
+```
+
+#### With Webpack/Browserify/Parcel etc...
+Choose the module file you want do import or require.
+**Module with Babel tranformation**
+```javascript
+import SimpleLightbox from "simplelightbox";
+```
+
+**Plain ES Module without Babel**
+```javascript
+import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm"
 ```
 
 ### Markup
@@ -193,8 +206,9 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.4.1 - Added new simple-lightbox.legacy.js with IE 11 Support. Fixes #175, #178, #183 and some other bugs from 2.4.0**  
 **2.4.0 - Added new option for fixed elements class #195**  
-**2.3.0 - Merged Feature for ESM Modules. Thanks to Serafin Lichtenhahn #173**  
+**2.3.0 - Merged Feature for ESM Modules. Thanks to Dmytro Hrynevych #180**  
 **2.2.2 - Fixed direct closing on load error #182**  
 **2.2.1 - Fixed bug #174 and problem with ES Modules**  
 **2.2.0 - Added ES Modules support, thanks to @seralichtenhahn for the PR. This fixed #164**  
@@ -272,3 +286,4 @@ Just call `gulp build` to have all files and variants created inside dist!
 [Raphael Hättich](https://github.com/RaphaelHaettich)  
 [Serafin Lichtenhahn](https://github.com/seralichtenhahn)  
 [Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  
+[Dmytro Hrynevych](https://github.com/dmh)

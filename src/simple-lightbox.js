@@ -1311,3 +1311,6 @@ class SimpleLightbox {
         return this;
     }
 }
+export default SimpleLightbox;
+
+global.SimpleLightbox = SimpleLightbox;
