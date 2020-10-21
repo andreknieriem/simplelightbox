@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
 	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.4.1" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.5.0" />
 	<link rel="stylesheet" href="dist/styles.css" />
 	<title>SimpleLightbox by André Rinas</title>
 </head>
@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.4.1</sup></h1>
+				<h1>SimpleLightbox <sup>v2.5.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -389,6 +389,12 @@ npm install simplelightbox</code>
 						<td>string</td>
 						<td>elements with this class are fixed and get the right padding when lightbox opens</td>
 					</tr>
+					<tr>
+						<td>fadeSpeed</td>
+						<td>300</td>
+						<td>int</td>
+						<td>the duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -599,6 +605,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>2.5.0</strong> - Added new option fadeSpeed. This will fix #147.<br />
 				<strong>2.4.1</strong> - Added new simple-lightbox.legacy.js with IE 11 Support<br />
 				<strong>2.4.0</strong> - Added new option for fixed elements class #195<br />
 				<strong>2.3.0</strong> - Merged Feature for ESM Modules. Thanks to Serafin Lichtenhahn #173<br />
@@ -705,7 +712,7 @@ $add-vendor-prefixes: true !default;</code>
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/michalsnik/aos@2.1.1/dist/aos.js"></script>
-<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.4.1"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.5.0"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
