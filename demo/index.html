@@ -787,8 +787,11 @@ $add-vendor-prefixes: true !default;</code>
 		});
 
 		// set all github links
-		// $('body').html().matchAll(/#\d{1,4}/)
-
+		var res = $('section.changelog').html().replace(/(#\d{1,})/gi, function (x) {
+			var num = x.substr(1);
+			return '<a target="_blank" href="https://github.com/andreknieriem/simplelightbox/issues/'+num+'">'+x+'</a>';
+		});
+		$('section.changelog').html(res);
 	})();
 </script>
 </body>
