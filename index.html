@@ -383,6 +383,12 @@ npm install simplelightbox</code>
 						<td>bool</td>
 						<td>change direction to rigth-to-left</td>
 					</tr>
+					<tr>
+						<td>fixedClass</td>
+						<td>sl-fixed</td>
+						<td>string</td>
+						<td>elements with this class are fixed and get the right padding when lightbox opens</td>
+					</tr>
 					</tbody>
 				</table>
 			</div>
@@ -586,7 +592,7 @@ $add-vendor-prefixes: true !default;</code>
 		</div>
 	</div>
 </section>
-<section>
+<section class="changelog">
 	<div class="container">
 		<div class="row">
 			<div class="col-left">
@@ -780,6 +786,14 @@ $add-vendor-prefixes: true !default;</code>
 				}
 			});
 		});
+
+		// set all github links
+		var res = $('section.changelog').html().replace(/(#\d{1,})/gi, function (x) {
+			var num = x.substr(1);
+			return '<a target="_blank" href="https://github.com/andreknieriem/simplelightbox/issues/'+num+'">'+x+'</a>';
+		});
+		$('section.changelog').html(res);
+
 	})();
 </script>
 </body>
