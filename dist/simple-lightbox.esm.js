@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.4.1
+	Version 2.5.0
 */
 class SimpleLightbox {
 
@@ -47,7 +47,8 @@ class SimpleLightbox {
         maxZoom: 10,
         htmlClass: 'has-lightbox',
         rtl: false,
-        fixedClass: 'sl-fixed'
+        fixedClass: 'sl-fixed',
+        fadeSpeed: 300
     };
 
     transitionPrefix;
@@ -249,6 +250,7 @@ class SimpleLightbox {
 
         this.domNodes.wrapper = document.createElement('div');
         this.domNodes.wrapper.classList.add('sl-wrapper');
+        this.domNodes.wrapper.setAttribute('tabindex',0);
         if (this.options.className) {
             this.domNodes.wrapper.classList.add(this.options.className);
         }
@@ -347,7 +349,7 @@ class SimpleLightbox {
             }
         }
 
-        this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), 300, () => {
+        this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, () => {
             if (this.options.disableScroll) {
                 this.toggleScrollbar('show');
             }
@@ -435,7 +437,7 @@ class SimpleLightbox {
             this.slide(this.options.animationSpeed / 1000, (-100 * slideDirection) - this.controlCoordinates.swipeDiff + 'px');
         }
 
-        this.fadeOut(this.domNodes.image, 300, () => {
+        this.fadeOut(this.domNodes.image, this.options.fadeSpeed, () => {
           this.isAnimating = true;
             setTimeout(() => {
                 let element = this.relatedElements[this.currentImageIndex];
@@ -521,7 +523,7 @@ class SimpleLightbox {
 
             this.domNodes.spinner.style.display = 'none';
 
-            this.fadeIn(this.currentImage, 300);
+            this.fadeIn(this.currentImage, this.options.fadeSpeed);
 
             this.isOpen = true;
 
@@ -565,7 +567,7 @@ class SimpleLightbox {
                         this.slide(this.options.animationSpeed / 1000, 0 + 'px');
                     }, 50);
                 }
-                this.fadeIn(this.domNodes.image, 300, () => {
+                this.fadeIn(this.domNodes.image, this.options.fadeSpeed, () => {
                     this.isAnimating = false;
                     this.setCaption(captionText, imageWidth);
                 });
@@ -686,7 +688,7 @@ class SimpleLightbox {
 
 
                             if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
-                                this.fadeOut(this.domNodes.caption, 200);
+                                this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                             }
 
                             this.controlCoordinates.zoomed = true;
@@ -773,7 +775,7 @@ class SimpleLightbox {
                         if (this.controlCoordinates.targetScale > 1) {
                             this.controlCoordinates.zoomed = true;
                             if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
-                                this.fadeOut(this.domNodes.caption, 200);
+                                this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                             }
                         }
 
@@ -860,7 +862,7 @@ class SimpleLightbox {
                     if (this.controlCoordinates.initialScale === 1) {
                         this.controlCoordinates.zoomed = false;
                         if (this.domNodes.caption.style.display === 'none') {
-                            this.fadeIn(this.domNodes.caption, 200);
+                            this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
                         }
                     }
                     this.controlCoordinates.initialPinchDistance = null;
@@ -916,7 +918,7 @@ class SimpleLightbox {
                 this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
                 this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
                 if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
-                    this.fadeOut(this.domNodes.caption, 200);
+                    this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                 }
                 this.controlCoordinates.zoomed = true;
             } else {
@@ -925,7 +927,7 @@ class SimpleLightbox {
                 this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
                 this.controlCoordinates.zoomed = false;
                 if (this.domNodes.caption.style.display === 'none') {
-                    this.fadeIn(this.domNodes.caption, 200);
+                    this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
                 }
             }
             setTimeout(() => {
@@ -1015,7 +1017,7 @@ class SimpleLightbox {
             this.domNodes.image.appendChild(this.domNodes.caption);
 
             setTimeout(() => {
-                this.fadeIn(this.domNodes.caption, 300);
+                this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
             }, this.options.captionDelay);
         }
     }
@@ -1090,8 +1092,8 @@ class SimpleLightbox {
         this.domNodes.image.appendChild(this.currentImage);
 
 
-        this.fadeIn(this.domNodes.overlay, 300);
-        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], 300);
+        this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
+        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
 
         this.show(this.domNodes.spinner);
         this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
@@ -1147,7 +1149,7 @@ class SimpleLightbox {
 
         this.isFadeIn = false;
 
-        let step = 16.66666 / (duration || 300),
+        let step = 16.66666 / (duration || this.options.fadeSpeed),
             fade = () => {
                 let currentOpacity = parseFloat(elements[0].style.opacity);
                 if ((currentOpacity -= step) < 0) {
@@ -1177,7 +1179,7 @@ class SimpleLightbox {
         this.isFadeIn = true;
 
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
-            step = (16.66666 * opacityTarget) / (duration || 300),
+            step = (16.66666 * opacityTarget) / (duration || this.options.fadeSpeed),
             fade = () => {
                 let currentOpacity = parseFloat(elements[0].style.opacity);
                 if (!((currentOpacity += step) > opacityTarget)) {

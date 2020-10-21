@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.4.1
+	Version 2.5.0
 */
 "use strict";
 
@@ -72,7 +72,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       maxZoom: 10,
       htmlClass: 'has-lightbox',
       rtl: false,
-      fixedClass: 'sl-fixed'
+      fixedClass: 'sl-fixed',
+      fadeSpeed: 300
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
@@ -281,6 +282,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.image.classList.add('sl-image');
       this.domNodes.wrapper = document.createElement('div');
       this.domNodes.wrapper.classList.add('sl-wrapper');
+      this.domNodes.wrapper.setAttribute('tabindex', 0);
 
       if (this.options.className) {
         this.domNodes.wrapper.classList.add(this.options.className);
@@ -384,7 +386,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         }
       }
 
-      this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), 300, function () {
+      this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, function () {
         if (_this2.options.disableScroll) {
           _this2.toggleScrollbar('show');
         }
@@ -472,7 +474,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         this.slide(this.options.animationSpeed / 1000, -100 * slideDirection - this.controlCoordinates.swipeDiff + 'px');
       }
 
-      this.fadeOut(this.domNodes.image, 300, function () {
+      this.fadeOut(this.domNodes.image, this.options.fadeSpeed, function () {
         _this4.isAnimating = true;
         setTimeout(function () {
           var element = _this4.relatedElements[_this4.currentImageIndex];
@@ -559,7 +561,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         _this5.domNodes.image.style.height = imageHeight + 'px';
         _this5.domNodes.spinner.style.display = 'none';
 
-        _this5.fadeIn(_this5.currentImage, 300);
+        _this5.fadeIn(_this5.currentImage, _this5.options.fadeSpeed);
 
         _this5.isOpen = true;
         var captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
@@ -608,7 +610,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
             }, 50);
           }
 
-          _this5.fadeIn(_this5.domNodes.image, 300, function () {
+          _this5.fadeIn(_this5.domNodes.image, _this5.options.fadeSpeed, function () {
             _this5.isAnimating = false;
 
             _this5.setCaption(captionText, imageWidth);
@@ -736,7 +738,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
                   _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
 
                   if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
-                    _this6.fadeOut(_this6.domNodes.caption, 200);
+                    _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
                   }
 
                   _this6.controlCoordinates.zoomed = true;
@@ -831,7 +833,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
                   _this6.controlCoordinates.zoomed = true;
 
                   if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
-                    _this6.fadeOut(_this6.domNodes.caption, 200);
+                    _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
                   }
                 }
 
@@ -918,7 +920,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
                 _this6.controlCoordinates.zoomed = false;
 
                 if (_this6.domNodes.caption.style.display === 'none') {
-                  _this6.fadeIn(_this6.domNodes.caption, 200);
+                  _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
                 }
               }
 
@@ -982,7 +984,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
 
           if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
-            _this6.fadeOut(_this6.domNodes.caption, 200);
+            _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
           }
 
           _this6.controlCoordinates.zoomed = true;
@@ -996,7 +998,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           _this6.controlCoordinates.zoomed = false;
 
           if (_this6.domNodes.caption.style.display === 'none') {
-            _this6.fadeIn(_this6.domNodes.caption, 200);
+            _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
           }
         }
 
@@ -1093,7 +1095,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         this.domNodes.caption.innerHTML = captionText;
         this.domNodes.image.appendChild(this.domNodes.caption);
         setTimeout(function () {
-          _this7.fadeIn(_this7.domNodes.caption, 300);
+          _this7.fadeIn(_this7.domNodes.caption, _this7.options.fadeSpeed);
         }, this.options.captionDelay);
       }
     }
@@ -1171,8 +1173,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.image.innerHTML = '';
       this.domNodes.image.setAttribute('style', '');
       this.domNodes.image.appendChild(this.currentImage);
-      this.fadeIn(this.domNodes.overlay, 300);
-      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], 300);
+      this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
+      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
       this.show(this.domNodes.spinner);
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
       this.domNodes.counter.querySelector('.sl-total').innerHTML = this.relatedElements.length;
@@ -1284,7 +1286,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
       this.isFadeIn = false;
 
-      var step = 16.66666 / (duration || 300),
+      var step = 16.66666 / (duration || this.options.fadeSpeed),
           fade = function fade() {
         var currentOpacity = parseFloat(elements[0].style.opacity);
 
@@ -1351,7 +1353,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.isFadeIn = true;
 
       var opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
-          step = 16.66666 * opacityTarget / (duration || 300),
+          step = 16.66666 * opacityTarget / (duration || this.options.fadeSpeed),
           fade = function fade() {
         var currentOpacity = parseFloat(elements[0].style.opacity);
 

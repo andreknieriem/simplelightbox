@@ -111,6 +111,7 @@ For a whole example just look at the demo folder.
 | htmlClass | 'has-lightbox' | string or false | adds class to html element if lightbox is open. If empty or false no class is set |
 | rtl | false | bool | change direction to rigth-to-left |
 | fixedClass | 'sl-fixed' | string | elements with this class are fixed and get the right padding when lightbox opens |
+| fadeSpeed | 300 | int | the duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
 
 ### Events
 | Name | Description |
@@ -206,6 +207,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.5.0 - Added new option fadeSpeed. This will fix #147 and #186**  
 **2.4.1 - Added new simple-lightbox.legacy.js with IE 11 Support. Fixes #175, #178, #183 and some other bugs from 2.4.0**  
 **2.4.0 - Added new option for fixed elements class #195**  
 **2.3.0 - Merged Feature for ESM Modules. Thanks to Dmytro Hrynevych #180**  
