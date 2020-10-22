@@ -471,16 +471,20 @@ npm install simplelightbox</code>
 				</tbody>
 				</table>
 				<h4>Examples</h4>
-				<pre>
-<code class="language-javascript">$('.gallery a').on('show.simplelightbox', function () {
+				<pre><code class="language-javascript">let gallery = new SimpleLightbox('.gallery a');
+gallery.on('show.simplelightbox', function () {
 	// do something…
 });
 
-$('.gallery a').on('error.simplelightbox', function (e) {
+gallery.on('error.simplelightbox', function (e) {
 	console.log(e); // some usefull information
-});</code>
-</pre>
+});
 
+// with jQuery nearly the same
+let gallery = $('.gallery a').simpleLightbox();
+gallery.on('show.simplelightbox', function () {
+	// do something…
+});</code></pre>
 			</div>
 		</div>
 	</div>
@@ -738,7 +742,7 @@ $add-vendor-prefixes: true !default;</code>
 
 		$('body').fadeIn(200);
 
-		var $gallery = new SimpleLightbox('.small-demo a', {});
+		let $gallery = new SimpleLightbox('.small-demo a', {});
 
 		interval = window.setInterval(function(){
 			$('.scrollwheel').animate({
