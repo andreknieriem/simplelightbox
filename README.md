@@ -113,6 +113,7 @@ For a whole example just look at the demo folder.
 | fixedClass | 'sl-fixed' | string | elements with this class are fixed and get the right padding when lightbox opens |
 | fadeSpeed | 300 | int | the duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
 | uniqueImages | true | bool | whether to uniqualize images or not |
+| focus | true | bool | focus the lightbox on open to enable tab control |
 
 ### Events
 | Name | Description |
