@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.5.0
+	Version 2.6.0
 */
 body.hidden-scroll {
   overflow: hidden; }
@@ -19,7 +19,12 @@ body.hidden-scroll {
   z-index: 1035; }
 
 .sl-wrapper {
-  z-index: 1040; }
+  z-index: 1040;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  position: fixed; }
   .sl-wrapper * {
     box-sizing: border-box; }
   .sl-wrapper button {
@@ -44,8 +49,6 @@ body.hidden-scroll {
     font-family: Arial, Baskerville, monospace;
     color: #000;
     font-size: 3rem; }
-    .sl-wrapper .sl-close:focus {
-      outline: none; }
   .sl-wrapper .sl-counter {
     display: none;
     position: fixed;
@@ -75,8 +78,6 @@ body.hidden-scroll {
       .sl-wrapper .sl-navigation button.sl-prev {
         left: 5px;
         font-size: 2rem; }
-      .sl-wrapper .sl-navigation button:focus {
-        outline: none; }
       @media (min-width: 35.5em) {
         .sl-wrapper .sl-navigation button {
           width: 44px; }

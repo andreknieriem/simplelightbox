@@ -112,6 +112,7 @@ For a whole example just look at the demo folder.
 | rtl | false | bool | change direction to rigth-to-left |
 | fixedClass | 'sl-fixed' | string | elements with this class are fixed and get the right padding when lightbox opens |
 | fadeSpeed | 300 | int | the duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
+| uniqueImages | true | bool | whether to uniqualize images or not |
 
 ### Events
 | Name | Description |
@@ -132,12 +133,19 @@ For a whole example just look at the demo folder.
 
 **Example**  
 ```javascript
-$('.gallery a').on('open.simplelightbox', function () {
-  // do something…
+let gallery = new SimpleLightbox('.gallery a');
+gallery.on('show.simplelightbox', function () {
+	// do something…
 });
 
-$('.gallery a').on('error.simplelightbox', function (e) {
-  console.log(e); // some usefull information
+gallery.on('error.simplelightbox', function (e) {
+	console.log(e); // some usefull information
+});
+
+// with jQuery nearly the same
+let gallery = $('.gallery a').simpleLightbox();
+gallery.on('show.simplelightbox', function () {
+	// do something…
 });
 ```
 
@@ -207,6 +215,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.6.0 - Added new option uniqueImages for #156, focus for #190 and fixed bug #200 issue closing during animation**  
 **2.5.0 - Added new option fadeSpeed. This will fix #147 and #186**  
 **2.4.1 - Added new simple-lightbox.legacy.js with IE 11 Support. Fixes #175, #178, #183 and some other bugs from 2.4.0**  
 **2.4.0 - Added new option for fixed elements class #195**  

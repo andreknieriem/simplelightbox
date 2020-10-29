@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.5.0
+	Version 2.6.0
 */
 class SimpleLightbox {
 
@@ -48,7 +48,9 @@ class SimpleLightbox {
         htmlClass: 'has-lightbox',
         rtl: false,
         fixedClass: 'sl-fixed',
-        fadeSpeed: 300
+        fadeSpeed: 300,
+        uniqueImages: true,
+        focus: true
     };
 
     transitionPrefix;
@@ -146,6 +148,20 @@ class SimpleLightbox {
             this.elements = this.getRelated(this.options.rel);
         }
 
+        if (this.options.uniqueImages) {
+            let imgArr = [];
+            this.elements = Array.from(this.elements).filter(
+                element => {
+                    let src = element.getAttribute(this.options.sourceAttr);
+                    if(imgArr.indexOf(src) === -1) {
+                        imgArr.push(src);
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        }
+
         this.createDomNodes();
 
         if (this.options.close) {
@@ -175,8 +191,8 @@ class SimpleLightbox {
 
         // close addEventListener click addEventListener doc
         if (this.options.docClose) {
-            this.addEventListener(this.domNodes.overlay, ['click.' + this.eventNamespace, 'touchstart.' + this.eventNamespace], (event) => {
-                if (this.isOpen) {
+            this.addEventListener(this.domNodes.wrapper, ['click.' + this.eventNamespace, 'touchstart.' + this.eventNamespace], (event) => {
+                if (this.isOpen && event.target === event.currentTarget) {
                     this.close();
                 }
             });
@@ -250,7 +266,9 @@ class SimpleLightbox {
 
         this.domNodes.wrapper = document.createElement('div');
         this.domNodes.wrapper.classList.add('sl-wrapper');
-        this.domNodes.wrapper.setAttribute('tabindex',0);
+        this.domNodes.wrapper.setAttribute('tabindex',-1);
+        this.domNodes.wrapper.setAttribute('role','dialog');
+        this.domNodes.wrapper.setAttribute('aria-hidden',false);
         if (this.options.className) {
             this.domNodes.wrapper.classList.add(this.options.className);
         }
@@ -349,6 +367,9 @@ class SimpleLightbox {
             }
         }
 
+        this.removeEventListener(document, 'focusin.' + this.eventNamespace);
+
+
         this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, () => {
             if (this.options.disableScroll) {
                 this.toggleScrollbar('show');
@@ -438,22 +459,28 @@ class SimpleLightbox {
         }
 
         this.fadeOut(this.domNodes.image, this.options.fadeSpeed, () => {
-          this.isAnimating = true;
-            setTimeout(() => {
-                let element = this.relatedElements[this.currentImageIndex];
-                this.currentImage.setAttribute('src', element.getAttribute(this.options.sourceAttr));
+            this.isAnimating = true;
 
-                if (this.loadedImages.indexOf(element.getAttribute(this.options.sourceAttr)) === -1) {
-                    this.show(this.domNodes.spinner);
-                }
+            if(!this.isClosing) {
+                setTimeout(() => {
 
-                if(this.domNodes.image.contains(this.domNodes.caption)) {
-                  this.domNodes.image.removeChild(this.domNodes.caption);
-                }
+                    let element = this.relatedElements[this.currentImageIndex];
+                    this.currentImage.setAttribute('src', element.getAttribute(this.options.sourceAttr));
 
-                this.adjustImage(slideDirection);
-                if (this.options.preloading) this.preload();
-            }, 100);
+                    if (this.loadedImages.indexOf(element.getAttribute(this.options.sourceAttr)) === -1) {
+                        this.show(this.domNodes.spinner);
+                    }
+
+                    if(this.domNodes.image.contains(this.domNodes.caption)) {
+                      this.domNodes.image.removeChild(this.domNodes.caption);
+                    }
+
+                    this.adjustImage(slideDirection);
+                    if (this.options.preloading) this.preload();
+                }, 100);
+            } else {
+                this.isAnimating = false;
+            }
         });
     }
 
@@ -522,8 +549,14 @@ class SimpleLightbox {
             this.domNodes.image.style.height = imageHeight + 'px';
 
             this.domNodes.spinner.style.display = 'none';
-
-            this.fadeIn(this.currentImage, this.options.fadeSpeed);
+            if( this.options.focus ) {
+                this.forceFocus();
+            }
+            this.fadeIn(this.currentImage, this.options.fadeSpeed, () => {
+                if( this.options.focus ) {
+                    this.domNodes.wrapper.focus();
+                }
+            });
 
             this.isOpen = true;
 
@@ -1109,6 +1142,17 @@ class SimpleLightbox {
         }, this.options.animationSpeed);
     }
 
+    forceFocus() {
+        this.removeEventListener(document, 'focusin.' + this.eventNamespace);
+        this.addEventListener(document, 'focusin.' + this.eventNamespace, event => {
+            if (document !== event.target &&
+                this.domNodes.wrapper !== event.target &&
+                !this.domNodes.wrapper.contains(event.target)) {
+                this.domNodes.wrapper.focus();
+            }
+        });
+    }
+
     // utility
 
     addEventListener(elements, events, callback, opts) {
@@ -1135,8 +1179,10 @@ class SimpleLightbox {
         events = this.wrap(events);
         for (let element of elements) {
             for (let event of events) {
-                element.removeEventListener(event.split('.')[0], element.namespaces[event]);
-                delete element.namespaces[event];
+                if(element.namespaces && element.namespaces[event]) {
+                    element.removeEventListener(event.split('.')[0], element.namespaces[event]);
+                    delete element.namespaces[event];
+                }
             }
         }
     }
@@ -1286,7 +1332,7 @@ class SimpleLightbox {
         ]);
 
         this.removeEventListener(this.elements, 'click.' + this.eventNamespace);
-
+        this.removeEventListener(document, 'focusin.' + this.eventNamespace);
         this.removeEventListener(document.body, 'contextmenu.' + this.eventNamespace);
         this.removeEventListener(document.body, 'keyup.' + this.eventNamespace);
 

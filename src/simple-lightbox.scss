@@ -44,6 +44,12 @@ body.hidden-scroll {
 
 .sl-wrapper {
     z-index: 1040;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+
     * {
         box-sizing: border-box;
     }
@@ -74,7 +80,7 @@ body.hidden-scroll {
         font-size: $sl-close-fontsize;
 
         &:focus {
-            outline: none;
+            //outline: none;
         }
     }
 
@@ -114,7 +120,7 @@ body.hidden-scroll {
             }
 
             &:focus {
-                outline: none;
+                //outline: none;
             }
 
             @media (min-width: $sl-breakpoint-medium) {
