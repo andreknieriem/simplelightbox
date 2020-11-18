@@ -76,7 +76,7 @@ For a whole example just look at the demo folder.
 | nav | true | bool | show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
 | captions | true | bool | show captions if availabled or not |
-| captionSelector | 'img' | string | set the element where the caption is. Set it to "self" for the A-Tag itself |
+| captionSelector | 'img' | string or function | set the element where the caption is. Set it to "self" for the A-Tag itself or use a callback which returns the element |
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
 | captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
