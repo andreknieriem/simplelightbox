@@ -598,8 +598,15 @@ var SimpleLightbox = /*#__PURE__*/function () {
         });
 
         _this5.isOpen = true;
-        var captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
-            captionText;
+        var captionContainer;
+
+        if (typeof _this5.options.captionSelector === 'string') {
+          captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector);
+        } else if (typeof _this5.options.captionSelector === 'function') {
+          captionContainer = _this5.options.captionSelector(_this5.relatedElements[_this5.currentImageIndex]);
+        }
+
+        var captionText;
 
         if (_this5.options.captions && captionContainer) {
           if (_this5.options.captionType === 'data') {

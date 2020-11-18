@@ -560,8 +560,14 @@ class SimpleLightbox {
 
             this.isOpen = true;
 
-            let captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector),
-                captionText;
+            let captionContainer;
+            if (typeof this.options.captionSelector === 'string') {
+                captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector);
+            } else if (typeof this.options.captionSelector === 'function') {
+                captionContainer = this.options.captionSelector(this.relatedElements[this.currentImageIndex]);
+            }
+
+            let captionText;
             if(this.options.captions && captionContainer) {
                 if (this.options.captionType === 'data') {
                     captionText = captionContainer.dataset[this.options.captionsData];
