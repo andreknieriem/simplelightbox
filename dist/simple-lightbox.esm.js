@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.6.0
+	Version 2.7.0
 */
 class SimpleLightbox {
 
@@ -560,8 +560,15 @@ class SimpleLightbox {
 
             this.isOpen = true;
 
-            let captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector),
+            let captionContainer,
                 captionText;
+
+            if (typeof this.options.captionSelector === 'string') {
+                captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector);
+            } else if (typeof this.options.captionSelector === 'function') {
+                captionContainer = this.options.captionSelector(this.relatedElements[this.currentImageIndex]);
+            }
+
             if(this.options.captions && captionContainer) {
                 if (this.options.captionType === 'data') {
                     captionText = captionContainer.dataset[this.options.captionsData];

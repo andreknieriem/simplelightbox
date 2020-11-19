@@ -76,7 +76,7 @@ For a whole example just look at the demo folder.
 | nav | true | bool | show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
 | captions | true | bool | show captions if availabled or not |
-| captionSelector | 'img' | string | set the element where the caption is. Set it to "self" for the A-Tag itself |
+| captionSelector | 'img' | string or function | set the element where the caption is. Set it to "self" for the A-Tag itself or use a callback which returns the element |
 | captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
 | captionsData | title | string | get the caption from given attribute |
 | captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
@@ -216,6 +216,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.7.0 - Merged #206 which fixes #205. Thanks to @ocean90 for the idea and PR**  
 **2.6.0 - Added new option uniqueImages for #156, focus for #190 and fixed bug #200 issue closing during animation**  
 **2.5.0 - Added new option fadeSpeed. This will fix #147 and #186**  
 **2.4.1 - Added new simple-lightbox.legacy.js with IE 11 Support. Fixes #175, #178, #183 and some other bugs from 2.4.0**  
@@ -299,3 +300,4 @@ Just call `gulp build` to have all files and variants created inside dist!
 [Serafin Lichtenhahn](https://github.com/seralichtenhahn)  
 [Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  
 [Dmytro Hrynevych](https://github.com/dmh)
+[Dominik Schilling](https://dominikschilling.de/) - [Github](https://github.com/ocean90/)  

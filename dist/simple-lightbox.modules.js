@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.6.0
+	Version 2.7.0
 */
 "use strict";
 
@@ -596,8 +596,13 @@ var SimpleLightbox = /*#__PURE__*/function () {
         });
 
         _this5.isOpen = true;
-        var captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector),
-            captionText;
+        var captionContainer, captionText;
+
+        if (typeof _this5.options.captionSelector === 'string') {
+          captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.relatedElements[_this5.currentImageIndex].querySelector(_this5.options.captionSelector);
+        } else if (typeof _this5.options.captionSelector === 'function') {
+          captionContainer = _this5.options.captionSelector(_this5.relatedElements[_this5.currentImageIndex]);
+        }
 
         if (_this5.options.captions && captionContainer) {
           if (_this5.options.captionType === 'data') {
