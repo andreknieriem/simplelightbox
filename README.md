@@ -299,5 +299,5 @@ Just call `gulp build` to have all files and variants created inside dist!
 [Raphael Hättich](https://github.com/RaphaelHaettich)  
 [Serafin Lichtenhahn](https://github.com/seralichtenhahn)  
 [Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  
-[Dmytro Hrynevych](https://github.com/dmh)
+[Dmytro Hrynevych](https://github.com/dmh)  
 [Dominik Schilling](https://dominikschilling.de/) - [Github](https://github.com/ocean90/)  
