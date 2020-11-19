@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
 	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.6.0" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.7.0" />
 	<link rel="stylesheet" href="dist/styles.css" />
 	<title>SimpleLightbox by André Rinas</title>
 </head>
@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.6.0</sup></h1>
+				<h1>SimpleLightbox <sup>v2.7.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -26,12 +26,12 @@
 				</nav>
 			</div>
 			<div class="small-demo">
-				<a href="img/full/01.jpg"><img src="img/thumb/01.jpg" alt="" /></a>
-				<a href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" /></a>
-				<a href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
-				<a href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" /></a>
-				<a href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" /></a>
-				<a href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
+				<a href="img/full/01.jpg"><img src="img/thumb/01.jpg" title="Drone Photography" alt="" /></a>
+				<a rel="rel2" href="img/full/02.jpg"><img src="img/thumb/02.jpg" alt="" /></a>
+				<a rel="rel3" href="img/full/03.jpg"><img src="img/thumb/03.jpg" alt="" /></a>
+				<a rel="rel2" href="img/full/04.jpg"><img src="img/thumb/04.jpg" alt="" /></a>
+				<a rel="rel2" href="img/full/05.jpg"><img src="img/thumb/05.jpg" alt="" title="Lego Heads" /></a>
+				<a rel="rel1" href="img/full/06.jpg"><img src="img/thumb/06.jpg" alt="" /></a>
 				<div class="clearing"></div>
 				<div class="caption">
 					Click on an image to see it in action
@@ -183,8 +183,8 @@ npm install simplelightbox</code>
 					<tr>
 						<td>captionSelector</td>
 						<td>'img'</td>
-						<td>string</td>
-						<td>set the element where the caption is. Set it to "self" for the A-Tag itself</td>
+						<td>string or function</td>
+						<td>set the element where the caption is. Set it to "self" for the A-Tag itself or use a callback which returns the element</td>
 					</tr>
 					<tr>
 						<td>captionType</td>
@@ -622,6 +622,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>2.7.0</strong> - Merged #206 which fixes #205. Thanks to @ocean90 for the idea and PR<br />
 				<strong>2.6.0</strong> - Added new option uniqueImages for #156, focus for #190 and fixed bug #200 issue closing during animation.<br />
 				<strong>2.5.0</strong> - Added new option fadeSpeed. This will fix #147.<br />
 				<strong>2.4.1</strong> - Added new simple-lightbox.legacy.js with IE 11 Support<br />
@@ -705,16 +706,17 @@ $add-vendor-prefixes: true !default;</code>
 					<a target="_blank" href="https://andrerinas.de/">Andre Rinas</a> - <a target="_blank" href="https://github.com/andreknieriem/">Github</a>
 				</p>
 				<p>
-					<a href="https://github.com/Mtillmann">Martin Tillmann</a><br>
-					<a href="https://github.com/nicekiwi">nicekiwi</a><br>
-					<a href="https://github.com/helloilya">helloilya</a><br>
-					<a href="https://github.com/bitstarr">bitstarr</a><br>
-					<a href="http://geoffrey.crofte.fr/">Geoffrey Crofte</a> - <a href="https://github.com/creativejuiz/">Github</a><br>
-					<a href="http://webseiten-anders.de/">Karl Anders</a> - <a href="https://github.com/karland/">Github</a>
-					<a href="https://github.com/RaphaelHaettich">Raphael Hättich</a>
-					<a href="https://github.com/seralichtenhahn">Serafin Lichtenhahn</a>
-					<a href="https://www.celcius.be">Jochen Sengier</a> - <a href="https://github.com/celcius-jochen/">Github</a>
-					<a href="https://github.com/dmh">Dmytro Hrynevych</a>
+					<a target="_blank" href="https://github.com/Mtillmann">Martin Tillmann</a><br>
+					<a target="_blank" href="https://github.com/nicekiwi">nicekiwi</a><br>
+					<a target="_blank" href="https://github.com/helloilya">helloilya</a><br>
+					<a target="_blank" href="https://github.com/bitstarr">bitstarr</a><br>
+					<a target="_blank" href="http://geoffrey.crofte.fr/">Geoffrey Crofte</a> - <a target="_blank" href="https://github.com/creativejuiz/">Github</a><br>
+					<a target="_blank" href="http://webseiten-anders.de/">Karl Anders</a> - <a target="_blank" href="https://github.com/karland/">Github</a><br>
+					<a target="_blank" href="https://github.com/RaphaelHaettich">Raphael Hättich</a><br>
+					<a target="_blank" href="https://github.com/seralichtenhahn">Serafin Lichtenhahn</a><br>
+					<a target="_blank" href="https://www.celcius.be">Jochen Sengier</a> - <a target="_blank" href="https://github.com/celcius-jochen/">Github</a><br>
+					<a target="_blank" href="https://github.com/dmh">Dmytro Hrynevych</a><br>
+					<a target="_blank" href="https://dominikschilling.de/">Dominik Schilling</a>  - <a target="_blank" href="https://github.com/ocean90/">Github</a><br>
 				</p>
 			</div>
 		</div>
@@ -729,7 +731,7 @@ $add-vendor-prefixes: true !default;</code>
 		src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.6.0"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.7.0"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
