@@ -2,18 +2,18 @@
 Touch-friendly image lightbox for mobile and desktop
 
 ### Features
-* responsive
-* touchfriendly
-* swipe gestures for next/previous image
-* easy to install, easy to use
-* minimalistic
+* Responsive
+* Touch friendly
+* Swipe gestures for next/previous image
+* Easy to install, easy to use
+* Minimalistic
 * Only some css is included. You can change the style like you want!
-* lots of options
-* preloading next and previous image
+* Lots of options
+* Preloading next and previous image
 * Android, iOs and Windows phone support
 * CSS3 Transitions with fallback for older browsers
 * Works in every modern Browser, even in IE 11
-* Can use jQuery 1.x,2.x and 3.x, but don't need
+* Can use jQuery 1.x, 2.x and 3.x. This is not required.
 * Keyboard support
 * Pinch to zoom
 * Double-tap to zoom
@@ -23,10 +23,10 @@ Touch-friendly image lightbox for mobile and desktop
 // YARN
 yarn add simplelightbox
 
-//Bower
+// Bower
 bower install simplelightbox
 
-//NPM
+// NPM
 npm install simplelightbox
 ```
 
@@ -39,13 +39,14 @@ When using the standalone variant (`simple-lightbox(.min).js`)
 new SimpleLightbox('.some-element a', { /* options */ });
 ```
 
-The jquery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (v1.x):
+The jQuery-compatible (`simple-lightbox.jquery(.min).js`) variant works as before (v1.x):
 ```javascript
 $('.some-element a').simpleLightbox({ /* options */ });
 ```
 
 #### With Webpack/Browserify/Parcel etc...
-Choose the module file you want do import or require.
+Choose the module file you want to import or require.
+
 **Module with Babel tranformation**
 ```javascript
 import SimpleLightbox from "simplelightbox";
@@ -58,107 +59,109 @@ import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm"
 
 ### Markup
 For the default setup, you just need links that are pointing to images.
+
 ```markup
 <div class="gallery">
     <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""/></a>
     <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"/></a>
 </div>
 ```
-The markup inside the A-Tags can be whatever you want. In this example thumbnails of the big images. The Title Tag is by default used to show a caption.
-For a whole example just look at the demo folder.
+
+The markup inside the A-Tags can be whatever you want. In this example thumbnails of the big images. The 'title' tag is used by default to show a caption.
+For a complete example just look at the demo folder.
 
 ### JavaScript Options
 | Property | Default | Type | Description |
 | -------- | ------- | ---- | ----------- |
-| sourceAttr | href | string | the attribute used for large images |
-| overlay | true | bool | show an overlay or not |
-| spinner | true | bool | show spinner or not |
-| nav | true | bool | show arrow-navigation or not |
-| navText | ['&larr;','&rarr;'] | array | text or html for the navigation arrows |
-| captions | true | bool | show captions if availabled or not |
-| captionSelector | 'img' | string or function | set the element where the caption is. Set it to "self" for the A-Tag itself or use a callback which returns the element |
-| captionType | 'attr' | string | how to get the caption. You can choose between attr, data or text |
-| captionsData | title | string | get the caption from given attribute |
-| captionPosition | 'bottom' | string | the position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
-| captionDelay | 0 | int | adds a delay before the caption shows (in ms) |
-| captionClass | '' | string | add an additional class to the sl-caption |
-| close | true | bool | show the close button or not |
-| closeText | '×' | string | text or html for the close button |
-| swipeClose | true | bool | swipe up or down to close gallery |
-| showCounter | true | bool | show current image index or not |
-| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | list of fileextensions the plugin works with or false for disable the check |
-| animationSpeed | 250 | int | how long takes the slide animation |
-| animationSlide | true | bool | weather to slide in new photos or not, disable to fade |
-| preloading | true | bool | allows preloading next and previous images |
-| enableKeyboard | true | bool | allow keyboard arrow navigation and close with ESC key |
-| loop | true | bool | enables looping through images |
-| rel | false | mixed | By default, false means, that the lightbox groups by rel automatically. This option can be used as an anchor rel alternative for Simplelightbox. It allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
-| docClose | true | bool | closes the lightbox when clicking outside |
-| swipeTolerance | 50 | int | how much pixel you have to swipe, until next or previous image |
-| className: | 'simple-lightbox' | string | adds a class to the wrapper of the lightbox |
+| sourceAttr | href | string | The attribute used for large images |
+| overlay | true | bool | Show an overlay or not |
+| spinner | true | bool | Show spinner or not |
+| nav | true | bool | Show arrow-navigation or not |
+| navText | ['&larr;','&rarr;'] | array | Text or html for the navigation arrows |
+| captions | true | bool | Show captions if available or not |
+| captionSelector | 'img' | string or function | Set the element where the caption is. Set it to "self" for the A-Tag itself or use a callback which returns the element |
+| captionType | 'attr' | string | How to get the caption. You can choose between attr, data or text |
+| captionsData | title | string | Get the caption from given attribute |
+| captionPosition | 'bottom' | string | The position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!) |
+| captionDelay | 0 | int | Adds a delay before the caption shows (in ms) |
+| captionClass | '' | string | Add an additional class to the sl-caption |
+| close | true | bool | Show the close button or not |
+| closeText | '×' | string | Text or html for the close button |
+| swipeClose | true | bool | Swipe up or down to close gallery |
+| showCounter | true | bool | Show current image index or not |
+| fileExt | 'png&#124;jpg&#124;jpeg&#124;gif' | regexp or false | List of file extensions the plugin works with or false to disable the check |
+| animationSpeed | 250 | int | How long the slide animation takes |
+| animationSlide | true | bool | Wether to slide in new photos or not, disable to fade |
+| preloading | true | bool | Allows preloading next and previous images |
+| enableKeyboard | true | bool | Allow keyboard arrow navigation and close with ESC key |
+| loop | true | bool | Enables looping through images |
+| rel | false | mixed | By default, false means that the lightbox groups by rel automatically. This option can be used as an anchor rel alternative for Simplelightbox. It allows the user to group any combination of elements together for a gallery, or to override an existing rel so elements are not grouped together. Note: The value can also be set to 'nofollow' to disable grouping. |
+| docClose | true | bool | Closes the lightbox when clicking outside |
+| swipeTolerance | 50 | int | The amount of pixels you have to swipe, until next or previous image |
+| className: | 'simple-lightbox' | string | Adds a class to the wrapper of the lightbox |
 | widthRatio: | 0.8 | float | Ratio of image width to screen width |
 | heightRatio: | 0.9 | float | Ratio of image height to screen height |
-| scaleImageToRatio: | false | bool | scales the image up to the defined ratio size |
-| disableRightClick | false | bool | disable rightclick on image or not |
-| disableScroll | true | bool | stop scrolling page if lightbox is opened |
-| alertError | true | bool | show an alert, if image was not found. If false error will be ignored |
-| alertErrorMessage | 'Image not found, next image will be loaded' | string | the message displayed if image was not found |
+| scaleImageToRatio: | false | bool | Scales the image up to the defined ratio size |
+| disableRightClick | false | bool | Disable rightclick on image or not |
+| disableScroll | true | bool | Stop scrolling page if lightbox is opened |
+| alertError | true | bool | Show an alert if image was not found. If false error will be ignored |
+| alertErrorMessage | 'Image not found, next image will be loaded' | string | The message displayed if image was not found |
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
-| history | true | bool | enable history back closes lightbox instead of reloading the page |
-| throttleInterval | 0 | int | time to wait between slides |
-| doubleTapZoom | 2 | int | zoom level if double tapping on image |
-| maxZoom | 10 | int | maximum zoom level on pinching |
-| htmlClass | 'has-lightbox' | string or false | adds class to html element if lightbox is open. If empty or false no class is set |
-| rtl | false | bool | change direction to rigth-to-left |
-| fixedClass | 'sl-fixed' | string | elements with this class are fixed and get the right padding when lightbox opens |
-| fadeSpeed | 300 | int | the duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
-| uniqueImages | true | bool | whether to uniqualize images or not |
-| focus | true | bool | focus the lightbox on open to enable tab control |
+| history | true | bool | Enable history back closes lightbox instead of reloading the page |
+| throttleInterval | 0 | int | Time to wait between slides |
+| doubleTapZoom | 2 | int | Zoom level when double tapping on an image |
+| maxZoom | 10 | int | Maximum zoom level on pinching |
+| htmlClass | 'has-lightbox' | string or false | Adds class to html element if lightbox is open. If empty or false no class is set |
+| rtl | false | bool | Change direction to right-to-left |
+| fixedClass | 'sl-fixed' | string | Elements with this class are fixed and get the right padding when lightbox opens |
+| fadeSpeed | 300 | int | The duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
+| uniqueImages | true | bool | Whether to uniqualize images or not |
+| focus | true | bool | Focus the lightbox on open to enable tab control |
 
 ### Events
 | Name | Description |
 | ---- | ----------- |
-| show.simplelightbox | this event fires before the lightbox opens |
-| shown.simplelightbox | this event fires after the lightbox was opened |
-| close.simplelightbox | this event fires before the lightbox closes |
-| closed.simplelightbox | this event fires after the lightbox was closed |
-| change.simplelightbox | this event fires before image changes |
-| changed.simplelightbox | this event fires after image was changed |
-| next.simplelightbox | this event fires before next image arrives |
-| nextDone.simplelightbox | this event fires after next image was arrived |
-| prev.simplelightbox | this event fires before previous image arrives |
-| prevDone.simplelightbox | this event fires after previous image was arrived |
-| nextImageLoaded.simplelightbox | this event fires after next image was loaded (if preload activated) |
-| prevImageLoaded.simplelightbox | this event fires after previous image was loaded (if preload activated) |
-| error.simplelightbox | this event fires on image load error |
+| show.simplelightbox | Fires before the lightbox opens |
+| shown.simplelightbox | Fires after the lightbox was opened |
+| close.simplelightbox | Fires before the lightbox closes |
+| closed.simplelightbox | Fires after the lightbox was closed |
+| change.simplelightbox | Fires before image changes |
+| changed.simplelightbox | Fires after image was changed |
+| next.simplelightbox | Fires before next image arrives |
+| nextDone.simplelightbox | Fires after next image arrived |
+| prev.simplelightbox | Fires before previous image arrives |
+| prevDone.simplelightbox | Fires after previous image arrived |
+| nextImageLoaded.simplelightbox | Fires after next image was loaded (if preload activated) |
+| prevImageLoaded.simplelightbox | Fires after previous image was loaded (if preload activated) |
+| error.simplelightbox | Fires on image load error |
 
 **Example**  
 ```javascript
 let gallery = new SimpleLightbox('.gallery a');
 gallery.on('show.simplelightbox', function () {
-	// do something…
+	// Do something…
 });
 
 gallery.on('error.simplelightbox', function (e) {
-	console.log(e); // some usefull information
+	console.log(e); // Some usefull information
 });
 
 // with jQuery nearly the same
 let gallery = $('.gallery a').simpleLightbox();
 gallery.on('show.simplelightbox', function () {
-	// do something…
+	// Do something…
 });
 ```
 
 ### Public Methods
 | Name | Description |
 | ---- | ----------- |
-| open | Opens the lightbox with an given Element |
+| open | Opens the lightbox with a given Element |
 | close | Closes current openend Lightbox |
 | next | Go to next image |
 | prev | Go to previous image |
-| destroy | Destroys the instance of  the lightbox |
-| refresh | Destroys and reinitilized the lightbox, needed for eg. Ajax Calls, or after dom manipulations |
+| destroy | Destroys the instance of the lightbox |
+| refresh | Destroys and reinitializes the lightbox, needed for eg. Ajax Calls, or after dom manipulations |
 
 **Example**  
 ```javascript
@@ -168,7 +171,8 @@ gallery.next(); // Next Image
 ```
 
 ### Multiple Lightboxes on one page
-You can have multiple lightboxes on one page, if you give them different selectors. Here is a small example:
+You can have multiple lightboxes on one page if you give them different selectors. Here is a small example:
+
 ```javascript
 var lightbox1 = $('.lighbox-1 a').simpleLightbox();
 var lightbox2 = $('.lighbox-2 a').simpleLightbox();
