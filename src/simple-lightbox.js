@@ -682,6 +682,8 @@ class SimpleLightbox {
                 return true;
             }
 
+            event.preventDefault();
+
             if (event.type === 'mousedown') {
                 this.controlCoordinates.initialPointerOffsetX = event.clientX;
                 this.controlCoordinates.initialPointerOffsetY = event.clientY;

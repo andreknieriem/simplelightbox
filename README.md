@@ -220,6 +220,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.7.1 - Fixed #228 - no mouse swiping in firefox. Thanks to @DrMint for the fix**  
 **2.7.0 - Merged #206 which fixes #205. Thanks to @ocean90 for the idea and PR**  
 **2.6.0 - Added new option uniqueImages for #156, focus for #190 and fixed bug #200 issue closing during animation**  
 **2.5.0 - Added new option fadeSpeed. This will fix #147 and #186**  
@@ -305,3 +306,4 @@ Just call `gulp build` to have all files and variants created inside dist!
 [Jochen Sengier](https://www.celcius.be) - [Github](https://github.com/celcius-jochen/)  
 [Dmytro Hrynevych](https://github.com/dmh)  
 [Dominik Schilling](https://dominikschilling.de/) - [Github](https://github.com/ocean90/)  
+[DrMint](https://github.com/DrMint)  

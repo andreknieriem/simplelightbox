@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.7.0
+	Version 2.7.1
 */
 class SimpleLightbox {
 
@@ -687,6 +687,8 @@ class SimpleLightbox {
             if (event.target.tagName === 'A' && event.type === 'touchstart') {
                 return true;
             }
+
+            event.preventDefault();
 
             if (event.type === 'mousedown') {
                 this.controlCoordinates.initialPointerOffsetX = event.clientX;
