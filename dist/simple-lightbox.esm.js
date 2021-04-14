@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.7.1
+	Version 2.7.2
 */
 class SimpleLightbox {
 
@@ -201,7 +201,7 @@ class SimpleLightbox {
         // disable rightclick
         if (this.options.disableRightClick) {
             this.addEventListener(document.body, 'contextmenu.' + this.eventNamespace, (event) => {
-                if (event.target.classList.contains('sl-overlay')) {
+                if (event.target.parentElement.classList.contains("sl-image")) {
                     event.preventDefault();
                 }
             });

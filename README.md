@@ -220,6 +220,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.7.2 - Fixed #231 - disableRightClick doesn't. Thanks to @DrMint for the fix**  
 **2.7.1 - Fixed #228 - no mouse swiping in firefox. Thanks to @DrMint for the fix**  
 **2.7.0 - Merged #206 which fixes #205. Thanks to @ocean90 for the idea and PR**  
 **2.6.0 - Added new option uniqueImages for #156, focus for #190 and fixed bug #200 issue closing during animation**  

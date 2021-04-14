@@ -195,7 +195,7 @@ class SimpleLightbox {
         // disable rightclick
         if (this.options.disableRightClick) {
             this.addEventListener(document.body, 'contextmenu.' + this.eventNamespace, (event) => {
-                if (event.target.classList.contains('sl-overlay')) {
+                if (event.target.parentElement.classList.contains("sl-image")) {
                     event.preventDefault();
                 }
             });
