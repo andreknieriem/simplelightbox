@@ -285,7 +285,7 @@ class SimpleLightbox {
     }
 
     isValidLink(element) {
-        return (!this.options.fileExt) || ('pathname' in element && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.pathname));
+        return (!this.options.fileExt) || ( element.getAttribute(this.options.sourceAttr) && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.getAttribute(this.options.sourceAttr)));
     }
 
     calculateTransitionPrefix() {

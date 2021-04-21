@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.7.2
+	Version 2.7.3
 */
 class SimpleLightbox {
 
@@ -291,7 +291,7 @@ class SimpleLightbox {
     }
 
     isValidLink(element) {
-        return (!this.options.fileExt) || ('pathname' in element && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.pathname));
+        return (!this.options.fileExt) || ( element.getAttribute(this.options.sourceAttr) && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.getAttribute(this.options.sourceAttr)));
     }
 
     calculateTransitionPrefix() {
