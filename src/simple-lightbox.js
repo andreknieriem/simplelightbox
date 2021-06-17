@@ -48,6 +48,7 @@ class SimpleLightbox {
     };
 
     transitionPrefix;
+    isPassiveEventsSupported;
     transitionCapable = false;
 
     isTouchDevice = ('ontouchstart' in window);
@@ -123,6 +124,7 @@ class SimpleLightbox {
     constructor(elements, options) {
 
         this.options = Object.assign(this.defaultOptions, options);
+        this.isPassiveEventsSupported = this.checkPassiveEventsSupport();
 
         if (typeof elements === 'string') {
             this.initialSelector = elements;
@@ -226,6 +228,22 @@ class SimpleLightbox {
         }
 
         this.addEvents();
+    }
+
+    checkPassiveEventsSupport() {
+        // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+        // Test via a getter in the options object to see if the passive property is accessed
+        let supportsPassive = false;
+        try {
+            let opts = Object.defineProperty({}, 'passive', {
+                get: function() {
+                    supportsPassive = true;
+                }
+            });
+            window.addEventListener("testPassive", null, opts);
+            window.removeEventListener("testPassive", null, opts);
+        } catch (e) {}
+        return supportsPassive;
     }
 
     createDomNodes() {
@@ -682,9 +700,8 @@ class SimpleLightbox {
                 return true;
             }
 
-            event.preventDefault();
-
             if (event.type === 'mousedown') {
+                event.preventDefault();
                 this.controlCoordinates.initialPointerOffsetX = event.clientX;
                 this.controlCoordinates.initialPointerOffsetY = event.clientY;
                 this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
@@ -777,8 +794,6 @@ class SimpleLightbox {
                 return true;
             }
 
-            event.preventDefault();
-
             if (event.type === 'touchmove') {
                 if (this.controlCoordinates.capture === false) {
                     return false;
@@ -845,6 +860,9 @@ class SimpleLightbox {
             /* Mouse Move implementation */
             if (event.type === 'mousemove' && this.controlCoordinates.mousedown) {
               if(event.type == 'touchmove') return true;
+
+                event.preventDefault();
+
               if(this.controlCoordinates.capture === false) return false;
 
               this.controlCoordinates.pointerOffsetX = event.clientX;
@@ -1157,11 +1175,9 @@ class SimpleLightbox {
     }
 
     // utility
-
     addEventListener(elements, events, callback, opts) {
         elements = this.wrap(elements);
         events = this.wrap(events);
-
 
         for (let element of elements) {
             if (!element.namespaces) {
@@ -1170,9 +1186,16 @@ class SimpleLightbox {
 
             for (let event of events) {
                 let options = opts || false;
+                let needsPassiveFix = ['touchstart', 'touchmove'].indexOf(event.split('.')[0]) >= 0;
+                if (needsPassiveFix && this.isPassiveEventsSupported) {
+                    if (typeof options === 'object') {
+                        options.passive = true;
+                    } else {
+                        options = {passive: true};
+                    }
+                }
                 element.namespaces[event] = callback;
                 element.addEventListener(event.split('.')[0], callback, options);
-
             }
         }
     }

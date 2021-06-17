@@ -10,21 +10,23 @@
     "url": "https://github.com/andreknieriem/simplelightbox.git"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.0",
-    "@babel/plugin-proposal-class-properties": "^7.8.3",
-    "@babel/polyfill": "^7.8.7",
-    "@babel/preset-env": "^7.9.5",
+    "@babel/core": "^7.14.3",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/polyfill": "^7.12.1",
+    "@babel/preset-env": "^7.14.4",
     "babelify": "^10.0.0",
+    "browserify": "^17.0.0",
+    "core-js": "^3.14.0",
     "gulp": "^4.0.0",
-    "gulp-append-prepend": "^1.0.6",
+    "gulp-append-prepend": "^1.0.9",
     "gulp-babel": "^8.0.0-beta.2",
     "gulp-buffer": "0.0.2",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.1.0",
     "gulp-tap": "^2.0.0",
     "gulp-uglify": "^3.0.1",
-    "node-sass": "^4.14.0",
-    "through2": "^3.0.0"
+    "node-sass": "^4.14.1",
+    "through2": "^3.0.2"
   },
   "keywords": [
     "lightbox",
@@ -46,9 +48,5 @@
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
   },
-  "homepage": "https://simplelightbox.com/",
-  "dependencies": {
-    "browserify": "^17.0.0",
-    "core-js": "^3.6.5"
-  }
+  "homepage": "https://simplelightbox.com/"
 }

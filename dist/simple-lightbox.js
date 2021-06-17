@@ -13,7 +13,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
 
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
@@ -81,6 +83,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
+
+    _defineProperty(this, "isPassiveEventsSupported", void 0);
 
     _defineProperty(this, "transitionCapable", false);
 
@@ -166,6 +170,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
     });
 
     this.options = Object.assign(this.defaultOptions, options);
+    this.isPassiveEventsSupported = this.checkPassiveEventsSupport();
 
     if (typeof elements === 'string') {
       this.initialSelector = elements;
@@ -272,6 +277,26 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }
 
   _createClass(SimpleLightbox, [{
+    key: "checkPassiveEventsSupport",
+    value: function checkPassiveEventsSupport() {
+      // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
+      // Test via a getter in the options object to see if the passive property is accessed
+      var supportsPassive = false;
+
+      try {
+        var opts = Object.defineProperty({}, 'passive', {
+          get: function get() {
+            supportsPassive = true;
+          }
+        });
+        window.addEventListener("testPassive", null, opts);
+        window.removeEventListener("testPassive", null, opts);
+      } catch (e) {} // console.log('simple-lightbox checkPassiveEventsSupport:', supportsPassive);
+
+
+      return supportsPassive;
+    }
+  }, {
     key: "createDomNodes",
     value: function createDomNodes() {
       this.domNodes.overlay = document.createElement('div');
@@ -435,6 +460,11 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.controlCoordinates.capture = false;
       this.controlCoordinates.initialScale = this.minMax(1, 1, this.options.maxZoom);
       this.controlCoordinates.doubleTapped = false;
+    }
+  }, {
+    key: "hash",
+    get: function get() {
+      return window.location.hash.substring(1);
     }
   }, {
     key: "preload",
@@ -735,9 +765,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
           return true;
         }
 
-        event.preventDefault();
-
         if (event.type === 'mousedown') {
+          event.preventDefault();
           _this6.controlCoordinates.initialPointerOffsetX = event.clientX;
           _this6.controlCoordinates.initialPointerOffsetY = event.clientY;
           _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;
@@ -836,8 +865,6 @@ var SimpleLightbox = /*#__PURE__*/function () {
           return true;
         }
 
-        event.preventDefault();
-
         if (event.type === 'touchmove') {
           if (_this6.controlCoordinates.capture === false) {
             return false;
@@ -910,6 +937,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
         if (event.type === 'mousemove' && _this6.controlCoordinates.mousedown) {
           if (event.type == 'touchmove') return true;
+          event.preventDefault();
           if (_this6.controlCoordinates.capture === false) return false;
           _this6.controlCoordinates.pointerOffsetX = event.clientX;
           _this6.controlCoordinates.pointerOffsetY = event.clientY;
@@ -1267,6 +1295,18 @@ var SimpleLightbox = /*#__PURE__*/function () {
             for (_iterator2.s(); !(_step2 = _iterator2.n()).done;) {
               var event = _step2.value;
               var options = opts || false;
+              var needsPassiveFix = ['touchstart', 'touchmove'].indexOf(event.split('.')[0]) >= 0;
+
+              if (needsPassiveFix && this.isPassiveEventsSupported) {
+                if (_typeof(options) === 'object') {
+                  options.passive = true;
+                } else {
+                  options = {
+                    passive: true
+                  };
+                }
+              }
+
               element.namespaces[event] = callback;
               element.addEventListener(event.split('.')[0], callback, options);
             }
@@ -1632,11 +1672,6 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.destroy();
       this.constructor(selector, options);
       return this;
-    }
-  }, {
-    key: "hash",
-    get: function get() {
-      return window.location.hash.substring(1);
     }
   }]);
 

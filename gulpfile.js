@@ -34,8 +34,14 @@ gulp.task("legacy", () => {
                 entries: file.path,
                 debug: false
             })
-                .transform(babelify)
-                .bundle();
+            .transform(babelify, {presets: [
+                ["@babel/preset-env", {
+                        "useBuiltIns": "usage",
+                        "corejs": "3.14.0"
+                    }
+                ]
+            ]})
+            .bundle();
         }))
         .pipe(buffer())
         .pipe(rename('simple-lightbox.legacy.js'))
