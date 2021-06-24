@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.7.3
+	Version 2.8.0
 */
 class SimpleLightbox {
 
@@ -240,7 +240,6 @@ class SimpleLightbox {
         // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
         // Test via a getter in the options object to see if the passive property is accessed
         let supportsPassive = false;
-
         try {
             let opts = Object.defineProperty({}, 'passive', {
                 get: function() {
@@ -250,9 +249,6 @@ class SimpleLightbox {
             window.addEventListener("testPassive", null, opts);
             window.removeEventListener("testPassive", null, opts);
         } catch (e) {}
-
-        // console.log('simple-lightbox checkPassiveEventsSupport:', supportsPassive);
-
         return supportsPassive;
     }
 
@@ -709,7 +705,6 @@ class SimpleLightbox {
             if (event.target.tagName === 'A' && event.type === 'touchstart') {
                 return true;
             }
-
 
             if (event.type === 'mousedown') {
                 event.preventDefault();
