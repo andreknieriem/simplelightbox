@@ -220,6 +220,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.8.1 - Fixed #250 - No closing if image load fails. #249 Disable scroll on Mac works now**  
 **2.8.0 - Fixed #235 - legacy file too big. #236 bad package.json and added support for passive event listeners #240. Thanks to @coderars for the issues and some code**  
 **2.7.3 - Fixed #232 - sourceAttr does not work. Thanks to @bivisual for the issue**  
 **2.7.2 - Fixed #231 - disableRightClick doesn't. Thanks to @DrMint for the fix**  

@@ -88,6 +88,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
     _defineProperty(this, "isTouchDevice", 'ontouchstart' in window);
 
+    _defineProperty(this, "isAppleDevice", /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform));
+
     _defineProperty(this, "initialLocationHash", void 0);
 
     _defineProperty(this, "pushStateSupport", 'pushState' in history);
@@ -382,7 +384,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           document.body.removeChild(scrollDiv);
           document.body.dataset.originalPaddingRight = paddingRight;
 
-          if (scrollbarWidth > 0) {
+          if (scrollbarWidth > 0 || scrollbarWidth == 0 && this.isAppleDevice) {
             document.body.classList.add('hidden-scroll');
             document.body.style.paddingRight = paddingRight + scrollbarWidth + 'px';
             fixedElements.forEach(function (element) {
@@ -569,7 +571,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         _this5.relatedElements[_this5.currentImageIndex].dispatchEvent(new Event('error.' + _this5.eventNamespace));
 
         _this5.isAnimating = false;
-        _this5.isOpen = false;
+        _this5.isOpen = true;
         _this5.domNodes.spinner.style.display = 'none';
         var dirIsDefined = direction === 1 || direction === -1;
 

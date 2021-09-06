@@ -58,7 +58,7 @@ class SimpleLightbox {
     transitionCapable = false;
 
     isTouchDevice = ('ontouchstart' in window);
-
+    isAppleDevice = /(Mac|iPhone|iPod|iPad)/i.test(navigator.platform);
 
     initialLocationHash;
 
@@ -342,7 +342,7 @@ class SimpleLightbox {
                 document.body.removeChild(scrollDiv);
 
                 document.body.dataset.originalPaddingRight = paddingRight;
-                if (scrollbarWidth > 0) {
+                if (scrollbarWidth > 0 || (scrollbarWidth == 0 && this.isAppleDevice)) {
                     document.body.classList.add('hidden-scroll');
                     document.body.style.paddingRight = (paddingRight + scrollbarWidth) + 'px';
 
@@ -475,10 +475,8 @@ class SimpleLightbox {
         if (this.options.animationSlide) {
             this.slide(this.options.animationSpeed / 1000, (-100 * slideDirection) - this.controlCoordinates.swipeDiff + 'px');
         }
-
         this.fadeOut(this.domNodes.image, this.options.fadeSpeed, () => {
             this.isAnimating = true;
-
             if(!this.isClosing) {
                 setTimeout(() => {
 
@@ -521,7 +519,7 @@ class SimpleLightbox {
         tmpImage.addEventListener('error', (event) => {
             this.relatedElements[this.currentImageIndex].dispatchEvent(new Event('error.' + this.eventNamespace));
             this.isAnimating = false;
-            this.isOpen = false;
+            this.isOpen = true;
             this.domNodes.spinner.style.display = 'none';
 
             let dirIsDefined = direction === 1 || direction === -1;
