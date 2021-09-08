@@ -390,7 +390,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
         }
 
-        if (document.body.clientWidth < fullWindowWidth) {
+        if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
           var scrollDiv = document.createElement('div'),
               paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
           scrollDiv.classList.add('sl-scrollbar-measure');

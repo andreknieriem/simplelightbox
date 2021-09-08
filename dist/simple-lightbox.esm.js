@@ -331,7 +331,7 @@ class SimpleLightbox {
                 let documentElementRect = document.documentElement.getBoundingClientRect();
                 fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
             }
-            if (document.body.clientWidth < fullWindowWidth) {
+            if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
                 let scrollDiv = document.createElement('div'),
                     paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
 
