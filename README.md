@@ -117,6 +117,8 @@ For a complete example just look at the demo folder.
 | fadeSpeed | 300 | int | The duration for fading in and out in milliseconds. Used for caption fadein/out too. If smaller than 100 it should be used with animationSlide:false |
 | uniqueImages | true | bool | Whether to uniqualize images or not |
 | focus | true | bool | Focus the lightbox on open to enable tab control |
+| scrollZoom | true | bool | Can zoom image with mousewheel scrolling |
+| scrollZoomFactor | true | bool | How much zoom when scrolling via mousewheel |
 
 ### Events
 | Name | Description |
@@ -220,6 +222,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.9.0 - Added mousescroll function with new options mouseScroll and mouseScrollFactor**  
 **2.8.1 - Fixed #250 - No closing if image load fails. #249 Disable scroll on Mac works now**  
 **2.8.0 - Fixed #235 - legacy file too big. #236 bad package.json and added support for passive event listeners #240. Thanks to @coderars for the issues and some code**  
 **2.7.3 - Fixed #232 - sourceAttr does not work. Thanks to @bivisual for the issue**  

@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.8.1
+	Version 2.9.0
 */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 (function (global){(function (){
@@ -79,7 +79,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
       fixedClass: 'sl-fixed',
       fadeSpeed: 300,
       uniqueImages: true,
-      focus: true
+      focus: true,
+      scrollZoom: true,
+      scrollZoomFactor: 0.5
     });
 
     _defineProperty(this, "transitionPrefix", void 0);
@@ -761,6 +763,90 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
         _this6.loadImage(event.currentTarget.classList.contains('sl-next') ? 1 : -1);
       });
+
+      if (this.options.scrollZoom) {
+        var pos = {
+          x: 0,
+          y: 0
+        };
+        var zoom_target = {
+          x: 0,
+          y: 0
+        };
+        var zoom_point = {
+          x: 0,
+          y: 0
+        };
+        var scale = 1;
+        this.addEventListener(this.domNodes.image, ['mousewheel', 'DOMMouseScroll'], function (event) {
+          event.preventDefault();
+          zoom_point.x = event.pageX - _this6.domNodes.image.offsetLeft;
+          zoom_point.y = event.pageY - _this6.domNodes.image.offsetTop;
+          var delta = event.delta || event.wheelDelta;
+
+          if (delta === undefined) {
+            //we are on firefox
+            delta = event.detail;
+          }
+
+          delta = Math.max(-1, Math.min(1, delta)); // cap the delta to [-1,1] for cross browser consistency
+          // determine the point on where the slide is zoomed in
+
+          zoom_target.x = (zoom_point.x - pos.x) / scale;
+          zoom_target.y = (zoom_point.y - pos.y) / scale; // apply zoom
+
+          scale += delta * _this6.options.scrollZoomFactor * scale;
+          scale = Math.max(1, Math.min(_this6.options.maxZoom, scale)); // calculate x and y based on zoom
+
+          pos.x = -zoom_target.x * scale + zoom_point.x;
+          pos.y = -zoom_target.y * scale + zoom_point.y;
+          _this6.controlCoordinates.targetOffsetX = pos.x;
+          _this6.controlCoordinates.targetOffsetY = pos.y;
+          _this6.controlCoordinates.targetScale = scale; // handle captions
+
+          if (_this6.controlCoordinates.targetScale > 1) {
+            _this6.controlCoordinates.initialScale = _this6.controlCoordinates.targetScale;
+            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = '0 0';
+            _this6.controlCoordinates.zoomed = true;
+
+            if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
+              _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
+          } else {
+            _this6.controlCoordinates.initialScale = 1;
+            _this6.controlCoordinates.targetOffsetX = 0;
+            _this6.controlCoordinates.targetOffsetY = 0;
+            _this6.controlCoordinates.zoomed = false;
+            pos = {
+              x: 0,
+              y: 0
+            };
+            zoom_target = {
+              x: 0,
+              y: 0
+            };
+            zoom_point = {
+              x: 0,
+              y: 0
+            };
+            scale = 1;
+
+            if (_this6.domNodes.caption.style.display === 'none') {
+              _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
+          }
+
+          _this6.setZoomData(_this6.controlCoordinates.targetScale, _this6.controlCoordinates.targetOffsetX, _this6.controlCoordinates.targetOffsetY);
+
+          _this6.zoomPanElement(_this6.controlCoordinates.targetOffsetX + "px", _this6.controlCoordinates.targetOffsetY + "px", _this6.controlCoordinates.targetScale); // remove transform origin
+
+
+          if (_this6.controlCoordinates.targetScale == 1) {
+            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
+          }
+        });
+      }
+
       this.addEventListener(this.domNodes.image, ['touchstart.' + this.eventNamespace, 'mousedown.' + this.eventNamespace], function (event) {
         if (event.target.tagName === 'A' && event.type === 'touchstart') {
           return true;
@@ -1075,6 +1161,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
         setTimeout(function () {
           if (_this6.currentImage) {
             _this6.currentImage.classList.remove('sl-transition');
+
+            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
           }
         }, 200);
         _this6.controlCoordinates.capture = true;
