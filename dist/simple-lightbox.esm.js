@@ -702,17 +702,25 @@ class SimpleLightbox {
         });
 
         if (this.options.scrollZoom) {
-            let pos = {x:0,y:0}
-            let zoom_target = {x:0,y:0}
-            let zoom_point = {x:0,y:0}
             let scale = 1
 
             this.addEventListener(this.domNodes.image, ['mousewheel','DOMMouseScroll'], (event) => {
+                if (this.controlCoordinates.mousedown || this.isAnimating || this.isClosing || !this.isOpen) {
+                    return true;
+                }
+                if(this.controlCoordinates.containerHeight == 0) {
+                    this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
+                    this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
+                    this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
+                    this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
+                    this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
+                    this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
 
+                    this.controlCoordinates.initialOffsetX = parseFloat(this.currentImage.dataset.translateX);
+                    this.controlCoordinates.initialOffsetY = parseFloat(this.currentImage.dataset.translateY);
+                }
                 event.preventDefault();
 
-                zoom_point.x = event.pageX - this.domNodes.image.offsetLeft;
-                zoom_point.y = event.pageY - this.domNodes.image.offsetTop;
                 let delta = event.delta || event.wheelDelta;
                 if (delta === undefined) {
                     //we are on firefox
@@ -720,53 +728,47 @@ class SimpleLightbox {
                 }
                 delta = Math.max(-1,Math.min(1,delta)); // cap the delta to [-1,1] for cross browser consistency
 
-                // determine the point on where the slide is zoomed in
-                zoom_target.x = (zoom_point.x - pos.x)/scale;
-                zoom_target.y = (zoom_point.y - pos.y)/scale;
-
                 // apply zoom
                 scale += delta * this.options.scrollZoomFactor * scale;
                 scale = Math.max(1, Math.min( this.options.maxZoom, scale));
 
-                // calculate x and y based on zoom
-                pos.x = -zoom_target.x * scale + zoom_point.x;
-                pos.y = -zoom_target.y * scale + zoom_point.y;
-
-                this.controlCoordinates.targetOffsetX = pos.x;
-                this.controlCoordinates.targetOffsetY = pos.y;
                 this.controlCoordinates.targetScale = scale;
 
-                // handle captions
-                if (this.controlCoordinates.targetScale > 1) {
-                    this.controlCoordinates.initialScale = this.controlCoordinates.targetScale;
-                    this.currentImage.style[this.transitionPrefix + 'transform-origin'] = '0 0';
+                this.controlCoordinates.pinchOffsetX = event.pageX;
+                this.controlCoordinates.pinchOffsetY = event.pageY;
 
+                this.controlCoordinates.limitOffsetX = ((this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) - this.controlCoordinates.containerWidth) / 2;
+                this.controlCoordinates.limitOffsetY = ((this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) - this.controlCoordinates.containerHeight) / 2;
+                this.controlCoordinates.scaleDifference = this.controlCoordinates.targetScale - this.controlCoordinates.initialScale;
+                this.controlCoordinates.targetOffsetX = (this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerWidth ? 0 : this.minMax(this.controlCoordinates.initialOffsetX - ((((((this.controlCoordinates.pinchOffsetX - this.controlCoordinates.containerOffsetX) - (this.controlCoordinates.containerWidth / 2)) - this.controlCoordinates.initialOffsetX) / (this.controlCoordinates.targetScale - this.controlCoordinates.scaleDifference))) * this.controlCoordinates.scaleDifference), this.controlCoordinates.limitOffsetX * (-1), this.controlCoordinates.limitOffsetX);
+                this.controlCoordinates.targetOffsetY = (this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerHeight ? 0 : this.minMax(this.controlCoordinates.initialOffsetY - ((((((this.controlCoordinates.pinchOffsetY - this.controlCoordinates.containerOffsetY) - (this.controlCoordinates.containerHeight / 2)) - this.controlCoordinates.initialOffsetY) / (this.controlCoordinates.targetScale - this.controlCoordinates.scaleDifference))) * this.controlCoordinates.scaleDifference), this.controlCoordinates.limitOffsetY * (-1), this.controlCoordinates.limitOffsetY);
+
+                this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
+
+                if (this.controlCoordinates.targetScale > 1) {
                     this.controlCoordinates.zoomed = true;
                     if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
                         this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                     }
                 } else {
-                    this.controlCoordinates.initialScale = 1;
-                    this.controlCoordinates.targetOffsetX = 0;
-                    this.controlCoordinates.targetOffsetY = 0;
-                    this.controlCoordinates.zoomed = false;
-                    pos = {x:0,y:0}
-                    zoom_target = {x:0,y:0}
-                    zoom_point = {x:0,y:0}
-                    scale = 1
-
-                    if (this.domNodes.caption.style.display === 'none') {
-                        this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
+                    if (this.controlCoordinates.initialScale === 1) {
+                        this.controlCoordinates.zoomed = false;
+                        if (this.domNodes.caption.style.display === 'none') {
+                            this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
+                        }
                     }
+                    this.controlCoordinates.initialPinchDistance = null;
+                    this.controlCoordinates.capture = false;
                 }
+
+                this.controlCoordinates.initialPinchDistance = this.controlCoordinates.targetPinchDistance;
+                this.controlCoordinates.initialScale = this.controlCoordinates.targetScale;
+                this.controlCoordinates.initialOffsetX = this.controlCoordinates.targetOffsetX;
+                this.controlCoordinates.initialOffsetY = this.controlCoordinates.targetOffsetY;
 
                 this.setZoomData(this.controlCoordinates.targetScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
                 this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
 
-                // remove transform origin
-                if (this.controlCoordinates.targetScale == 1) {
-                    this.currentImage.style[this.transitionPrefix + 'transform-origin'] = null;
-                }
             });
         }
 

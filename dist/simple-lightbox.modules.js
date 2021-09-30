@@ -763,23 +763,24 @@ var SimpleLightbox = /*#__PURE__*/function () {
       });
 
       if (this.options.scrollZoom) {
-        var pos = {
-          x: 0,
-          y: 0
-        };
-        var zoom_target = {
-          x: 0,
-          y: 0
-        };
-        var zoom_point = {
-          x: 0,
-          y: 0
-        };
         var scale = 1;
         this.addEventListener(this.domNodes.image, ['mousewheel', 'DOMMouseScroll'], function (event) {
+          if (_this6.controlCoordinates.mousedown || _this6.isAnimating || _this6.isClosing || !_this6.isOpen) {
+            return true;
+          }
+
+          if (_this6.controlCoordinates.containerHeight == 0) {
+            _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;
+            _this6.controlCoordinates.containerWidth = _this6.getDimensions(_this6.domNodes.image).width;
+            _this6.controlCoordinates.imgHeight = _this6.getDimensions(_this6.currentImage).height;
+            _this6.controlCoordinates.imgWidth = _this6.getDimensions(_this6.currentImage).width;
+            _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
+            _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
+            _this6.controlCoordinates.initialOffsetX = parseFloat(_this6.currentImage.dataset.translateX);
+            _this6.controlCoordinates.initialOffsetY = parseFloat(_this6.currentImage.dataset.translateY);
+          }
+
           event.preventDefault();
-          zoom_point.x = event.pageX - _this6.domNodes.image.offsetLeft;
-          zoom_point.y = event.pageY - _this6.domNodes.image.offsetTop;
           var delta = event.delta || event.wheelDelta;
 
           if (delta === undefined) {
@@ -788,60 +789,48 @@ var SimpleLightbox = /*#__PURE__*/function () {
           }
 
           delta = Math.max(-1, Math.min(1, delta)); // cap the delta to [-1,1] for cross browser consistency
-          // determine the point on where the slide is zoomed in
-
-          zoom_target.x = (zoom_point.x - pos.x) / scale;
-          zoom_target.y = (zoom_point.y - pos.y) / scale; // apply zoom
+          // apply zoom
 
           scale += delta * _this6.options.scrollZoomFactor * scale;
-          scale = Math.max(1, Math.min(_this6.options.maxZoom, scale)); // calculate x and y based on zoom
+          scale = Math.max(1, Math.min(_this6.options.maxZoom, scale));
+          _this6.controlCoordinates.targetScale = scale;
+          _this6.controlCoordinates.pinchOffsetX = event.pageX;
+          _this6.controlCoordinates.pinchOffsetY = event.pageY;
+          _this6.controlCoordinates.limitOffsetX = (_this6.controlCoordinates.imgWidth * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerWidth) / 2;
+          _this6.controlCoordinates.limitOffsetY = (_this6.controlCoordinates.imgHeight * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerHeight) / 2;
+          _this6.controlCoordinates.scaleDifference = _this6.controlCoordinates.targetScale - _this6.controlCoordinates.initialScale;
+          _this6.controlCoordinates.targetOffsetX = _this6.controlCoordinates.imgWidth * _this6.controlCoordinates.targetScale <= _this6.controlCoordinates.containerWidth ? 0 : _this6.minMax(_this6.controlCoordinates.initialOffsetX - (_this6.controlCoordinates.pinchOffsetX - _this6.controlCoordinates.containerOffsetX - _this6.controlCoordinates.containerWidth / 2 - _this6.controlCoordinates.initialOffsetX) / (_this6.controlCoordinates.targetScale - _this6.controlCoordinates.scaleDifference) * _this6.controlCoordinates.scaleDifference, _this6.controlCoordinates.limitOffsetX * -1, _this6.controlCoordinates.limitOffsetX);
+          _this6.controlCoordinates.targetOffsetY = _this6.controlCoordinates.imgHeight * _this6.controlCoordinates.targetScale <= _this6.controlCoordinates.containerHeight ? 0 : _this6.minMax(_this6.controlCoordinates.initialOffsetY - (_this6.controlCoordinates.pinchOffsetY - _this6.controlCoordinates.containerOffsetY - _this6.controlCoordinates.containerHeight / 2 - _this6.controlCoordinates.initialOffsetY) / (_this6.controlCoordinates.targetScale - _this6.controlCoordinates.scaleDifference) * _this6.controlCoordinates.scaleDifference, _this6.controlCoordinates.limitOffsetY * -1, _this6.controlCoordinates.limitOffsetY);
 
-          pos.x = -zoom_target.x * scale + zoom_point.x;
-          pos.y = -zoom_target.y * scale + zoom_point.y;
-          _this6.controlCoordinates.targetOffsetX = pos.x;
-          _this6.controlCoordinates.targetOffsetY = pos.y;
-          _this6.controlCoordinates.targetScale = scale; // handle captions
+          _this6.zoomPanElement(_this6.controlCoordinates.targetOffsetX + "px", _this6.controlCoordinates.targetOffsetY + "px", _this6.controlCoordinates.targetScale);
 
           if (_this6.controlCoordinates.targetScale > 1) {
-            _this6.controlCoordinates.initialScale = _this6.controlCoordinates.targetScale;
-            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = '0 0';
             _this6.controlCoordinates.zoomed = true;
 
             if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
               _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
             }
           } else {
-            _this6.controlCoordinates.initialScale = 1;
-            _this6.controlCoordinates.targetOffsetX = 0;
-            _this6.controlCoordinates.targetOffsetY = 0;
-            _this6.controlCoordinates.zoomed = false;
-            pos = {
-              x: 0,
-              y: 0
-            };
-            zoom_target = {
-              x: 0,
-              y: 0
-            };
-            zoom_point = {
-              x: 0,
-              y: 0
-            };
-            scale = 1;
+            if (_this6.controlCoordinates.initialScale === 1) {
+              _this6.controlCoordinates.zoomed = false;
 
-            if (_this6.domNodes.caption.style.display === 'none') {
-              _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
+              if (_this6.domNodes.caption.style.display === 'none') {
+                _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
+              }
             }
+
+            _this6.controlCoordinates.initialPinchDistance = null;
+            _this6.controlCoordinates.capture = false;
           }
+
+          _this6.controlCoordinates.initialPinchDistance = _this6.controlCoordinates.targetPinchDistance;
+          _this6.controlCoordinates.initialScale = _this6.controlCoordinates.targetScale;
+          _this6.controlCoordinates.initialOffsetX = _this6.controlCoordinates.targetOffsetX;
+          _this6.controlCoordinates.initialOffsetY = _this6.controlCoordinates.targetOffsetY;
 
           _this6.setZoomData(_this6.controlCoordinates.targetScale, _this6.controlCoordinates.targetOffsetX, _this6.controlCoordinates.targetOffsetY);
 
-          _this6.zoomPanElement(_this6.controlCoordinates.targetOffsetX + "px", _this6.controlCoordinates.targetOffsetY + "px", _this6.controlCoordinates.targetScale); // remove transform origin
-
-
-          if (_this6.controlCoordinates.targetScale == 1) {
-            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
-          }
+          _this6.zoomPanElement(_this6.controlCoordinates.targetOffsetX + "px", _this6.controlCoordinates.targetOffsetY + "px", _this6.controlCoordinates.targetScale);
         });
       }
 
