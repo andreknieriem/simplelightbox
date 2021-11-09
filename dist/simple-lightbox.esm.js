@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.9.0
+	Version 2.10.0
 */
 class SimpleLightbox {
 
@@ -1353,7 +1353,9 @@ class SimpleLightbox {
     hide(elements) {
         elements = this.wrap(elements);
         for (let element of elements) {
-            element.dataset.initialDisplay = element.style.display;
+            if(element.style.display != 'none') {
+                element.dataset.initialDisplay = element.style.display;
+            }
             element.style.display = 'none';
         }
     }
@@ -1414,6 +1416,15 @@ class SimpleLightbox {
 
     prev() {
         this.loadImage(-1);
+    }
+
+    // get some useful data
+    getLighboxData() {
+        return {
+            currentImageIndex: this.currentImageIndex,
+            currentImage: this.currentImage,
+            globalScrollbarWidth: this.globalScrollbarWidth
+        };
     }
 
     //close is exposed anyways..

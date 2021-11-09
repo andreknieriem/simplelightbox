@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "2.9.0",
+  "version": "2.10.0",
   "description": "Touch-friendly modern image lightbox for mobile and desktop with optional jQuery support",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simple-lightbox.css",
@@ -17,16 +17,16 @@
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "core-js": "^3.14.0",
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-append-prepend": "^1.0.9",
-    "gulp-babel": "^8.0.0-beta.2",
-    "gulp-buffer": "0.0.2",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.1.0",
+    "gulp-babel": "^8.0.0",
+    "gulp-buffer": "^0.0.2",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.0.0",
     "gulp-tap": "^2.0.0",
-    "gulp-uglify": "^3.0.1",
-    "node-sass": "^4.14.1",
-    "through2": "^3.0.2"
+    "gulp-uglify": "^3.0.2",
+    "node-sass": "^6.0.1",
+    "through2": "^4.0.2"
   },
   "keywords": [
     "lightbox",

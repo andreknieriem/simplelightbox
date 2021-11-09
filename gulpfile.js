@@ -7,7 +7,7 @@ let gulp = require("gulp"),
     uglify = require('gulp-uglify'),
     rename = require('gulp-rename'),
     gap = require('gulp-append-prepend'),
-    sass = require('gulp-sass');
+    sass = require('gulp-sass')(require('node-sass'));
 
 // default standalone file
 gulp.task("default", () => {
