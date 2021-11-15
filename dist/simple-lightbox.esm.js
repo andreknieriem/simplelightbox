@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.10.0
+	Version 2.10.1
 */
 class SimpleLightbox {
 
@@ -481,7 +481,6 @@ class SimpleLightbox {
             this.isAnimating = true;
             if(!this.isClosing) {
                 setTimeout(() => {
-
                     let element = this.relatedElements[this.currentImageIndex];
                     this.currentImage.setAttribute('src', element.getAttribute(this.options.sourceAttr));
 
@@ -610,13 +609,14 @@ class SimpleLightbox {
                 if (this.currentImageIndex < this.relatedElements.length - 1) {
                     this.show(this.domNodes.navigation.querySelector('.sl-next'));
                 }
+            } else {
+                if (this.relatedElements.length === 1) {
+                    this.hide(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+                } else {
+                    this.show(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+                }
             }
 
-            if (this.relatedElements.length === 1) {
-                this.hide(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
-            } else {
-                this.show(this.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
-            }
 
             if (direction === 1 || direction === -1) {
                 if (this.options.animationSlide) {
@@ -1306,7 +1306,8 @@ class SimpleLightbox {
                 if ((currentOpacity -= step) < 0) {
                     for (let element of elements) {
                         element.style.display = "none";
-                        element.style.opacity = '';
+                        // element.style.opacity = '';
+                        element.style.opacity = 1;
                     }
                     callback && callback.call(this, elements);
                 } else {

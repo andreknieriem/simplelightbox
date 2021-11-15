@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.10.0
+	Version 2.10.1
 */
 "use strict";
 
@@ -663,12 +663,12 @@ var SimpleLightbox = /*#__PURE__*/function () {
           if (_this5.currentImageIndex < _this5.relatedElements.length - 1) {
             _this5.show(_this5.domNodes.navigation.querySelector('.sl-next'));
           }
-        }
-
-        if (_this5.relatedElements.length === 1) {
-          _this5.hide(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
         } else {
-          _this5.show(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+          if (_this5.relatedElements.length === 1) {
+            _this5.hide(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+          } else {
+            _this5.show(_this5.domNodes.navigation.querySelectorAll('.sl-prev, .sl-next'));
+          }
         }
 
         if (direction === 1 || direction === -1) {
@@ -1469,8 +1469,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           try {
             for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
               var element = _step6.value;
-              element.style.display = "none";
-              element.style.opacity = '';
+              element.style.display = "none"; // element.style.opacity = '';
+
+              element.style.opacity = 1;
             }
           } catch (err) {
             _iterator6.e(err);
