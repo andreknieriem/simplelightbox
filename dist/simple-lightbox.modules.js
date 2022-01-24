@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.10.1
+	Version 2.10.2
 */
 "use strict";
 
@@ -36,6 +36,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
     _defineProperty(this, "defaultOptions", {
       sourceAttr: 'href',
       overlay: true,
+      overlayOpacity: 0.7,
       spinner: true,
       nav: true,
       navText: ['&lsaquo;', '&rsaquo;'],
@@ -302,7 +303,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
     value: function createDomNodes() {
       this.domNodes.overlay = document.createElement('div');
       this.domNodes.overlay.classList.add('sl-overlay');
-      this.domNodes.overlay.dataset.opacityTarget = ".7";
+      this.domNodes.overlay.dataset.opacityTarget = this.options.overlayOpacity;
       this.domNodes.closeButton = document.createElement('button');
       this.domNodes.closeButton.classList.add('sl-close');
       this.domNodes.closeButton.innerHTML = this.options.closeText;
@@ -433,7 +434,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       }
 
       this.removeEventListener(document, 'focusin.' + this.eventNamespace);
-      this.fadeOut(document.querySelectorAll('.sl-image img, .sl-overlay, .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, function () {
+      this.fadeOut(this.domNodes.overlay, this.options.fadeSpeed);
+      this.fadeOut(document.querySelectorAll('.sl-image img,  .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, function () {
         if (_this2.options.disableScroll) {
           _this2.toggleScrollbar('show');
         }
@@ -1448,7 +1450,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       try {
         for (_iterator5.s(); !(_step5 = _iterator5.n()).done;) {
           var element = _step5.value;
-          element.style.opacity = 1;
+          element.style.opacity = parseFloat(element) || window.getComputedStyle(element).getPropertyValue("opacity");
         }
       } catch (err) {
         _iterator5.e(err);
@@ -1554,7 +1556,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           try {
             for (_iterator10.s(); !(_step10 = _iterator10.n()).done;) {
               var _element2 = _step10.value;
-              _element2.style.opacity = '';
+              _element2.style.opacity = opacityTarget;
             }
           } catch (err) {
             _iterator10.e(err);

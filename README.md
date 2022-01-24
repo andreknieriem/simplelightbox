@@ -75,6 +75,7 @@ For a complete example just look at the demo folder.
 | -------- | ------- | ---- | ----------- |
 | sourceAttr | href | string | The attribute used for large images |
 | overlay | true | bool | Show an overlay or not |
+| overlayOpacity | 0.7 | float | the opacity of the overlay |
 | spinner | true | bool | Show spinner or not |
 | nav | true | bool | Show arrow-navigation or not |
 | navText | ['&larr;','&rarr;'] | array | Text or html for the navigation arrows |
@@ -193,7 +194,6 @@ $sl-overlay-background: #fff;
 $sl-navigation-color: #000;
 $sl-caption-color: #fff;
 $sl-caption-background: #000;
-$sl-overlay-opacity: 0.7;
 
 $sl-counter-fontsize: 1rem;
 $sl-caption-fontsize: 1rem;
@@ -223,6 +223,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.10.2 - Fixed #258 with opacity flicker on overlay. For this, moved style option captionOpacity to js plugin**    
 **2.10.1 - Fixed #255 fast switching photos and #256 for hiding back and next buttons on loop: false**    
 **2.10.0 - Fixed #254 - Nav Buttons disappear and adding new method getLighboxData so get some useful data for #251**    
 **2.9.0 - Added mousescroll function with new options mouseScroll and mouseScrollFactor**  

@@ -2,7 +2,6 @@
 
 $sl-font-family: Arial, Baskerville, monospace !default;
 $sl-overlay-background: #fff !default;
-$sl-overlay-opacity: 0.7 !default;
 $sl-navigation-color: #000 !default;
 $sl-caption-color: #fff !default;
 $sl-caption-background: rgba(0, 0, 0, 0.8) !default;
@@ -37,7 +36,6 @@ body.hidden-scroll {
     top: 0;
     bottom: 0;
     background: $sl-overlay-background;
-    opacity: $sl-overlay-opacity;
     display: none;
     z-index: 1035;
 }
