@@ -742,7 +742,7 @@ class SimpleLightbox {
 
                 if (this.controlCoordinates.targetScale > 1) {
                     this.controlCoordinates.zoomed = true;
-                    if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
+                    if ( (!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
                         this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                     }
                 } else {
@@ -812,7 +812,7 @@ class SimpleLightbox {
                             this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
 
 
-                            if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
+                            if ( (!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
                                 this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                             }
 
@@ -897,7 +897,7 @@ class SimpleLightbox {
 
                         if (this.controlCoordinates.targetScale > 1) {
                             this.controlCoordinates.zoomed = true;
-                            if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
+                            if ((!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
                                 this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                             }
                         }
@@ -1043,7 +1043,7 @@ class SimpleLightbox {
                 this.controlCoordinates.initialScale = this.options.doubleTapZoom;
                 this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
                 this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
-                if (!this.domNodes.caption.style.opacity && this.domNodes.caption.style.display !== 'none') {
+                if ((!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
                     this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
                 }
                 this.controlCoordinates.zoomed = true;

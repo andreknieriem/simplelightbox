@@ -5566,7 +5566,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           if (_this6.controlCoordinates.targetScale > 1) {
             _this6.controlCoordinates.zoomed = true;
 
-            if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
+            if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
               _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
             }
           } else {
@@ -5640,7 +5640,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
                   _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
 
-                  if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
+                  if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
                     _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
                   }
 
@@ -5733,7 +5733,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
                 if (_this6.controlCoordinates.targetScale > 1) {
                   _this6.controlCoordinates.zoomed = true;
 
-                  if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
+                  if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
                     _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
                   }
                 }
@@ -5885,7 +5885,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
 
           _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
 
-          if (!_this6.domNodes.caption.style.opacity && _this6.domNodes.caption.style.display !== 'none') {
+          if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
             _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
           }
 
