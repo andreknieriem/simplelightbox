@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.10.2
+	Version 2.10.3
 */
 "use strict";
 
@@ -796,8 +796,10 @@ var SimpleLightbox = /*#__PURE__*/function () {
           scale += delta * _this6.options.scrollZoomFactor * scale;
           scale = Math.max(1, Math.min(_this6.options.maxZoom, scale));
           _this6.controlCoordinates.targetScale = scale;
+          var scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
           _this6.controlCoordinates.pinchOffsetX = event.pageX;
-          _this6.controlCoordinates.pinchOffsetY = event.pageY;
+          _this6.controlCoordinates.pinchOffsetY = event.pageY - scrollTopPos || 0; // need to substract the scroll position
+
           _this6.controlCoordinates.limitOffsetX = (_this6.controlCoordinates.imgWidth * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerWidth) / 2;
           _this6.controlCoordinates.limitOffsetY = (_this6.controlCoordinates.imgHeight * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerHeight) / 2;
           _this6.controlCoordinates.scaleDifference = _this6.controlCoordinates.targetScale - _this6.controlCoordinates.initialScale;

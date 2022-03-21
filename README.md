@@ -223,6 +223,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.10.3 - Fixed #264 - Fixed wrong mouse-zoom when the page is scrolled**    
 **2.10.2 - Fixed #258 with opacity flicker on overlay. For this, moved style option captionOpacity to js plugin**    
 **2.10.1 - Fixed #255 fast switching photos and #256 for hiding back and next buttons on loop: false**    
 **2.10.0 - Fixed #254 - Nav Buttons disappear and adding new method getLighboxData so get some useful data for #251**    

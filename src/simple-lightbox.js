@@ -729,8 +729,10 @@ class SimpleLightbox {
 
                 this.controlCoordinates.targetScale = scale;
 
+                let scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
+
                 this.controlCoordinates.pinchOffsetX = event.pageX;
-                this.controlCoordinates.pinchOffsetY = event.pageY;
+                this.controlCoordinates.pinchOffsetY = event.pageY - scrollTopPos || 0; // need to substract the scroll position
 
                 this.controlCoordinates.limitOffsetX = ((this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) - this.controlCoordinates.containerWidth) / 2;
                 this.controlCoordinates.limitOffsetY = ((this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) - this.controlCoordinates.containerHeight) / 2;
