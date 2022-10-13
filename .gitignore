@@ -3,4 +3,5 @@ build
 npm-debug.log
 .env
 .idea
-.DS_Stor
+.DS_Store
+package-lock.json
