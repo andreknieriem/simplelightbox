@@ -223,6 +223,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.11.0 - Added possibility to add multiple classes to captions #280, added possibility for better selectors which fixes #62 again, fixed #268 lightbox not centered with scrolling**    
 **2.10.4 - Fixed #277 - add passive listener for scroll events, #276 mistake z-index**    
 **2.10.3 - Fixed #264 - Fixed wrong mouse-zoom when the page is scrolled**    
 **2.10.2 - Fixed #258 with opacity flicker on overlay. For this, moved style option captionOpacity to js plugin**    

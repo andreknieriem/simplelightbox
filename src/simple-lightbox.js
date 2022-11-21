@@ -249,6 +249,52 @@ class SimpleLightbox {
         return supportsPassive;
     }
 
+    generateQuerySelector(elem) {
+        const {
+            tagName,
+            id,
+            className,
+            parentNode
+        } = elem;
+
+        if (tagName === 'HTML') return 'HTML';
+
+        let str = tagName;
+
+        str += (id !== '') ? `#${id}` : '';
+
+        if (className) {
+            const classes = className.split(/\s/);
+            for (let i = 0; i < classes.length; i++) {
+                str += `.${classes[i]}`;
+            }
+        }
+
+        let childIndex = 1;
+
+        for (let e = elem; e.previousElementSibling; e = e.previousElementSibling) {
+            childIndex += 1;
+        }
+
+        str += `:nth-child(${childIndex})`;
+
+        return `${this.generateQuerySelector(parentNode)} > ${str}`;
+    }
+
+    // generateQuerySelector(el) {
+    //     if (el.tagName.toLowerCase() == "html")
+    //         return "HTML";
+    //     var str = el.tagName;
+    //     str += (el.id != "") ? "#" + el.id : "";
+    //     if (el.className) {
+    //         var classes = el.className.split(/\s/);
+    //         for (var i = 0; i < classes.length; i++) {
+    //             str += "." + classes[i]
+    //         }
+    //     }
+    //     return this.generateQuerySelector(el.parentNode) + " > " + str;
+    // }
+
     createDomNodes() {
         this.domNodes.overlay = document.createElement('div');
         this.domNodes.overlay.classList.add('sl-overlay');
@@ -273,7 +319,8 @@ class SimpleLightbox {
         this.domNodes.caption = document.createElement('div');
         this.domNodes.caption.classList.add('sl-caption', 'pos-' + this.options.captionPosition);
         if (this.options.captionClass) {
-            this.domNodes.caption.classList.add(this.options.captionClass);
+            let captionClasses = this.options.captionClass.split(/[\s,]+/);
+            this.domNodes.caption.classList.add(...captionClasses);
         }
 
         this.domNodes.image = document.createElement('div');
@@ -319,6 +366,17 @@ class SimpleLightbox {
                         false;
     }
 
+    getScrollbarWidth() {
+        let scrollbarWidth = 0;
+        let scrollDiv = document.createElement('div');
+        scrollDiv.classList.add('sl-scrollbar-measure');
+
+        document.body.appendChild(scrollDiv);
+        scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+        document.body.removeChild(scrollDiv);
+        return scrollbarWidth;
+    }
+
     toggleScrollbar(type) {
         let scrollbarWidth = 0;
         let fixedElements =  [].slice.call(document.querySelectorAll('.'+this.options.fixedClass))
@@ -329,15 +387,8 @@ class SimpleLightbox {
                 fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
             }
             if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
-                let scrollDiv = document.createElement('div'),
-                    paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
-
-                scrollDiv.classList.add('sl-scrollbar-measure');
-
-                document.body.appendChild(scrollDiv);
-                scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-                document.body.removeChild(scrollDiv);
-
+                let paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
+                scrollbarWidth = this.getScrollbarWidth();
                 document.body.dataset.originalPaddingRight = paddingRight;
                 if (scrollbarWidth > 0 || (scrollbarWidth == 0 && this.isAppleDevice)) {
                     document.body.classList.add('hidden-scroll');
@@ -576,7 +627,9 @@ class SimpleLightbox {
                 captionText;
 
             if (typeof this.options.captionSelector === 'string') {
-                captionContainer = this.options.captionSelector === 'self' ? this.relatedElements[this.currentImageIndex] : this.relatedElements[this.currentImageIndex].querySelector(this.options.captionSelector);
+                captionContainer = this.options.captionSelector === 'self'
+                    ? this.relatedElements[this.currentImageIndex]
+                    : document.querySelector(this.generateQuerySelector(this.relatedElements[this.currentImageIndex]) + ' ' + this.options.captionSelector);
             } else if (typeof this.options.captionSelector === 'function') {
                 captionContainer = this.options.captionSelector(this.relatedElements[this.currentImageIndex]);
             }
@@ -1174,8 +1227,10 @@ class SimpleLightbox {
     openImage(element) {
         element.dispatchEvent(new Event('show.' + this.eventNamespace));
 
+        this.globalScrollbarWidth = this.getScrollbarWidth();
         if (this.options.disableScroll) {
-            this.globalScrollbarWidth = this.toggleScrollbar('hide');
+            this.toggleScrollbar('hide');
+            this.globalScrollbarWidth = 0;
         }
 
         if (this.options.htmlClass && this.options.htmlClass !== '') {
