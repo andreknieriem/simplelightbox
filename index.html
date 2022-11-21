@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport" />
 	<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,700" rel="stylesheet">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.10.4" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.css?v2.11.0" />
 	<link rel="stylesheet" href="dist/styles.css" />
 	<title>SimpleLightbox by André Rinas</title>
 </head>
@@ -14,7 +14,7 @@
 	<div class="header-container">
 		<div class="container demo-container">
 			<div class="info">
-				<h1>SimpleLightbox <sup>v2.10.4</sup></h1>
+				<h1>SimpleLightbox <sup>v2.11.0</sup></h1>
 				<span class="subline">Touch-friendly image lightbox</span>
 				<nav>
 					<a class="btn donate" target="_blank" href="https://www.paypal.me/anrinas">Donate</a>
@@ -220,7 +220,7 @@ npm install simplelightbox</code>
 						<td>captionClass</td>
 						<td>''</td>
 						<td>string</td>
-						<td>adds an additional class to the sl-caption</td>
+						<td>adds an additional class(es) to the sl-caption use space or comma to add multiple classes.</td>
 					</tr>
 					<tr>
 						<td>close</td>
@@ -639,6 +639,7 @@ $add-vendor-prefixes: true !default;</code>
 				<h2>Changelog</h2>
 			</div>
 			<div class="col-right">
+				<strong>2.11.0</strong> - Added possibility to add multiple classes to captions #280, added possibility for better selectors which fixes #62 again, fixed #268 lightbox not centered with scrolling<br />
 				<strong>2.10.4</strong> - Fixed #277 - add passive listener for scroll events, #276 mistake z-index<br />
 				<strong>2.10.3</strong> - Fixed #264 - Fixed wrong mouse-zoom when the page is scrolled<br />
 				<strong>2.10.2</strong> - Fixed #258 with opacity flicker on overlay. For this, moved style option captionOpacity to js plugin<br />
@@ -760,7 +761,7 @@ $add-vendor-prefixes: true !default;</code>
 		src="https://code.jquery.com/jquery-3.4.1.min.js"
 		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 		crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.10.4"></script>
+<script src="https://cdn.jsdelivr.net/gh/andreknieriem/simplelightbox@master/dist/simple-lightbox.min.js?v2.11.0"></script>
 <script>
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
