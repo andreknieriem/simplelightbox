@@ -264,6 +264,7 @@ class SimpleLightbox {
         str += (id !== '') ? `#${id}` : '';
 
         if (className) {
+            className = className.trim();
             const classes = className.split(/\s/);
             for (let i = 0; i < classes.length; i++) {
                 str += `.${classes[i]}`;
