@@ -5124,8 +5124,8 @@ require("core-js/modules/es.array.filter.js");
 require("core-js/modules/es.object.to-string.js");
 require("core-js/modules/es.array.index-of.js");
 require("core-js/modules/es.object.define-property.js");
-require("core-js/modules/es.string.trim.js");
 require("core-js/modules/es.string.split.js");
+require("core-js/modules/es.string.trim.js");
 require("core-js/modules/es.array.concat.js");
 require("core-js/modules/web.timers.js");
 require("core-js/modules/es.regexp.constructor.js");
@@ -5156,7 +5156,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function _readOnlyError(name) { throw new TypeError("\"" + name + "\" is read-only"); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -5400,8 +5399,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       var str = tagName;
       str += id !== '' ? "#".concat(id) : '';
       if (className) {
-        className.trim(), _readOnlyError("className");
-        var classes = className.split(/\s/);
+        var classes = className.trim().split(/\s/);
         for (var i = 0; i < classes.length; i++) {
           str += ".".concat(classes[i]);
         }
