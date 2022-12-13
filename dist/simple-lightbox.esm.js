@@ -359,7 +359,7 @@ class SimpleLightbox {
     }
 
     isValidLink(element) {
-        return (!this.options.fileExt) || ( element.getAttribute(this.options.sourceAttr) && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.getAttribute(this.options.sourceAttr)));
+        return (!this.options.fileExt) || (element.getAttribute(this.options.sourceAttr) && new RegExp('(' + this.options.fileExt + ')($|\\?.*$)', 'i').test(element.getAttribute(this.options.sourceAttr)));
     }
 
     calculateTransitionPrefix() {
