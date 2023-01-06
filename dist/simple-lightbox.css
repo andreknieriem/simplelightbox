@@ -139,13 +139,6 @@ body.hidden-scroll {
         top: 0; }
       .sl-wrapper .sl-image .sl-caption.pos-outside {
         bottom: auto; }
-    .sl-wrapper .sl-image .sl-download {
-      display: none;
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      color: #000;
-      z-index: 1060; }
 
 .sl-spinner {
   display: none;

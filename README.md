@@ -108,6 +108,7 @@ For a complete example just look at the demo folder.
 | alertError | true | bool | Show an alert if image was not found. If false error will be ignored |
 | alertErrorMessage | 'Image not found, next image will be loaded' | string | The message displayed if image was not found |
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
+| download | false | string | Text for a download link below the image. If false nothing is added |
 | history | true | bool | Enable history back closes lightbox instead of reloading the page |
 | throttleInterval | 0 | int | Time to wait between slides |
 | doubleTapZoom | 2 | int | Zoom level when double tapping on an image |

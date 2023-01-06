@@ -208,15 +208,6 @@ body.hidden-scroll {
                 bottom: auto;
             }
         }
-
-        .sl-download {
-            display: none;
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            color: $sl-navigation-color;
-            z-index: 1060;
-        }
     }
 }
 
