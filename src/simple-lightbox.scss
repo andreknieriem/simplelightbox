@@ -7,6 +7,7 @@ $sl-caption-color: #fff !default;
 $sl-caption-background: rgba(0, 0, 0, 0.8) !default;
 
 $sl-counter-fontsize: 1rem !default;
+$sl-download-fontsize: 1rem !default;
 $sl-caption-fontsize: 1rem !default;
 $sl-close-fontsize: 3rem !default;
 
@@ -90,6 +91,21 @@ body.hidden-scroll {
         z-index: 10060;
         color: $sl-navigation-color;
         font-size: $sl-counter-fontsize;
+    }
+
+    .sl-download {
+        display: none;
+        position: fixed;
+        bottom: 5px;
+        width: 100%;
+        text-align: center;
+        z-index: 10060;
+        color: $sl-caption-color;
+        font-size: $sl-download-fontsize;
+
+        a {
+            color: $sl-caption-color;
+        }
     }
 
     .sl-navigation {
@@ -207,15 +223,6 @@ body.hidden-scroll {
             &.pos-outside {
                 bottom: auto;
             }
-        }
-
-        .sl-download {
-            display: none;
-            position: absolute;
-            bottom: 5px;
-            right: 5px;
-            color: $sl-navigation-color;
-            z-index: 1060;
         }
     }
 }

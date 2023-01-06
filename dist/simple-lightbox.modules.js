@@ -17,11 +17,13 @@ function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread n
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(arg) { var key = _toPrimitive(arg, "string"); return _typeof(key) === "symbol" ? key : String(key); }
+function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input === null) return input; var prim = input[Symbol.toPrimitive]; if (prim !== undefined) { var res = prim.call(input, hint || "default"); if (_typeof(res) !== "object") return res; throw new TypeError("@@toPrimitive must return a primitive value."); } return (hint === "string" ? String : Number)(input); }
 var SimpleLightbox = /*#__PURE__*/function () {
   function SimpleLightbox(elements, options) {
     var _this = this;
@@ -73,7 +75,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       uniqueImages: true,
       focus: true,
       scrollZoom: true,
-      scrollZoomFactor: 0.5
+      scrollZoomFactor: 0.5,
+      download: false
     });
     _defineProperty(this, "transitionPrefix", void 0);
     _defineProperty(this, "isPassiveEventsSupported", void 0);
@@ -303,6 +306,12 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.counter = document.createElement('div');
       this.domNodes.counter.classList.add('sl-counter');
       this.domNodes.counter.innerHTML = '<span class="sl-current"></span>/<span class="sl-total"></span>';
+      this.domNodes.download = document.createElement('div');
+      this.domNodes.download.classList.add('sl-download');
+      this.domNodes.downloadLink = document.createElement('a');
+      this.domNodes.downloadLink.setAttribute('download', '');
+      this.domNodes.downloadLink.textContent = this.options.download;
+      this.domNodes.download.appendChild(this.domNodes.downloadLink);
       this.domNodes.caption = document.createElement('div');
       this.domNodes.caption.classList.add('sl-caption', 'pos-' + this.options.captionPosition);
       if (this.options.captionClass) {
@@ -416,7 +425,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       }
       this.removeEventListener(document, 'focusin.' + this.eventNamespace);
       this.fadeOut(this.domNodes.overlay, this.options.fadeSpeed);
-      this.fadeOut(document.querySelectorAll('.sl-image img,  .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, function () {
+      this.fadeOut(document.querySelectorAll('.sl-image img,  .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter, .sl-download'), this.options.fadeSpeed, function () {
         if (_this2.options.disableScroll) {
           _this2.toggleScrollbar('show');
         }
@@ -633,6 +642,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           _this5.domNodes.additionalHtml.classList.add('sl-additional-html');
           _this5.domNodes.additionalHtml.innerHTML = _this5.options.additionalHtml;
           _this5.domNodes.image.appendChild(_this5.domNodes.additionalHtml);
+        }
+        if (_this5.options.download) {
+          _this5.domNodes.downloadLink.setAttribute('href', _this5.currentImage.getAttribute('src'));
         }
       });
     }
@@ -1133,6 +1145,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           this.domNodes.wrapper.appendChild(this.domNodes.counter);
         }
       }
+      if (this.options.download) {
+        this.domNodes.wrapper.appendChild(this.domNodes.download);
+      }
       this.isAnimating = true;
       this.currentImageIndex = this.relatedElements.indexOf(element);
       var targetURL = element.getAttribute(this.options.sourceAttr);
@@ -1149,7 +1164,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.image.setAttribute('style', '');
       this.domNodes.image.appendChild(this.currentImage);
       this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
-      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
+      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton, this.domNodes.download], this.options.fadeSpeed);
       this.show(this.domNodes.spinner);
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
       this.domNodes.counter.querySelector('.sl-total').innerHTML = this.relatedElements.length;

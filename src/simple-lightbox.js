@@ -47,7 +47,8 @@ class SimpleLightbox {
         uniqueImages: true,
         focus: true,
         scrollZoom: true,
-        scrollZoomFactor: 0.5
+        scrollZoomFactor: 0.5,
+        download: false
     };
 
     transitionPrefix;
@@ -316,6 +317,15 @@ class SimpleLightbox {
         this.domNodes.counter.classList.add('sl-counter');
         this.domNodes.counter.innerHTML = '<span class="sl-current"></span>/<span class="sl-total"></span>';
 
+        this.domNodes.download = document.createElement('div');
+        this.domNodes.download.classList.add('sl-download');
+
+        this.domNodes.downloadLink = document.createElement('a');
+        this.domNodes.downloadLink.setAttribute('download', '');
+        this.domNodes.downloadLink.textContent = this.options.download;
+        
+        this.domNodes.download.appendChild(this.domNodes.downloadLink);
+
         this.domNodes.caption = document.createElement('div');
         this.domNodes.caption.classList.add('sl-caption', 'pos-' + this.options.captionPosition);
         if (this.options.captionClass) {
@@ -436,7 +446,7 @@ class SimpleLightbox {
         this.removeEventListener(document, 'focusin.' + this.eventNamespace);
 
         this.fadeOut(this.domNodes.overlay, this.options.fadeSpeed);
-        this.fadeOut(document.querySelectorAll('.sl-image img,  .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter'), this.options.fadeSpeed, () => {
+        this.fadeOut(document.querySelectorAll('.sl-image img,  .sl-close, .sl-navigation, .sl-image .sl-caption, .sl-counter, .sl-download'), this.options.fadeSpeed, () => {
             if (this.options.disableScroll) {
                 this.toggleScrollbar('show');
             }
@@ -690,6 +700,9 @@ class SimpleLightbox {
                 this.domNodes.image.appendChild(this.domNodes.additionalHtml);
             }
 
+            if (this.options.download) {
+                this.domNodes.downloadLink.setAttribute('href', this.currentImage.getAttribute('src'));
+            }
         });
     }
 
@@ -1254,6 +1267,10 @@ class SimpleLightbox {
             }
         }
 
+        if (this.options.download) {
+            this.domNodes.wrapper.appendChild(this.domNodes.download);
+        }
+
         this.isAnimating = true;
 
         this.currentImageIndex = this.relatedElements.indexOf(element);
@@ -1278,7 +1295,7 @@ class SimpleLightbox {
 
 
         this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
-        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
+        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton, this.domNodes.download], this.options.fadeSpeed);
 
         this.show(this.domNodes.spinner);
         this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
