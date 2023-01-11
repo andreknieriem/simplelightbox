@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.11.0
+	Version 2.12.0
 */
 body.hidden-scroll {
   overflow: hidden; }
@@ -56,6 +56,17 @@ body.hidden-scroll {
     z-index: 10060;
     color: #000;
     font-size: 1rem; }
+  .sl-wrapper .sl-download {
+    display: none;
+    position: fixed;
+    bottom: 5px;
+    width: 100%;
+    text-align: center;
+    z-index: 10060;
+    color: #fff;
+    font-size: 1rem; }
+    .sl-wrapper .sl-download a {
+      color: #fff; }
   .sl-wrapper .sl-navigation {
     width: 100%;
     display: none; }
@@ -139,13 +150,6 @@ body.hidden-scroll {
         top: 0; }
       .sl-wrapper .sl-image .sl-caption.pos-outside {
         bottom: auto; }
-    .sl-wrapper .sl-image .sl-download {
-      display: none;
-      position: absolute;
-      bottom: 5px;
-      right: 5px;
-      color: #000;
-      z-index: 1060; }
 
 .sl-spinner {
   display: none;

@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.11.0
+	Version 2.12.0
 */
 (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
 "use strict";
@@ -87,7 +87,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       uniqueImages: true,
       focus: true,
       scrollZoom: true,
-      scrollZoomFactor: 0.5
+      scrollZoomFactor: 0.5,
+      download: false
     });
     _defineProperty(this, "transitionPrefix", void 0);
     _defineProperty(this, "isPassiveEventsSupported", void 0);
@@ -273,7 +274,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       var str = tagName;
       str += id !== '' ? "#".concat(id) : '';
       if (className) {
-        var classes = className.split(/\s/);
+        var classes = className.trim().split(/\s/);
         for (var i = 0; i < classes.length; i++) {
           str += ".".concat(classes[i]);
         }
@@ -317,6 +318,12 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.counter = document.createElement('div');
       this.domNodes.counter.classList.add('sl-counter');
       this.domNodes.counter.innerHTML = '<span class="sl-current"></span>/<span class="sl-total"></span>';
+      this.domNodes.download = document.createElement('div');
+      this.domNodes.download.classList.add('sl-download');
+      this.domNodes.downloadLink = document.createElement('a');
+      this.domNodes.downloadLink.setAttribute('download', '');
+      this.domNodes.downloadLink.textContent = this.options.download;
+      this.domNodes.download.appendChild(this.domNodes.downloadLink);
       this.domNodes.caption = document.createElement('div');
       this.domNodes.caption.classList.add('sl-caption', 'pos-' + this.options.captionPosition);
       if (this.options.captionClass) {
@@ -355,7 +362,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }, {
     key: "isValidLink",
     value: function isValidLink(element) {
-      return !this.options.fileExt || element.getAttribute(this.options.sourceAttr) && new RegExp('(' + this.options.fileExt + ')$', 'i').test(element.getAttribute(this.options.sourceAttr));
+      return !this.options.fileExt || element.getAttribute(this.options.sourceAttr) && new RegExp('(' + this.options.fileExt + ')($|\\?.*$)', 'i').test(element.getAttribute(this.options.sourceAttr));
     }
   }, {
     key: "calculateTransitionPrefix",
@@ -440,6 +447,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         document.body.removeChild(_this2.domNodes.wrapper);
         document.body.removeChild(_this2.domNodes.overlay);
         _this2.domNodes.additionalHtml = null;
+        _this2.domNodes.download = null;
         element.dispatchEvent(new Event('closed.simplelightbox'));
         _this2.isClosing = false;
       });
@@ -647,6 +655,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           _this5.domNodes.additionalHtml.classList.add('sl-additional-html');
           _this5.domNodes.additionalHtml.innerHTML = _this5.options.additionalHtml;
           _this5.domNodes.image.appendChild(_this5.domNodes.additionalHtml);
+        }
+        if (_this5.options.download) {
+          _this5.domNodes.downloadLink.setAttribute('href', _this5.currentImage.getAttribute('src'));
         }
       });
     }
@@ -1147,6 +1158,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           this.domNodes.wrapper.appendChild(this.domNodes.counter);
         }
       }
+      if (this.options.download) {
+        this.domNodes.wrapper.appendChild(this.domNodes.download);
+      }
       this.isAnimating = true;
       this.currentImageIndex = this.relatedElements.indexOf(element);
       var targetURL = element.getAttribute(this.options.sourceAttr);
@@ -1163,7 +1177,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.image.setAttribute('style', '');
       this.domNodes.image.appendChild(this.currentImage);
       this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
-      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
+      this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton, this.domNodes.download], this.options.fadeSpeed);
       this.show(this.domNodes.spinner);
       this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;
       this.domNodes.counter.querySelector('.sl-total').innerHTML = this.relatedElements.length;

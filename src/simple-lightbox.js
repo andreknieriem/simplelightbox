@@ -47,7 +47,8 @@ class SimpleLightbox {
         uniqueImages: true,
         focus: true,
         scrollZoom: true,
-        scrollZoomFactor: 0.5
+        scrollZoomFactor: 0.5,
+        download: false
     };
 
     transitionPrefix;
@@ -264,7 +265,7 @@ class SimpleLightbox {
         str += (id !== '') ? `#${id}` : '';
 
         if (className) {
-            const classes = className.split(/\s/);
+            const classes = className.trim().split(/\s/);
             for (let i = 0; i < classes.length; i++) {
                 str += `.${classes[i]}`;
             }
@@ -316,6 +317,15 @@ class SimpleLightbox {
         this.domNodes.counter.classList.add('sl-counter');
         this.domNodes.counter.innerHTML = '<span class="sl-current"></span>/<span class="sl-total"></span>';
 
+        this.domNodes.download = document.createElement('div');
+        this.domNodes.download.classList.add('sl-download');
+
+        this.domNodes.downloadLink = document.createElement('a');
+        this.domNodes.downloadLink.setAttribute('download', '');
+        this.domNodes.downloadLink.textContent = this.options.download;
+
+        this.domNodes.download.appendChild(this.domNodes.downloadLink);
+
         this.domNodes.caption = document.createElement('div');
         this.domNodes.caption.classList.add('sl-caption', 'pos-' + this.options.captionPosition);
         if (this.options.captionClass) {
@@ -353,7 +363,7 @@ class SimpleLightbox {
     }
 
     isValidLink(element) {
-        return (!this.options.fileExt) || ( element.getAttribute(this.options.sourceAttr) && (new RegExp('(' + this.options.fileExt + ')$', 'i')).test(element.getAttribute(this.options.sourceAttr)));
+        return (!this.options.fileExt) || (element.getAttribute(this.options.sourceAttr) && new RegExp('(' + this.options.fileExt + ')($|\\?.*$)', 'i').test(element.getAttribute(this.options.sourceAttr)));
     }
 
     calculateTransitionPrefix() {
@@ -448,6 +458,7 @@ class SimpleLightbox {
             document.body.removeChild(this.domNodes.wrapper);
             document.body.removeChild(this.domNodes.overlay);
             this.domNodes.additionalHtml = null;
+            this.domNodes.download = null;
 
             element.dispatchEvent(new Event('closed.simplelightbox'));
 
@@ -688,6 +699,10 @@ class SimpleLightbox {
                 this.domNodes.additionalHtml.classList.add('sl-additional-html');
                 this.domNodes.additionalHtml.innerHTML = this.options.additionalHtml;
                 this.domNodes.image.appendChild(this.domNodes.additionalHtml);
+            }
+
+            if (this.options.download) {
+                this.domNodes.downloadLink.setAttribute('href', this.currentImage.getAttribute('src'));
             }
 
         });
@@ -1254,6 +1269,10 @@ class SimpleLightbox {
             }
         }
 
+        if (this.options.download) {
+            this.domNodes.wrapper.appendChild(this.domNodes.download);
+        }
+
         this.isAnimating = true;
 
         this.currentImageIndex = this.relatedElements.indexOf(element);
@@ -1278,7 +1297,7 @@ class SimpleLightbox {
 
 
         this.fadeIn(this.domNodes.overlay, this.options.fadeSpeed);
-        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton], this.options.fadeSpeed);
+        this.fadeIn([this.domNodes.counter, this.domNodes.navigation, this.domNodes.closeButton, this.domNodes.download], this.options.fadeSpeed);
 
         this.show(this.domNodes.spinner);
         this.domNodes.counter.querySelector('.sl-current').innerHTML = this.currentImageIndex + 1;

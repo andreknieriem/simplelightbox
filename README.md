@@ -108,6 +108,7 @@ For a complete example just look at the demo folder.
 | alertError | true | bool | Show an alert if image was not found. If false error will be ignored |
 | alertErrorMessage | 'Image not found, next image will be loaded' | string | The message displayed if image was not found |
 | additionalHtml | false | string | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added |
+| download | false | string | Text for a download link below the image. If false nothing is added |
 | history | true | bool | Enable history back closes lightbox instead of reloading the page |
 | throttleInterval | 0 | int | Time to wait between slides |
 | doubleTapZoom | 2 | int | Zoom level when double tapping on an image |
@@ -223,6 +224,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.12.0 - Merging #283. Fixing className whitespace error. Thanks to @MVogge. Merging #287, which fixes #286 thanks to @majid-1xinternet. Added download option. Thanks to @cnotin**    
 **2.11.0 - Added possibility to add multiple classes to captions #280, added possibility for better selectors which fixes #62 again, fixed #268 lightbox not centered with scrolling**    
 **2.10.4 - Fixed #277 - add passive listener for scroll events, #276 mistake z-index**    
 **2.10.3 - Fixed #264 - Fixed wrong mouse-zoom when the page is scrolled**    
