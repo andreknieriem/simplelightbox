@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.de
 	Available for use under the MIT License
-	Version 2.12.0
+	Version 2.12.1
 */
 class SimpleLightbox {
 
@@ -1402,8 +1402,10 @@ class SimpleLightbox {
     fadeIn(elements, duration, callback, display) {
         elements = this.wrap(elements);
         for (let element of elements) {
-            element.style.opacity = 0;
-            element.style.display = display || "block";
+            if(element) {
+                element.style.opacity = 0;
+                element.style.display = display || "block";
+            }
         }
 
         this.isFadeIn = true;
@@ -1414,13 +1416,17 @@ class SimpleLightbox {
                 let currentOpacity = parseFloat(elements[0].style.opacity);
                 if (!((currentOpacity += step) > opacityTarget)) {
                     for (let element of elements) {
-                        element.style.opacity = currentOpacity;
+                        if(element) {
+                            element.style.opacity = currentOpacity;
+                        }
                     }
                     if(!this.isFadeIn) return;
                     requestAnimationFrame(fade);
                 } else {
                     for (let element of elements) {
-                        element.style.opacity = opacityTarget;
+                        if(element) {
+                            element.style.opacity = opacityTarget;
+                        }
                     }
                     callback && callback.call(this, elements);
                 }
