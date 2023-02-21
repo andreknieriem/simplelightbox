@@ -397,7 +397,7 @@ class SimpleLightbox {
                 fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
             }
             if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
-                let paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
+                let paddingRight = parseInt(window.getComputedStyle(document.body).paddingRight || 0, 10);
                 scrollbarWidth = this.getScrollbarWidth();
                 document.body.dataset.originalPaddingRight = paddingRight;
                 if (scrollbarWidth > 0 || (scrollbarWidth == 0 && this.isAppleDevice)) {
@@ -415,7 +415,7 @@ class SimpleLightbox {
             }
         } else {
             document.body.classList.remove('hidden-scroll');
-            document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+            document.body.style.paddingRight = document.body.dataset.originalPaddingRight + 'px';
 
             fixedElements.forEach(element => {
                 const padding = element.dataset.originalPaddingRight;
