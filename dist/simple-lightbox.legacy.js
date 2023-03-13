@@ -1,6 +1,6 @@
 /*!
 	By André Rinas, www.andrerinas.de
-	Documentation, www.simplelightbox.de
+	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
 	Version 2.12.1
 */
@@ -2637,10 +2637,10 @@ var store = require('../internals/shared-store');
 (module.exports = function (key, value) {
   return store[key] || (store[key] = value !== undefined ? value : {});
 })('versions', []).push({
-  version: '3.28.0',
+  version: '3.29.1',
   mode: IS_PURE ? 'pure' : 'global',
   copyright: '© 2014-2023 Denis Pushkarev (zloirock.ru)',
-  license: 'https://github.com/zloirock/core-js/blob/v3.28.0/LICENSE',
+  license: 'https://github.com/zloirock/core-js/blob/v3.29.1/LICENSE',
   source: 'https://github.com/zloirock/core-js'
 });
 
@@ -5581,7 +5581,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
         }
         if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
-          var paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
+          var paddingRight = parseInt(window.getComputedStyle(document.body).paddingRight || 0, 10);
           scrollbarWidth = this.getScrollbarWidth();
           document.body.dataset.originalPaddingRight = paddingRight;
           if (scrollbarWidth > 0 || scrollbarWidth == 0 && this.isAppleDevice) {
@@ -5597,7 +5597,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         }
       } else {
         document.body.classList.remove('hidden-scroll');
-        document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+        document.body.style.paddingRight = document.body.dataset.originalPaddingRight + 'px';
         fixedElements.forEach(function (element) {
           var padding = element.dataset.originalPaddingRight;
           if (typeof padding !== 'undefined') {
@@ -6694,14 +6694,24 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }, {
     key: "open",
     value: function open(elem) {
+      var position = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       elem = elem || this.elements[0];
       if (typeof jQuery !== "undefined" && elem instanceof jQuery) {
         elem = elem.get(0);
+      }
+      if (position > 0) {
+        elem = this.elements[position];
       }
       this.initialImageIndex = this.elements.indexOf(elem);
       if (this.initialImageIndex > -1) {
         this.openImage(elem);
       }
+    }
+  }, {
+    key: "openPosition",
+    value: function openPosition(position) {
+      var elem = this.elements[position];
+      this.open(elem, position);
     }
   }, {
     key: "next",

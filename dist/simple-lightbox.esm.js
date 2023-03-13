@@ -1,6 +1,6 @@
 /*!
 	By André Rinas, www.andrerinas.de
-	Documentation, www.simplelightbox.de
+	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
 	Version 2.12.1
 */
@@ -403,7 +403,7 @@ class SimpleLightbox {
                 fullWindowWidth = documentElementRect.right - Math.abs(documentElementRect.left);
             }
             if (document.body.clientWidth < fullWindowWidth || this.isAppleDevice) {
-                let paddingRight = parseInt(document.body.style.paddingRight || 0, 10);
+                let paddingRight = parseInt(window.getComputedStyle(document.body).paddingRight || 0, 10);
                 scrollbarWidth = this.getScrollbarWidth();
                 document.body.dataset.originalPaddingRight = paddingRight;
                 if (scrollbarWidth > 0 || (scrollbarWidth == 0 && this.isAppleDevice)) {
@@ -421,7 +421,7 @@ class SimpleLightbox {
             }
         } else {
             document.body.classList.remove('hidden-scroll');
-            document.body.style.paddingRight = document.body.dataset.originalPaddingRight;
+            document.body.style.paddingRight = document.body.dataset.originalPaddingRight + 'px';
 
             fixedElements.forEach(element => {
                 const padding = element.dataset.originalPaddingRight;
@@ -1484,15 +1484,23 @@ class SimpleLightbox {
 
     // api
 
-    open(elem) {
+    open(elem, position = 0) {
         elem = elem || this.elements[0];
         if(typeof jQuery !== "undefined" && elem instanceof jQuery) {
             elem = elem.get(0);
+        }
+        if(position > 0) {
+            elem = this.elements[position];
         }
         this.initialImageIndex = this.elements.indexOf(elem);
         if(this.initialImageIndex > -1) {
             this.openImage(elem);
         }
+    }
+
+    openPosition(position) {
+        let elem = this.elements[position];
+        this.open(elem, position)
     }
 
     next() {

@@ -1478,15 +1478,23 @@ class SimpleLightbox {
 
     // api
 
-    open(elem) {
+    open(elem, position = 0) {
         elem = elem || this.elements[0];
         if(typeof jQuery !== "undefined" && elem instanceof jQuery) {
             elem = elem.get(0);
+        }
+        if(position > 0) {
+            elem = this.elements[position];
         }
         this.initialImageIndex = this.elements.indexOf(elem);
         if(this.initialImageIndex > -1) {
             this.openImage(elem);
         }
+    }
+
+    openPosition(position) {
+        let elem = this.elements[position];
+        this.open(elem, position)
     }
 
     next() {

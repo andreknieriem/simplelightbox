@@ -161,6 +161,7 @@ gallery.on('show.simplelightbox', function () {
 | Name | Description |
 | ---- | ----------- |
 | open | Opens the lightbox with a given Element |
+| openPosition | Opens the lightbox to specific position |
 | close | Closes current openend Lightbox |
 | next | Go to next image |
 | prev | Go to previous image |
