@@ -285,7 +285,7 @@ class SimpleLightbox {
 
         str += `:nth-child(${childIndex})`;
 
-        return `${this.generateQuerySelector(parentNode)} > ${str}`;
+        return `${this.generateQuerySelector(parentNode)} > ${CSS.escape(str)}`;
     }
 
     // generateQuerySelector(el) {
