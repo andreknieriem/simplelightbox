@@ -216,7 +216,8 @@ class SimpleLightbox {
                 if (this.isAnimating && event.key === 'Escape') {
                     this.currentImage.setAttribute('src', '');
                     this.isAnimating = false;
-                    return this.close();
+                    this.close();
+                    return;
                 }
 
                 if (this.isOpen) {
@@ -279,22 +280,8 @@ class SimpleLightbox {
 
         str += `:nth-child(${childIndex})`;
 
-        return `${this.generateQuerySelector(parentNode)} > ${CSS.escape(str)}`;
+        return `${this.generateQuerySelector(parentNode)} > ${str}`;
     }
-
-    // generateQuerySelector(el) {
-    //     if (el.tagName.toLowerCase() == "html")
-    //         return "HTML";
-    //     var str = el.tagName;
-    //     str += (el.id != "") ? "#" + el.id : "";
-    //     if (el.className) {
-    //         var classes = el.className.split(/\s/);
-    //         for (var i = 0; i < classes.length; i++) {
-    //             str += "." + classes[i]
-    //         }
-    //     }
-    //     return this.generateQuerySelector(el.parentNode) + " > " + str;
-    // }
 
     createDomNodes() {
         this.domNodes.overlay = document.createElement('div');
@@ -539,6 +526,7 @@ class SimpleLightbox {
             if(!this.isClosing) {
                 setTimeout(() => {
                     let element = this.relatedElements[this.currentImageIndex];
+                    if(!this.currentImage) return;
                     this.currentImage.setAttribute('src', element.getAttribute(this.options.sourceAttr));
 
                     if (this.loadedImages.indexOf(element.getAttribute(this.options.sourceAttr)) === -1) {
@@ -782,7 +770,7 @@ class SimpleLightbox {
                     this.controlCoordinates.initialOffsetX = parseFloat(this.currentImage.dataset.translateX);
                     this.controlCoordinates.initialOffsetY = parseFloat(this.currentImage.dataset.translateY);
                 }
-                event.preventDefault();
+                // event.preventDefault();
 
                 let delta = event.delta || event.wheelDelta;
                 if (delta === undefined) {
@@ -1269,7 +1257,7 @@ class SimpleLightbox {
             }
         }
 
-        if (this.options.download) {
+        if (this.options.download && this.domNodes.download) {
             this.domNodes.wrapper.appendChild(this.domNodes.download);
         }
 
