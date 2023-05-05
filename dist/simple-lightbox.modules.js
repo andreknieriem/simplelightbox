@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
-	Version 2.13.0
+	Version 2.14.0
 */
 "use strict";
 
@@ -418,7 +418,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
           document.querySelector('html').classList.remove(_this2.options.htmlClass);
         }
         document.body.removeChild(_this2.domNodes.wrapper);
-        document.body.removeChild(_this2.domNodes.overlay);
+        if (_this2.options.overlay) {
+          document.body.removeChild(_this2.domNodes.overlay);
+        }
         _this2.domNodes.additionalHtml = null;
         _this2.domNodes.download = null;
         element.dispatchEvent(new Event('closed.simplelightbox'));
@@ -1481,14 +1483,24 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }, {
     key: "open",
     value: function open(elem) {
+      var position = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
       elem = elem || this.elements[0];
       if (typeof jQuery !== "undefined" && elem instanceof jQuery) {
         elem = elem.get(0);
+      }
+      if (position > 0) {
+        elem = this.elements[position];
       }
       this.initialImageIndex = this.elements.indexOf(elem);
       if (this.initialImageIndex > -1) {
         this.openImage(elem);
       }
+    }
+  }, {
+    key: "openPosition",
+    value: function openPosition(position) {
+      var elem = this.elements[position];
+      this.open(elem, position);
     }
   }, {
     key: "next",

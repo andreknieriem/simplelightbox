@@ -25,7 +25,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-tap": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "node-sass": "^7.0.0",
+    "node-sass": "npm:sass@^1.62.1",
     "through2": "^4.0.2"
   },
   "keywords": [
