@@ -161,6 +161,7 @@ gallery.on('show.simplelightbox', function () {
 | Name | Description |
 | ---- | ----------- |
 | open | Opens the lightbox with a given Element |
+| openPosition | Opens the lightbox to specific position |
 | close | Closes current openend Lightbox |
 | next | Go to next image |
 | prev | Go to previous image |
@@ -224,6 +225,7 @@ Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and
 Just call `gulp build` to have all files and variants created inside dist!
 
 ### Changelog
+**2.14.0 - Merging #309 - thank to @romain25, fixing #305 - removeChild error if overlay option is disabled.**  
 **2.13.0 - Fixing #281 close lightbox on load,#311 caption not working, #307 second time opening not working with download option, #310 - passive scroll event default warning in console.**  
 **2.12.1 - Fixing #292. Error with download-link**  
 **2.12.0 - Merging #283. Fixing className whitespace error. Thanks to @MVogge. Merging #287, which fixes #286 thanks to @majid-1xinternet. Added download option. Thanks to @cnotin**    
