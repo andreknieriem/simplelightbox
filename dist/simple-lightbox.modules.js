@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
-	Version 2.14.0
+	Version 2.14.1
 */
 "use strict";
 
@@ -249,6 +249,24 @@ var SimpleLightbox = /*#__PURE__*/function () {
         window.removeEventListener("testPassive", null, opts);
       } catch (e) {}
       return supportsPassive;
+    }
+  }, {
+    key: "getCaptionElement",
+    value: function getCaptionElement(elem) {
+      // look at sibling selector
+      if (this.options.captionSelector.startsWith('+')) {
+        var selector = this.options.captionSelector.replace(/^\+/, '').trimStart();
+        var sibling = elem.nextElementSibling;
+        if (sibling.matches(selector)) {
+          return sibling;
+        }
+        return false;
+      } else if (this.options.captionSelector.startsWith('>')) {
+        var _selector = this.options.captionSelector.replace(/^>/, '').trimStart();
+        return elem.querySelector(_selector);
+      } else {
+        return elem.querySelector(this.options.captionSelector);
+      }
     }
   }, {
     key: "generateQuerySelector",
@@ -578,7 +596,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
         _this5.isOpen = true;
         var captionContainer, captionText;
         if (typeof _this5.options.captionSelector === 'string') {
-          captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : document.querySelector(_this5.generateQuerySelector(_this5.relatedElements[_this5.currentImageIndex]) + ' ' + _this5.options.captionSelector);
+          captionContainer = _this5.options.captionSelector === 'self' ? _this5.relatedElements[_this5.currentImageIndex] : _this5.getCaptionElement(_this5.relatedElements[_this5.currentImageIndex]);
         } else if (typeof _this5.options.captionSelector === 'function') {
           captionContainer = _this5.options.captionSelector(_this5.relatedElements[_this5.currentImageIndex]);
         }

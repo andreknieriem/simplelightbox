@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
-	Version 2.14.0
+	Version 2.14.1
 */
 class SimpleLightbox {
 
@@ -255,6 +255,25 @@ class SimpleLightbox {
             window.removeEventListener("testPassive", null, opts);
         } catch (e) {}
         return supportsPassive;
+    }
+
+    getCaptionElement(elem) {
+        // look at sibling selector
+        if( this.options.captionSelector.startsWith('+')) {
+            let selector = this.options.captionSelector.replace(/^\+/, '').trimStart();
+            let sibling = elem.nextElementSibling;
+            if(sibling.matches(selector)) {
+                return sibling;
+            }
+            return false;
+        }
+        else if( this.options.captionSelector.startsWith('>') ) {
+            let selector = this.options.captionSelector.replace(/^>/, '').trimStart();
+            return elem.querySelector(selector);
+        }
+        else {
+            return elem.querySelector(this.options.captionSelector);
+        }
     }
 
     generateQuerySelector(elem) {
@@ -636,7 +655,7 @@ class SimpleLightbox {
             if (typeof this.options.captionSelector === 'string') {
                 captionContainer = this.options.captionSelector === 'self'
                     ? this.relatedElements[this.currentImageIndex]
-                    : document.querySelector(this.generateQuerySelector(this.relatedElements[this.currentImageIndex]) + ' ' + this.options.captionSelector);
+                    : this.getCaptionElement(this.relatedElements[this.currentImageIndex]);
             } else if (typeof this.options.captionSelector === 'function') {
                 captionContainer = this.options.captionSelector(this.relatedElements[this.currentImageIndex]);
             }
