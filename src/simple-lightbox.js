@@ -14,6 +14,7 @@ class SimpleLightbox {
         captionsData: 'title',
         captionPosition: 'bottom',
         captionClass: '',
+        captionHTML: true,
         close: true,
         closeText: '&times;',
         swipeClose: true,
@@ -1215,11 +1216,14 @@ class SimpleLightbox {
         }
     }
 
-    setCaption(captionText, imageWidth) {
+    setCaption(captionText, imageWidth, allowHTML) {
         if (this.options.captions && captionText && captionText !== '' && typeof captionText !== "undefined") {
+
+            const property = (allowHTML ?? this.options.captionHTML) ?? true ? 'innerHTML' : 'innerText';
+
             this.hide(this.domNodes.caption);
             this.domNodes.caption.style.width = imageWidth + 'px';
-            this.domNodes.caption.innerHTML = captionText;
+            this.domNodes.caption[property] = captionText;
 
             this.domNodes.image.appendChild(this.domNodes.caption);
 
