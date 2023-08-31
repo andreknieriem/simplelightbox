@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
-	Version 2.14.1
+	Version 2.14.2
 */
 class SimpleLightbox {
 
@@ -263,7 +263,7 @@ class SimpleLightbox {
         if( this.options.captionSelector.startsWith('+')) {
             let selector = this.options.captionSelector.replace(/^\+/, '').trimStart();
             let sibling = elem.nextElementSibling;
-            if(sibling.matches(selector)) {
+            if(sibling && sibling.matches(selector)) {
                 return sibling;
             }
             return false;
@@ -1222,10 +1222,10 @@ class SimpleLightbox {
         }
     }
 
-    setCaption(captionText, imageWidth, allowHTML = true) {
+    setCaption(captionText, imageWidth, allowHTML) {
         if (this.options.captions && captionText && captionText !== '' && typeof captionText !== "undefined") {
 
-            const property =(allowHTML ?? false) || this.options.captionHTML ? 'innerHTML' : 'innerText';
+            const property = (allowHTML ?? this.options.captionHTML) ?? true ? 'innerHTML' : 'innerText';
 
             this.hide(this.domNodes.caption);
             this.domNodes.caption.style.width = imageWidth + 'px';

@@ -257,7 +257,7 @@ class SimpleLightbox {
         if( this.options.captionSelector.startsWith('+')) {
             let selector = this.options.captionSelector.replace(/^\+/, '').trimStart();
             let sibling = elem.nextElementSibling;
-            if(sibling.matches(selector)) {
+            if(sibling && sibling.matches(selector)) {
                 return sibling;
             }
             return false;
