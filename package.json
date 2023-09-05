@@ -1,6 +1,6 @@
 {
   "name": "simplelightbox",
-  "version": "2.14.2",
+  "version": "2.14.3",
   "description": "Touch-friendly modern image lightbox for mobile and desktop with optional jQuery support",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simple-lightbox.css",
