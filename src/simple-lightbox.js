@@ -49,7 +49,8 @@ class SimpleLightbox {
         focus: true,
         scrollZoom: true,
         scrollZoomFactor: 0.5,
-        download: false
+        download: false,
+        enableHashNavigation: true,
     };
 
     transitionPrefix;
@@ -142,7 +143,9 @@ class SimpleLightbox {
 
         this.transitionPrefix = this.calculateTransitionPrefix();
         this.transitionCapable = this.transitionPrefix !== false;
+        
         this.initialLocationHash = this.hash;
+        
 
         // this should be handled by attribute selector IMHO! => 'a[rel=bla]'...
         if (this.options.rel) {
@@ -1169,6 +1172,10 @@ class SimpleLightbox {
     }
 
     updateHash() {
+        if(!this.options.enableHashNavigation) {
+            return;
+        }
+
         let newHash = 'pid=' + (this.currentImageIndex + 1),
             newURL = window.location.href.split('#')[0] + '#' + newHash;
 
@@ -1192,6 +1199,10 @@ class SimpleLightbox {
     }
 
     resetHash() {
+        if(!this.options.enableHashNavigation) {
+            return;
+        }
+
         this.hashReseted = true;
         if(this.urlChangedOnce) {
             history.back();
