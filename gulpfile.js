@@ -61,6 +61,9 @@ gulp.task("modules", () => {
 // pure file as ecmascript module
 gulp.task("esm", () => {
     return gulp.src("src/simple-lightbox.js")
+        .pipe(tap(function(file) {
+            file.contents = Buffer.from(file.contents.toString().replace(/^global\.SimpleLightbox.*/gm, ''), 'utf-8');
+        }))
         .pipe(rename('simple-lightbox.esm.js'))
         .pipe(gap.prependFile('./src/license-notice.txt'))
         .pipe(gulp.dest("dist"));
@@ -104,6 +107,14 @@ gulp.task('jquery-minify', () => {
         .pipe(gulp.dest('dist/'));
 });
 
+
+gulp.task('esm-minify', () => {
+    return gulp.src("dist/simple-lightbox.esm.js")
+        .pipe(uglify())
+        .pipe(rename('simple-lightbox.esm.min.js'))
+        .pipe(gulp.dest('dist/'));
+});
+
 gulp.task('sass', () => {
     return gulp.src('./src/*.scss')
         .pipe(sass({}))
@@ -119,7 +130,7 @@ gulp.task('sass-minify', () => {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('build', gulp.series('default', 'legacy', 'modules', 'esm', 'jquery', 'minify', 'legacy-minify', 'jquery-minify', 'sass', 'sass-minify'));
+gulp.task('build', gulp.series('default', 'legacy', 'modules', 'esm', 'jquery', 'minify', 'legacy-minify', 'jquery-minify', 'esm-minify', 'sass', 'sass-minify'));
 
 gulp.task('watch', () => {
     gulp.watch('./src/*.js', gulp.series('default'));
