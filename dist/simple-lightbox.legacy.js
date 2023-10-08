@@ -5556,7 +5556,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       focus: true,
       scrollZoom: true,
       scrollZoomFactor: 0.5,
-      download: false
+      download: false,
+      enableHashNavigation: true
     });
     _defineProperty(this, "transitionPrefix", void 0);
     _defineProperty(this, "isPassiveEventsSupported", void 0);
@@ -6528,6 +6529,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }, {
     key: "updateHash",
     value: function updateHash() {
+      if (!this.options.enableHashNavigation) {
+        return;
+      }
       var newHash = 'pid=' + (this.currentImageIndex + 1),
         newURL = window.location.href.split('#')[0] + '#' + newHash;
       this.hashReseted = false;
@@ -6549,6 +6553,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
   }, {
     key: "resetHash",
     value: function resetHash() {
+      if (!this.options.enableHashNavigation) {
+        return;
+      }
       this.hashReseted = true;
       if (this.urlChangedOnce) {
         history.back();

@@ -122,6 +122,7 @@ For a complete example just look at the demo folder.
 | focus              | true                                         | bool               | Focus the lightbox on open to enable tab control                                                                                                                                                                                                                                                                                                                        |
 | scrollZoom         | true                                         | bool               | Can zoom image with mousewheel scrolling                                                                                                                                                                                                                                                                                                                                |
 | scrollZoomFactor   | true                                         | bool               | How much zoom when scrolling via mousewheel                                                                                                                                                                                                                                                                                                                             |
+| enableHashNavigation | true | bool | Enables hash navigation for the lightbox  |
 
 ### Events
 | Name | Description |
