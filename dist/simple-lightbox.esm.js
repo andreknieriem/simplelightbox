@@ -1391,10 +1391,11 @@ class SimpleLightbox {
 
         this.isFadeIn = false;
 
-        let step = 16.66666 / (duration || this.options.fadeSpeed),
-            fade = () => {
-                let currentOpacity = parseFloat(elements[0].style.opacity);
-                if ((currentOpacity -= step) < 0) {
+        let zero = document.timeline.currentTime,
+            startingOpacity = parseFloat(elements[0].style.opacity),
+            fade = (timestamp) => {
+                const opacity = startingOpacity - (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (opacity <= 0) {
                     for (let element of elements) {
                         element.style.display = "none";
                         // element.style.opacity = '';
@@ -1403,13 +1404,13 @@ class SimpleLightbox {
                     callback && callback.call(this, elements);
                 } else {
                     for (let element of elements) {
-                        element.style.opacity = currentOpacity;
+                        element.style.opacity = opacity;
                     }
                     requestAnimationFrame(fade);
                 }
             };
 
-        fade();
+        requestAnimationFrame(fade);
     }
 
     fadeIn(elements, duration, callback, display) {
@@ -1424,13 +1425,13 @@ class SimpleLightbox {
         this.isFadeIn = true;
 
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
-            step = (16.66666 * opacityTarget) / (duration || this.options.fadeSpeed),
-            fade = () => {
-                let currentOpacity = parseFloat(elements[0].style.opacity);
-                if (!((currentOpacity += step) > opacityTarget)) {
+            zero = document.timeline.currentTime,
+            fade = (timestamp) => {
+                let opacity = (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (opacity < opacityTarget) {
                     for (let element of elements) {
                         if(element) {
-                            element.style.opacity = currentOpacity;
+                            element.style.opacity = opacity;
                         }
                     }
                     if(!this.isFadeIn) return;
@@ -1445,7 +1446,7 @@ class SimpleLightbox {
                 }
             };
 
-        fade();
+        requestAnimationFrame(fade);
     }
 
     hide(elements) {
