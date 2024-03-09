@@ -1301,37 +1301,38 @@ var SimpleLightbox = /*#__PURE__*/function () {
       var zero = document.timeline.currentTime,
         startingOpacity = parseFloat(elements[0].style.opacity),
         fade = function fade(timestamp) {
-          var opacity = startingOpacity - (timestamp - zero) / (duration || _this10.options.fadeSpeed);
-          if (opacity <= 0) {
+          // progress always runs from 0 to 1
+          var progress = (timestamp - zero) / (duration || _this10.options.fadeSpeed);
+          if (progress < 1) {
             var _iterator6 = _createForOfIteratorHelper(elements),
               _step6;
             try {
               for (_iterator6.s(); !(_step6 = _iterator6.n()).done;) {
                 var element = _step6.value;
-                element.style.display = "none";
-                // element.style.opacity = '';
-                element.style.opacity = 1;
+                element.style.opacity = startingOpacity * (1 - progress);
               }
             } catch (err) {
               _iterator6.e(err);
             } finally {
               _iterator6.f();
             }
-            callback && callback.call(_this10, elements);
+            requestAnimationFrame(fade);
           } else {
             var _iterator7 = _createForOfIteratorHelper(elements),
               _step7;
             try {
               for (_iterator7.s(); !(_step7 = _iterator7.n()).done;) {
                 var _element = _step7.value;
-                _element.style.opacity = opacity;
+                _element.style.display = "none";
+                // element.style.opacity = '';
+                _element.style.opacity = 1;
               }
             } catch (err) {
               _iterator7.e(err);
             } finally {
               _iterator7.f();
             }
-            requestAnimationFrame(fade);
+            callback && callback.call(_this10, elements);
           }
         };
       requestAnimationFrame(fade);
@@ -1360,15 +1361,16 @@ var SimpleLightbox = /*#__PURE__*/function () {
       var opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
         zero = document.timeline.currentTime,
         fade = function fade(timestamp) {
-          var opacity = (timestamp - zero) / (duration || _this11.options.fadeSpeed);
-          if (opacity < opacityTarget) {
+          // progress always runs from 0 to 1
+          var progress = (timestamp - zero) / (duration || _this11.options.fadeSpeed);
+          if (progress < 1) {
             var _iterator9 = _createForOfIteratorHelper(elements),
               _step9;
             try {
               for (_iterator9.s(); !(_step9 = _iterator9.n()).done;) {
                 var element = _step9.value;
                 if (element) {
-                  element.style.opacity = opacity;
+                  element.style.opacity = progress * opacityTarget;
                 }
               }
             } catch (err) {

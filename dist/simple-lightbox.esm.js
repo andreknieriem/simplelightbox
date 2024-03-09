@@ -1394,19 +1394,20 @@ class SimpleLightbox {
         let zero = document.timeline.currentTime,
             startingOpacity = parseFloat(elements[0].style.opacity),
             fade = (timestamp) => {
-                const opacity = startingOpacity - (timestamp - zero) / (duration || this.options.fadeSpeed);
-                if (opacity <= 0) {
+                // progress always runs from 0 to 1
+                const progress = (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (progress < 1) {
+                    for (let element of elements) {
+                        element.style.opacity = startingOpacity * (1 - progress);
+                    }
+                    requestAnimationFrame(fade);
+                } else {
                     for (let element of elements) {
                         element.style.display = "none";
                         // element.style.opacity = '';
                         element.style.opacity = 1;
                     }
                     callback && callback.call(this, elements);
-                } else {
-                    for (let element of elements) {
-                        element.style.opacity = opacity;
-                    }
-                    requestAnimationFrame(fade);
                 }
             };
 
@@ -1427,11 +1428,12 @@ class SimpleLightbox {
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
             zero = document.timeline.currentTime,
             fade = (timestamp) => {
-                let opacity = (timestamp - zero) / (duration || this.options.fadeSpeed);
-                if (opacity < opacityTarget) {
+                // progress always runs from 0 to 1
+                const progress = (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (progress < 1) {
                     for (let element of elements) {
                         if(element) {
-                            element.style.opacity = opacity;
+                            element.style.opacity = progress * opacityTarget;
                         }
                     }
                     if(!this.isFadeIn) return;
