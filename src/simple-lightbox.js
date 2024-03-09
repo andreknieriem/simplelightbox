@@ -1385,25 +1385,27 @@ class SimpleLightbox {
 
         this.isFadeIn = false;
 
-        let step = 16.66666 / (duration || this.options.fadeSpeed),
-            fade = () => {
-                let currentOpacity = parseFloat(elements[0].style.opacity);
-                if ((currentOpacity -= step) < 0) {
+        let zero = document.timeline.currentTime,
+            startingOpacity = parseFloat(elements[0].style.opacity),
+            fade = (timestamp) => {
+                // progress always runs from 0 to 1
+                const progress = (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (progress < 1) {
+                    for (let element of elements) {
+                        element.style.opacity = startingOpacity * (1 - progress);
+                    }
+                    requestAnimationFrame(fade);
+                } else {
                     for (let element of elements) {
                         element.style.display = "none";
                         // element.style.opacity = '';
                         element.style.opacity = 1;
                     }
                     callback && callback.call(this, elements);
-                } else {
-                    for (let element of elements) {
-                        element.style.opacity = currentOpacity;
-                    }
-                    requestAnimationFrame(fade);
                 }
             };
 
-        fade();
+        requestAnimationFrame(fade);
     }
 
     fadeIn(elements, duration, callback, display) {
@@ -1418,13 +1420,14 @@ class SimpleLightbox {
         this.isFadeIn = true;
 
         let opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
-            step = (16.66666 * opacityTarget) / (duration || this.options.fadeSpeed),
-            fade = () => {
-                let currentOpacity = parseFloat(elements[0].style.opacity);
-                if (!((currentOpacity += step) > opacityTarget)) {
+            zero = document.timeline.currentTime,
+            fade = (timestamp) => {
+                // progress always runs from 0 to 1
+                const progress = (timestamp - zero) / (duration || this.options.fadeSpeed);
+                if (progress < 1) {
                     for (let element of elements) {
                         if(element) {
-                            element.style.opacity = currentOpacity;
+                            element.style.opacity = progress * opacityTarget;
                         }
                     }
                     if(!this.isFadeIn) return;
@@ -1439,7 +1442,7 @@ class SimpleLightbox {
                 }
             };
 
-        fade();
+        requestAnimationFrame(fade);
     }
 
     hide(elements) {
