@@ -841,6 +841,17 @@ class SimpleLightbox {
                 this.controlCoordinates.initialOffsetX = this.controlCoordinates.targetOffsetX;
                 this.controlCoordinates.initialOffsetY = this.controlCoordinates.targetOffsetY;
 
+                // Check to see if the new scale is different from the current scale.
+                // If so, dispatch the proper event.
+                if (this.controlCoordinates.targetScale != this.currentImage.dataset.scale) {
+                    let element = this.relatedElements[this.currentImageIndex];
+                    if (this.controlCoordinates.targetScale < this.currentImage.dataset.scale) {
+                        element.dispatchEvent(new Event('zoomout.' + this.eventNamespace));
+                    } else {
+                        element.dispatchEvent(new Event('zoomin.' + this.eventNamespace));
+                    }
+                }
+                
                 this.setZoomData(this.controlCoordinates.targetScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
                 this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
 
