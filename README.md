@@ -138,6 +138,8 @@ For a complete example just look at the demo folder.
 | prevDone.simplelightbox | Fires after previous image arrived |
 | nextImageLoaded.simplelightbox | Fires after next image was loaded (if preload activated) |
 | prevImageLoaded.simplelightbox | Fires after previous image was loaded (if preload activated) |
+| zoomin.simplelightbox | Fires when zooming in with mouse wheel |
+| zoomout.simplelightbox | Fires when zooming out with mouse wheel | 
 | error.simplelightbox | Fires on image load error |
 
 **Example**  
