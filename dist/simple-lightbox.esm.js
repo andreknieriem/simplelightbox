@@ -2,7 +2,7 @@
 	By André Rinas, www.andrerinas.de
 	Documentation, www.simplelightbox.com
 	Available for use under the MIT License
-	Version 2.14.2
+	Version 2.14.3
 */
 class SimpleLightbox {
 
@@ -25,7 +25,7 @@ class SimpleLightbox {
         closeText: '&times;',
         swipeClose: true,
         showCounter: true,
-        fileExt: 'png|jpg|jpeg|gif|webp',
+        fileExt: 'png|jpg|jpeg|gif|webp|avif',
         animationSlide: true,
         animationSpeed: 250,
         preloading: true,
