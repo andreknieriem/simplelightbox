@@ -224,6 +224,14 @@ body.hidden-scroll {
                 bottom: auto;
             }
         }
+
+        &.zoomable {
+            cursor: zoom-in;
+        }
+
+        &.zoomoutable {
+            cursor: zoom-out;
+        }
     }
 }
 

@@ -12,18 +12,20 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports["default"] = void 0;
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-function _createForOfIteratorHelper(o, allowArrayLike) { var it = typeof Symbol !== "undefined" && o[Symbol.iterator] || o["@@iterator"]; if (!it) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = it.call(o); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _createForOfIteratorHelper(r, e) { var t = "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (!t) { if (Array.isArray(r) || (t = _unsupportedIterableToArray(r)) || e && r && "number" == typeof r.length) { t && (r = t); var _n = 0, F = function F() {}; return { s: F, n: function n() { return _n >= r.length ? { done: !0 } : { done: !1, value: r[_n++] }; }, e: function e(r) { throw r; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var o, a = !0, u = !1; return { s: function s() { t = t.call(r); }, n: function n() { var r = t.next(); return a = r.done, r; }, e: function e(r) { u = !0, o = r; }, f: function f() { try { a || null == t["return"] || t["return"](); } finally { if (u) throw o; } } }; }
+function _toConsumableArray(r) { return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _unsupportedIterableToArray(r, a) { if (r) { if ("string" == typeof r) return _arrayLikeToArray(r, a); var t = {}.toString.call(r).slice(8, -1); return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0; } }
+function _iterableToArray(r) { if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r); }
+function _arrayWithoutHoles(r) { if (Array.isArray(r)) return _arrayLikeToArray(r); }
+function _arrayLikeToArray(r, a) { (null == a || a > r.length) && (a = r.length); for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e]; return n; }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 var SimpleLightbox = /*#__PURE__*/function () {
   function SimpleLightbox(elements, options) {
     var _this = this;
@@ -77,7 +79,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       focus: true,
       scrollZoom: true,
       scrollZoomFactor: 0.5,
-      download: false
+      download: false,
+      singleClickZoom: false
     });
     _defineProperty(this, "transitionPrefix", void 0);
     _defineProperty(this, "isPassiveEventsSupported", void 0);
@@ -142,7 +145,10 @@ var SimpleLightbox = /*#__PURE__*/function () {
       targetPinchDistance: 0,
       touchCount: 0,
       doubleTapped: false,
-      touchmoveCount: 0
+      touchmoveCount: 0,
+      pointerDownX: 0,
+      pointerDownY: 0,
+      pointerMoved: false
     });
     this.options = Object.assign(this.defaultOptions, options);
     this.isPassiveEventsSupported = this.checkPassiveEventsSupport();
@@ -236,7 +242,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
     }
     this.addEvents();
   }
-  _createClass(SimpleLightbox, [{
+  return _createClass(SimpleLightbox, [{
     key: "checkPassiveEventsSupport",
     value: function checkPassiveEventsSupport() {
       // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md#feature-detection
@@ -332,6 +338,9 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.domNodes.wrapper.setAttribute('tabindex', -1);
       this.domNodes.wrapper.setAttribute('role', 'dialog');
       this.domNodes.wrapper.setAttribute('aria-hidden', false);
+      if (this.options.singleClickZoom) {
+        this.domNodes.image.classList.add('zoomable');
+      }
       if (this.options.className) {
         this.domNodes.wrapper.classList.add(this.options.className);
       }
@@ -989,43 +998,123 @@ var SimpleLightbox = /*#__PURE__*/function () {
           }
         }
       });
-      this.addEventListener(this.domNodes.image, ['dblclick'], function (event) {
-        if (_this6.isTouchDevice) return;
-        _this6.controlCoordinates.initialPointerOffsetX = event.clientX;
-        _this6.controlCoordinates.initialPointerOffsetY = event.clientY;
-        _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;
-        _this6.controlCoordinates.containerWidth = _this6.getDimensions(_this6.domNodes.image).width;
-        _this6.controlCoordinates.imgHeight = _this6.getDimensions(_this6.currentImage).height;
-        _this6.controlCoordinates.imgWidth = _this6.getDimensions(_this6.currentImage).width;
-        _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
-        _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
-        _this6.currentImage.classList.add('sl-transition');
-        if (!_this6.controlCoordinates.zoomed) {
-          _this6.controlCoordinates.initialScale = _this6.options.doubleTapZoom;
-          _this6.setZoomData(_this6.controlCoordinates.initialScale, 0, 0);
-          _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
-          if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
-            _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
+      if (!this.options.singleClickZoom) {
+        this.addEventListener(this.domNodes.image, ['dblclick'], function (event) {
+          if (_this6.isTouchDevice) return;
+          _this6.controlCoordinates.initialPointerOffsetX = event.clientX;
+          _this6.controlCoordinates.initialPointerOffsetY = event.clientY;
+          _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;
+          _this6.controlCoordinates.containerWidth = _this6.getDimensions(_this6.domNodes.image).width;
+          _this6.controlCoordinates.imgHeight = _this6.getDimensions(_this6.currentImage).height;
+          _this6.controlCoordinates.imgWidth = _this6.getDimensions(_this6.currentImage).width;
+          _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
+          _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
+          _this6.currentImage.classList.add('sl-transition');
+          if (!_this6.controlCoordinates.zoomed) {
+            _this6.controlCoordinates.initialScale = _this6.options.doubleTapZoom;
+            _this6.setZoomData(_this6.controlCoordinates.initialScale, 0, 0);
+            _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
+            if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
+              _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
+            _this6.controlCoordinates.zoomed = true;
+          } else {
+            _this6.controlCoordinates.initialScale = 1;
+            _this6.setZoomData(_this6.controlCoordinates.initialScale, 0, 0);
+            _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
+            _this6.controlCoordinates.zoomed = false;
+            if (_this6.domNodes.caption.style.display === 'none') {
+              _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
           }
-          _this6.controlCoordinates.zoomed = true;
-        } else {
-          _this6.controlCoordinates.initialScale = 1;
-          _this6.setZoomData(_this6.controlCoordinates.initialScale, 0, 0);
-          _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
-          _this6.controlCoordinates.zoomed = false;
-          if (_this6.domNodes.caption.style.display === 'none') {
-            _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
-          }
-        }
-        setTimeout(function () {
-          if (_this6.currentImage) {
-            _this6.currentImage.classList.remove('sl-transition');
-            _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
-          }
-        }, 200);
-        _this6.controlCoordinates.capture = true;
-        return false;
+          setTimeout(function () {
+            if (_this6.currentImage) {
+              _this6.currentImage.classList.remove('sl-transition');
+              _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
+            }
+          }, 200);
+          _this6.controlCoordinates.capture = true;
+          return false;
+        });
+      }
+
+      /**
+       *  Custom click vs swipe detection 
+       * */
+      this.addEventListener(this.domNodes.image, ['pointerdown'], function (event) {
+        _this6.controlCoordinates.pointerDownX = event.clientX;
+        _this6.controlCoordinates.pointerDownY = event.clientY;
+        _this6.controlCoordinates.pointerMoved = false;
       });
+      this.domNodes.image.addEventListener('pointermove', function (event) {
+        var moveThreshold = 10; // pixels
+        var deltaX = Math.abs(event.clientX - _this6.controlCoordinates.pointerDownX);
+        var deltaY = Math.abs(event.clientY - _this6.controlCoordinates.pointerDownY);
+        if (deltaX > moveThreshold || deltaY > moveThreshold) {
+          _this6.controlCoordinates.pointerMoved = true;
+        }
+      });
+
+      /**
+       *  Custom single click zoom option enabled 
+       * */
+      if (this.options.singleClickZoom) {
+        this.addEventListener(this.domNodes.image, ['click'], function (event) {
+          if (_this6.controlCoordinates.pointerMoved) {
+            event.preventDefault();
+            return false; // Abort zoom because it was a swipe
+          }
+          if (_this6.isTouchDevice) return;
+          _this6.controlCoordinates.initialPointerOffsetX = event.clientX;
+          _this6.controlCoordinates.initialPointerOffsetY = event.clientY;
+          _this6.controlCoordinates.containerHeight = _this6.getDimensions(_this6.domNodes.image).height;
+          _this6.controlCoordinates.containerWidth = _this6.getDimensions(_this6.domNodes.image).width;
+          _this6.controlCoordinates.imgHeight = _this6.getDimensions(_this6.currentImage).height;
+          _this6.controlCoordinates.imgWidth = _this6.getDimensions(_this6.currentImage).width;
+          _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
+          _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
+          _this6.currentImage.classList.add('sl-transition');
+          _this6.controlCoordinates.targetScale = 2;
+          var scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
+          _this6.controlCoordinates.pinchOffsetX = event.pageX;
+          _this6.controlCoordinates.pinchOffsetY = event.pageY - scrollTopPos || 0; // need to substract the scroll position
+
+          _this6.controlCoordinates.limitOffsetX = (_this6.controlCoordinates.imgWidth * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerWidth) / 2;
+          _this6.controlCoordinates.limitOffsetY = (_this6.controlCoordinates.imgHeight * _this6.controlCoordinates.targetScale - _this6.controlCoordinates.containerHeight) / 2;
+          _this6.controlCoordinates.scaleDifference = _this6.controlCoordinates.targetScale - _this6.controlCoordinates.initialScale;
+          _this6.controlCoordinates.targetOffsetX = _this6.controlCoordinates.imgWidth * _this6.controlCoordinates.targetScale <= _this6.controlCoordinates.containerWidth ? 0 : _this6.minMax(_this6.controlCoordinates.initialOffsetX - (_this6.controlCoordinates.pinchOffsetX - _this6.controlCoordinates.containerOffsetX - _this6.controlCoordinates.containerWidth / 2 - _this6.controlCoordinates.initialOffsetX) / (_this6.controlCoordinates.targetScale - _this6.controlCoordinates.scaleDifference) * _this6.controlCoordinates.scaleDifference, _this6.controlCoordinates.limitOffsetX * -1, _this6.controlCoordinates.limitOffsetX);
+          _this6.controlCoordinates.targetOffsetY = _this6.controlCoordinates.imgHeight * _this6.controlCoordinates.targetScale <= _this6.controlCoordinates.containerHeight ? 0 : _this6.minMax(_this6.controlCoordinates.initialOffsetY - (_this6.controlCoordinates.pinchOffsetY - _this6.controlCoordinates.containerOffsetY - _this6.controlCoordinates.containerHeight / 2 - _this6.controlCoordinates.initialOffsetY) / (_this6.controlCoordinates.targetScale - _this6.controlCoordinates.scaleDifference) * _this6.controlCoordinates.scaleDifference, _this6.controlCoordinates.limitOffsetY * -1, _this6.controlCoordinates.limitOffsetY);
+          if (!_this6.controlCoordinates.zoomed) {
+            _this6.controlCoordinates.initialScale = _this6.options.doubleTapZoom;
+            _this6.setZoomData(_this6.controlCoordinates.initialScale, _this6.controlCoordinates.targetOffsetX, _this6.controlCoordinates.targetOffsetY);
+            _this6.zoomPanElement(_this6.controlCoordinates.targetOffsetX + "px", _this6.controlCoordinates.targetOffsetY + "px", _this6.controlCoordinates.targetScale);
+            if ((!_this6.domNodes.caption.style.opacity || _this6.domNodes.caption.style.opacity > 0) && _this6.domNodes.caption.style.display !== 'none') {
+              _this6.fadeOut(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
+            _this6.controlCoordinates.zoomed = true;
+            _this6.domNodes.image.classList.remove('zoomable');
+            _this6.domNodes.image.classList.add('zoomoutable');
+          } else {
+            _this6.controlCoordinates.initialScale = 1;
+            _this6.setZoomData(_this6.controlCoordinates.initialScale, 0, 0);
+            _this6.zoomPanElement(0 + "px", 0 + "px", _this6.controlCoordinates.initialScale);
+            _this6.controlCoordinates.zoomed = false;
+            if (_this6.domNodes.caption.style.display === 'none') {
+              _this6.fadeIn(_this6.domNodes.caption, _this6.options.fadeSpeed);
+            }
+            _this6.domNodes.image.classList.remove('zoomoutable');
+            _this6.domNodes.image.classList.add('zoomable');
+          }
+          setTimeout(function () {
+            if (_this6.currentImage) {
+              _this6.currentImage.classList.remove('sl-transition');
+              _this6.currentImage.style[_this6.transitionPrefix + 'transform-origin'] = null;
+            }
+          }, 200);
+          _this6.controlCoordinates.capture = true;
+          return false;
+        });
+      }
     }
   }, {
     key: "getDimensions",
@@ -1297,7 +1386,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       }
       this.isFadeIn = false;
       var step = 16.66666 / (duration || this.options.fadeSpeed),
-        fade = function fade() {
+        _fade = function fade() {
           var currentOpacity = parseFloat(elements[0].style.opacity);
           if ((currentOpacity -= step) < 0) {
             var _iterator6 = _createForOfIteratorHelper(elements),
@@ -1328,10 +1417,10 @@ var SimpleLightbox = /*#__PURE__*/function () {
             } finally {
               _iterator7.f();
             }
-            requestAnimationFrame(fade);
+            requestAnimationFrame(_fade);
           }
         };
-      fade();
+      _fade();
     }
   }, {
     key: "fadeIn",
@@ -1356,7 +1445,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
       this.isFadeIn = true;
       var opacityTarget = parseFloat(elements[0].dataset.opacityTarget || 1),
         step = 16.66666 * opacityTarget / (duration || this.options.fadeSpeed),
-        fade = function fade() {
+        _fade2 = function fade() {
           var currentOpacity = parseFloat(elements[0].style.opacity);
           if (!((currentOpacity += step) > opacityTarget)) {
             var _iterator9 = _createForOfIteratorHelper(elements),
@@ -1374,7 +1463,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
               _iterator9.f();
             }
             if (!_this11.isFadeIn) return;
-            requestAnimationFrame(fade);
+            requestAnimationFrame(_fade2);
           } else {
             var _iterator10 = _createForOfIteratorHelper(elements),
               _step10;
@@ -1393,7 +1482,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
             callback && callback.call(_this11, elements);
           }
         };
-      fade();
+      _fade2();
     }
   }, {
     key: "hide",
@@ -1581,10 +1670,8 @@ var SimpleLightbox = /*#__PURE__*/function () {
       return this;
     }
   }]);
-  return SimpleLightbox;
 }();
-var _default = SimpleLightbox;
-exports["default"] = _default;
+var _default = exports["default"] = SimpleLightbox;
 global.SimpleLightbox = SimpleLightbox;
 
 }).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})

@@ -49,7 +49,8 @@ class SimpleLightbox {
         focus: true,
         scrollZoom: true,
         scrollZoomFactor: 0.5,
-        download: false
+        download: false,
+        singleClickZoom: false,
     };
 
     transitionPrefix;
@@ -123,7 +124,11 @@ class SimpleLightbox {
         targetPinchDistance: 0,
         touchCount: 0,
         doubleTapped: false,
-        touchmoveCount: 0
+        touchmoveCount: 0,
+
+        pointerDownX: 0,
+        pointerDownY: 0,
+        pointerMoved : false,
     };
 
     constructor(elements, options) {
@@ -348,6 +353,11 @@ class SimpleLightbox {
         this.domNodes.wrapper.setAttribute('tabindex',-1);
         this.domNodes.wrapper.setAttribute('role','dialog');
         this.domNodes.wrapper.setAttribute('aria-hidden',false);
+
+        if (this.options.singleClickZoom) {
+            this.domNodes.image.classList.add('zoomable');
+        }
+
         if (this.options.className) {
             this.domNodes.wrapper.classList.add(this.options.className);
         }
@@ -1011,33 +1021,33 @@ class SimpleLightbox {
 
             /* Mouse Move implementation */
             if (event.type === 'mousemove' && this.controlCoordinates.mousedown) {
-              if(event.type == 'touchmove') return true;
+            if(event.type == 'touchmove') return true;
 
                 event.preventDefault();
 
-              if(this.controlCoordinates.capture === false) return false;
+            if(this.controlCoordinates.capture === false) return false;
 
-              this.controlCoordinates.pointerOffsetX = event.clientX;
-              this.controlCoordinates.pointerOffsetY = event.clientY;
+            this.controlCoordinates.pointerOffsetX = event.clientX;
+            this.controlCoordinates.pointerOffsetY = event.clientY;
 
-              this.controlCoordinates.targetScale = this.controlCoordinates.initialScale;
-              this.controlCoordinates.limitOffsetX = ((this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) - this.controlCoordinates.containerWidth) / 2;
-              this.controlCoordinates.limitOffsetY = ((this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) - this.controlCoordinates.containerHeight) / 2;
-              this.controlCoordinates.targetOffsetX = (this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerWidth ? 0 : this.minMax(this.controlCoordinates.pointerOffsetX - (this.controlCoordinates.initialPointerOffsetX - this.controlCoordinates.initialOffsetX), this.controlCoordinates.limitOffsetX * (-1), this.controlCoordinates.limitOffsetX);
-              this.controlCoordinates.targetOffsetY = (this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerHeight ? 0 : this.minMax(this.controlCoordinates.pointerOffsetY - (this.controlCoordinates.initialPointerOffsetY - this.controlCoordinates.initialOffsetY), this.controlCoordinates.limitOffsetY * (-1), this.controlCoordinates.limitOffsetY);
+            this.controlCoordinates.targetScale = this.controlCoordinates.initialScale;
+            this.controlCoordinates.limitOffsetX = ((this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) - this.controlCoordinates.containerWidth) / 2;
+            this.controlCoordinates.limitOffsetY = ((this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) - this.controlCoordinates.containerHeight) / 2;
+            this.controlCoordinates.targetOffsetX = (this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerWidth ? 0 : this.minMax(this.controlCoordinates.pointerOffsetX - (this.controlCoordinates.initialPointerOffsetX - this.controlCoordinates.initialOffsetX), this.controlCoordinates.limitOffsetX * (-1), this.controlCoordinates.limitOffsetX);
+            this.controlCoordinates.targetOffsetY = (this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerHeight ? 0 : this.minMax(this.controlCoordinates.pointerOffsetY - (this.controlCoordinates.initialPointerOffsetY - this.controlCoordinates.initialOffsetY), this.controlCoordinates.limitOffsetY * (-1), this.controlCoordinates.limitOffsetY);
 
-              if (Math.abs(this.controlCoordinates.targetOffsetX) === Math.abs(this.controlCoordinates.limitOffsetX)) {
-                  this.controlCoordinates.initialOffsetX = this.controlCoordinates.targetOffsetX;
-                  this.controlCoordinates.initialPointerOffsetX = this.controlCoordinates.pointerOffsetX;
-              }
+            if (Math.abs(this.controlCoordinates.targetOffsetX) === Math.abs(this.controlCoordinates.limitOffsetX)) {
+                this.controlCoordinates.initialOffsetX = this.controlCoordinates.targetOffsetX;
+                this.controlCoordinates.initialPointerOffsetX = this.controlCoordinates.pointerOffsetX;
+            }
 
-              if (Math.abs(this.controlCoordinates.targetOffsetY) === Math.abs(this.controlCoordinates.limitOffsetY)) {
-                  this.controlCoordinates.initialOffsetY = this.controlCoordinates.targetOffsetY;
-                  this.controlCoordinates.initialPointerOffsetY = this.controlCoordinates.pointerOffsetY;
-              }
+            if (Math.abs(this.controlCoordinates.targetOffsetY) === Math.abs(this.controlCoordinates.limitOffsetY)) {
+                this.controlCoordinates.initialOffsetY = this.controlCoordinates.targetOffsetY;
+                this.controlCoordinates.initialPointerOffsetY = this.controlCoordinates.pointerOffsetY;
+            }
 
-              this.setZoomData(this.controlCoordinates.initialScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
-              this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
+            this.setZoomData(this.controlCoordinates.initialScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
+            this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
 
             }
 
@@ -1106,47 +1116,142 @@ class SimpleLightbox {
             }
         });
 
-        this.addEventListener(this.domNodes.image, ['dblclick'], (event) => {
-            if(this.isTouchDevice) return;
-            this.controlCoordinates.initialPointerOffsetX = event.clientX;
-            this.controlCoordinates.initialPointerOffsetY = event.clientY;
-            this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
-            this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
-            this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
-            this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
-            this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
-            this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
+        if (!this.options.singleClickZoom) {
+            this.addEventListener(this.domNodes.image, ['dblclick'], (event) => {
+                if(this.isTouchDevice) return;
+                this.controlCoordinates.initialPointerOffsetX = event.clientX;
+                this.controlCoordinates.initialPointerOffsetY = event.clientY;
+                this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
+                this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
+                this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
+                this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
+                this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
+                this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
 
-            this.currentImage.classList.add('sl-transition');
+                this.currentImage.classList.add('sl-transition');
 
-            if(!this.controlCoordinates.zoomed) {
-                this.controlCoordinates.initialScale = this.options.doubleTapZoom;
-                this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
-                this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
-                if ((!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
-                    this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
+                if(!this.controlCoordinates.zoomed) {
+                    this.controlCoordinates.initialScale = this.options.doubleTapZoom;
+                    this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
+                    this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
+                    if ((!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
+                        this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
+                    }
+                    this.controlCoordinates.zoomed = true;
+                } else {
+                    this.controlCoordinates.initialScale = 1;
+                    this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
+                    this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
+                    this.controlCoordinates.zoomed = false;
+                    if (this.domNodes.caption.style.display === 'none') {
+                        this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
+                    }
+
                 }
-                this.controlCoordinates.zoomed = true;
-            } else {
-                this.controlCoordinates.initialScale = 1;
-                this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
-                this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
-                this.controlCoordinates.zoomed = false;
-                if (this.domNodes.caption.style.display === 'none') {
-                    this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
-                }
+                setTimeout(() => {
+                    if (this.currentImage) {
+                        this.currentImage.classList.remove('sl-transition');
+                        this.currentImage.style[this.transitionPrefix + 'transform-origin'] = null;
+                    }
+                }, 200);
 
-            }
-            setTimeout(() => {
-                if (this.currentImage) {
-                    this.currentImage.classList.remove('sl-transition');
-                    this.currentImage.style[this.transitionPrefix + 'transform-origin'] = null;
-                }
-            }, 200);
+                this.controlCoordinates.capture = true;
+                return false;
+            });
+        }
 
-            this.controlCoordinates.capture = true;
-            return false;
+        /**
+         *  Custom click vs swipe detection 
+         * */
+        this.addEventListener(this.domNodes.image, ['pointerdown'], (event) => {
+            this.controlCoordinates.pointerDownX = event.clientX;
+            this.controlCoordinates.pointerDownY = event.clientY;
+            this.controlCoordinates.pointerMoved = false;
         });
+        
+        this.domNodes.image.addEventListener('pointermove', (event) => {
+            const moveThreshold = 10; // pixels
+            const deltaX = Math.abs(event.clientX - this.controlCoordinates.pointerDownX);
+            const deltaY = Math.abs(event.clientY - this.controlCoordinates.pointerDownY);
+            if (deltaX > moveThreshold || deltaY > moveThreshold) {
+                this.controlCoordinates.pointerMoved = true;
+            }
+        });
+
+        /**
+         *  Custom single click zoom option enabled 
+         * */
+        if (this.options.singleClickZoom) {
+            this.addEventListener(this.domNodes.image, [ 'click' ], (event) => {
+
+                if (this.controlCoordinates.pointerMoved) {
+                    event.preventDefault();
+                    return false; // Abort zoom because it was a swipe
+                }
+
+
+                if(this.isTouchDevice) return;
+                this.controlCoordinates.initialPointerOffsetX = event.clientX;
+                this.controlCoordinates.initialPointerOffsetY = event.clientY;
+                this.controlCoordinates.containerHeight = this.getDimensions(this.domNodes.image).height;
+                this.controlCoordinates.containerWidth = this.getDimensions(this.domNodes.image).width;
+                this.controlCoordinates.imgHeight = this.getDimensions(this.currentImage).height;
+                this.controlCoordinates.imgWidth = this.getDimensions(this.currentImage).width;
+                this.controlCoordinates.containerOffsetX = this.domNodes.image.offsetLeft;
+                this.controlCoordinates.containerOffsetY = this.domNodes.image.offsetTop;
+
+                this.currentImage.classList.add('sl-transition');
+
+                this.controlCoordinates.targetScale = 2;
+
+                let scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
+
+                this.controlCoordinates.pinchOffsetX = event.pageX;
+                this.controlCoordinates.pinchOffsetY = event.pageY - scrollTopPos || 0; // need to substract the scroll position
+
+                this.controlCoordinates.limitOffsetX = ((this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) - this.controlCoordinates.containerWidth) / 2;
+                this.controlCoordinates.limitOffsetY = ((this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) - this.controlCoordinates.containerHeight) / 2;
+                this.controlCoordinates.scaleDifference = this.controlCoordinates.targetScale - this.controlCoordinates.initialScale;
+                this.controlCoordinates.targetOffsetX = (this.controlCoordinates.imgWidth * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerWidth ? 0 : this.minMax(this.controlCoordinates.initialOffsetX - ((((((this.controlCoordinates.pinchOffsetX - this.controlCoordinates.containerOffsetX) - (this.controlCoordinates.containerWidth / 2)) - this.controlCoordinates.initialOffsetX) / (this.controlCoordinates.targetScale - this.controlCoordinates.scaleDifference))) * this.controlCoordinates.scaleDifference), this.controlCoordinates.limitOffsetX * (-1), this.controlCoordinates.limitOffsetX);
+                this.controlCoordinates.targetOffsetY = (this.controlCoordinates.imgHeight * this.controlCoordinates.targetScale) <= this.controlCoordinates.containerHeight ? 0 : this.minMax(this.controlCoordinates.initialOffsetY - ((((((this.controlCoordinates.pinchOffsetY - this.controlCoordinates.containerOffsetY) - (this.controlCoordinates.containerHeight / 2)) - this.controlCoordinates.initialOffsetY) / (this.controlCoordinates.targetScale - this.controlCoordinates.scaleDifference))) * this.controlCoordinates.scaleDifference), this.controlCoordinates.limitOffsetY * (-1), this.controlCoordinates.limitOffsetY);
+
+                
+                
+                if(!this.controlCoordinates.zoomed) {
+                    this.controlCoordinates.initialScale = this.options.doubleTapZoom;
+                    this.setZoomData(this.controlCoordinates.initialScale, this.controlCoordinates.targetOffsetX, this.controlCoordinates.targetOffsetY);
+                    this.zoomPanElement(this.controlCoordinates.targetOffsetX + "px", this.controlCoordinates.targetOffsetY + "px", this.controlCoordinates.targetScale);
+                    if ((!this.domNodes.caption.style.opacity || this.domNodes.caption.style.opacity > 0) && this.domNodes.caption.style.display !== 'none') {
+                        this.fadeOut(this.domNodes.caption, this.options.fadeSpeed);
+                    }
+                    this.controlCoordinates.zoomed = true;
+    
+                    this.domNodes.image.classList.remove('zoomable');
+                    this.domNodes.image.classList.add('zoomoutable');
+                } else {
+                    this.controlCoordinates.initialScale = 1;
+                    this.setZoomData(this.controlCoordinates.initialScale, 0, 0);
+                    this.zoomPanElement(0 + "px", 0 + "px", this.controlCoordinates.initialScale);
+                    this.controlCoordinates.zoomed = false;
+                    if (this.domNodes.caption.style.display === 'none') {
+                        this.fadeIn(this.domNodes.caption, this.options.fadeSpeed);
+                    }
+    
+                    this.domNodes.image.classList.remove('zoomoutable');
+                    this.domNodes.image.classList.add('zoomable');
+    
+                }
+                setTimeout(() => {
+                    if (this.currentImage) {
+                        this.currentImage.classList.remove('sl-transition');
+                        this.currentImage.style[this.transitionPrefix + 'transform-origin'] = null;
+                    }
+                }, 200);
+    
+                this.controlCoordinates.capture = true;
+                return false;
+            });
+        }
 
     }
 
