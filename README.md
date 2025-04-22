@@ -1,3 +1,6 @@
+# simplelightbox wi single click zoom
+Forked version of simplelightbox with single click zoom feature. `singleClickZoom: true` option is added to enable single click zoom feature. By default it is set to `false`.	
+
 # simplelightbox
 Touch-friendly image lightbox for mobile and desktop
 
