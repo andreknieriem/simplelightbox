@@ -1202,7 +1202,7 @@ class SimpleLightbox {
 
                 this.currentImage.classList.add('sl-transition');
 
-                this.controlCoordinates.targetScale = this.options.maxZoom;
+                this.controlCoordinates.targetScale = this.options.singleClickZoom;
 
                 let scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
 

@@ -6831,7 +6831,7 @@ var SimpleLightbox = /*#__PURE__*/function () {
           _this6.controlCoordinates.containerOffsetX = _this6.domNodes.image.offsetLeft;
           _this6.controlCoordinates.containerOffsetY = _this6.domNodes.image.offsetTop;
           _this6.currentImage.classList.add('sl-transition');
-          _this6.controlCoordinates.targetScale = _this6.options.maxZoom;
+          _this6.controlCoordinates.targetScale = _this6.options.singleClickZoom;
           var scrollTopPos = document.documentElement.scrollTop || document.body.scrollTop;
           _this6.controlCoordinates.pinchOffsetX = event.pageX;
           _this6.controlCoordinates.pinchOffsetY = event.pageY - scrollTopPos || 0; // need to substract the scroll position
