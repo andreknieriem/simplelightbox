@@ -187,6 +187,12 @@ body.hidden-scroll {
 .sl-wrapper .sl-image .sl-caption.pos-outside {
   bottom: auto;
 }
+.sl-wrapper .sl-image.zoomable {
+  cursor: zoom-in;
+}
+.sl-wrapper .sl-image.zoomoutable {
+  cursor: zoom-out;
+}
 
 .sl-spinner {
   display: none;

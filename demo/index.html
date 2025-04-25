@@ -803,7 +803,7 @@ $add-vendor-prefixes: true !default;</code>
 
 		$('body').fadeIn(200);
 
-		let $gallery = new SimpleLightbox('.small-demo a', {});
+		let $gallery = new SimpleLightbox('.small-demo a', {singleClickZoom: true});
 
 		interval = window.setInterval(function(){
 			$('.scrollwheel').animate({

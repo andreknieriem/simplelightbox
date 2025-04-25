@@ -1,3 +1,6 @@
+# simplelightbox wi single click zoom
+Forked version of simplelightbox with single click zoom feature. `singleClickZoom: 3` option is added to enable single click zoom feature. By default it is set to `false`. `maxZoom` option sets the maximum zoom level of pinch gesture. `
+
 # simplelightbox
 Touch-friendly image lightbox for mobile and desktop
 
