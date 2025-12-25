@@ -1,4 +1,4 @@
-require('./simple-lightbox');
+import SimpleLightbox from "./simple-lightbox";
 
 (function ($, window, document, undefined) {
     'use strict';
