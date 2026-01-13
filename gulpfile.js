@@ -1,13 +1,16 @@
-let gulp = require("gulp"),
-    babel = require("gulp-babel"),
-    tap = require('gulp-tap'),
-    buffer = require('gulp-buffer'),
-    babelify = require('babelify'),
-    browserify = require('browserify'),
-    uglify = require('gulp-uglify'),
-    rename = require('gulp-rename'),
-    gap = require('gulp-append-prepend'),
-    sass = require('gulp-sass')(require('node-sass'));
+import gulp from 'gulp';
+import babel from 'gulp-babel';
+import tap from 'gulp-tap';
+import buffer from 'gulp-buffer';
+import babelify from 'babelify';
+import browserify from 'browserify';
+import uglify from 'gulp-uglify';
+import rename from 'gulp-rename';
+import gap from 'gulp-append-prepend';
+import gulpSass from 'gulp-sass';
+import dartSass from 'sass';
+
+const sass = gulpSass(dartSass);
 
 // default standalone file
 gulp.task("default", () => {
@@ -113,7 +116,7 @@ gulp.task('sass', () => {
 
 gulp.task('sass-minify', () => {
     return gulp.src('./src/*.scss')
-        .pipe(sass({outputStyle: 'compressed'}))
+        .pipe(sass({style: 'compressed'}))
         .pipe(rename('simple-lightbox.min.css'))
         .pipe(gap.prependFile('./src/license-notice.txt'))
         .pipe(gulp.dest('./dist'));

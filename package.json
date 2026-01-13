@@ -2,6 +2,7 @@
   "name": "simplelightbox",
   "version": "2.14.3",
   "description": "Touch-friendly modern image lightbox for mobile and desktop with optional jQuery support",
+  "type": "module",
   "main": "dist/simple-lightbox.js",
   "style": "dist/simple-lightbox.css",
   "module": "dist/simple-lightbox.modules.js",
@@ -17,15 +18,15 @@
     "babelify": "^10.0.0",
     "browserify": "^17.0.0",
     "core-js": "^3.14.0",
-    "gulp": "^4.0.2",
+    "gulp": "^5.0.1",
     "gulp-append-prepend": "^1.0.9",
     "gulp-babel": "^8.0.0",
     "gulp-buffer": "^0.0.2",
     "gulp-rename": "^2.0.0",
-    "gulp-sass": "^5.1.0",
+    "gulp-sass": "^6.0.1",
     "gulp-tap": "^2.0.0",
     "gulp-uglify": "^3.0.2",
-    "node-sass": "npm:sass@^1.62.1",
+    "sass": "^1.97.1",
     "through2": "^4.0.2"
   },
   "keywords": [
@@ -47,6 +48,9 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/andreknieriem/simplelightbox/issues"
+  },
+  "engines": {
+    "node": ">=22"
   },
   "homepage": "https://simplelightbox.js.org/"
 }
