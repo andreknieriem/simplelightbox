@@ -168,7 +168,7 @@ gallery.on('show.simplelightbox', function () {
 | prev | Go to previous image |
 | destroy | Destroys the instance of the lightbox |
 | refresh | Destroys and reinitializes the lightbox, needed for eg. Ajax Calls, or after dom manipulations |
-| getLighboxData | Get some useful lightbox data |
+| getLightboxData | Get some useful lightbox data |
 
 **Example**  
 ```javascript
@@ -181,8 +181,8 @@ gallery.next(); // Next Image
 You can have multiple lightboxes on one page if you give them different selectors. Here is a small example:
 
 ```javascript
-var lightbox1 = $('.lighbox-1 a').simpleLightbox();
-var lightbox2 = $('.lighbox-2 a').simpleLightbox();
+var lightbox1 = $('.lightbox-1 a').simpleLightbox();
+var lightbox2 = $('.lightbox-2 a').simpleLightbox();
 ```
 
 ### Customization

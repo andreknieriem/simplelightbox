@@ -1518,12 +1518,17 @@ class SimpleLightbox {
     }
 
     // get some useful data
-    getLighboxData() {
+    getLightboxData() {
         return {
             currentImageIndex: this.currentImageIndex,
             currentImage: this.currentImage,
             globalScrollbarWidth: this.globalScrollbarWidth
         };
+    }
+
+    // @deprecated replace with `getLightboxData()`
+    getLighboxData() {
+        return this.getLightboxData();
     }
 
     //close is exposed anyways..
