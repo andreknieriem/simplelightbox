@@ -47,7 +47,7 @@ $('.some-element a').simpleLightbox({ /* options */ });
 #### With Webpack/Browserify/Parcel etc...
 Choose the module file you want to import or require.
 
-**Module with Babel tranformation**
+**Module with Babel transformation**
 ```javascript
 import SimpleLightbox from "simplelightbox";
 ```
@@ -60,7 +60,7 @@ import SimpleLightbox from "simplelightbox/dist/simple-lightbox.esm"
 ### Markup
 For the default setup, you just need links that are pointing to images.
 
-```markup
+```hml
 <div class="gallery">
     <a href="images/image1.jpg"><img src="images/thumbs/thumb1.jpg" alt="" title=""></a>
     <a href="images/image2.jpg"><img src="images/thumbs/thumb2.jpg" alt="" title="Beautiful Image"></a>
@@ -86,14 +86,14 @@ For a complete example just look at the demo folder.
 | captionPosition    | 'bottom'                                     | string             | The position of the caption. Options are top, bottom or outside (note that outside can be outside the visible viewport!)                                                                                                                                                                                                                                                |
 | captionDelay       | 0                                            | int                | Adds a delay before the caption shows (in ms)                                                                                                                                                                                                                                                                                                                           |
 | captionClass       | ''                                           | string             | Add an additional class to the sl-caption                                                                                                                                                                                                                                                                                                                               |
-| captionHTML        | true                                         | bool               | Wether or not to allow HTML in captions, defaults to true for legacy reasons                                                                                                                                                                                                                                                                                            |
+| captionHTML        | true                                         | bool               | Whether or not to allow HTML in captions, defaults to true for legacy reasons                                                                                                                                                                                                                                                                                           |
 | close              | true                                         | bool               | Show the close button or not                                                                                                                                                                                                                                                                                                                                            |
 | closeText          | '×'                                          | string             | Text or html for the close button                                                                                                                                                                                                                                                                                                                                       |
 | swipeClose         | true                                         | bool               | Swipe up or down to close gallery                                                                                                                                                                                                                                                                                                                                       |
 | showCounter        | true                                         | bool               | Show current image index or not                                                                                                                                                                                                                                                                                                                                         |
 | fileExt            | 'png&#124;jpg&#124;jpeg&#124;gif'            | regexp or false    | List of file extensions the plugin works with or false to disable the check                                                                                                                                                                                                                                                                                             |
 | animationSpeed     | 250                                          | int                | How long the slide animation takes                                                                                                                                                                                                                                                                                                                                      |
-| animationSlide     | true                                         | bool               | Wether to slide in new photos or not, disable to fade                                                                                                                                                                                                                                                                                                                   |
+| animationSlide     | true                                         | bool               | Whether to slide in new photos or not, disable to fade                                                                                                                                                                                                                                                                                                                  |
 | preloading         | true                                         | bool               | Allows preloading next and previous images                                                                                                                                                                                                                                                                                                                              |
 | enableKeyboard     | true                                         | bool               | Allow keyboard arrow navigation and close with ESC key                                                                                                                                                                                                                                                                                                                  |
 | loop               | true                                         | bool               | Enables looping through images                                                                                                                                                                                                                                                                                                                                          |
@@ -108,7 +108,7 @@ For a complete example just look at the demo folder.
 | disableScroll      | true                                         | bool               | Stop scrolling page if lightbox is opened                                                                                                                                                                                                                                                                                                                               |
 | alertError         | true                                         | bool               | Show an alert if image was not found. If false error will be ignored                                                                                                                                                                                                                                                                                                    |
 | alertErrorMessage  | 'Image not found, next image will be loaded' | string             | The message displayed if image was not found                                                                                                                                                                                                                                                                                                                            |
-| additionalHtml     | false                                        | string             | Additional HTML showing inside every image. Usefull for watermark etc. If false nothing is added                                                                                                                                                                                                                                                                        |
+| additionalHtml     | false                                        | string             | Additional HTML showing inside every image. Useful for watermark etc. If false nothing is added                                                                                                                                                                                                                                                                         |
 | download           | false                                        | string             | Text for a download link below the image. If false nothing is added                                                                                                                                                                                                                                                                                                     |
 | history            | true                                         | bool               | Enable history back closes lightbox instead of reloading the page                                                                                                                                                                                                                                                                                                       |
 | throttleInterval   | 0                                            | int                | Time to wait between slides                                                                                                                                                                                                                                                                                                                                             |
@@ -148,7 +148,7 @@ gallery.on('show.simplelightbox', function () {
 });
 
 gallery.on('error.simplelightbox', function (e) {
-	console.log(e); // Some usefull information
+	console.log(e); // Some useful information
 });
 
 // with jQuery nearly the same
@@ -163,7 +163,7 @@ gallery.on('show.simplelightbox', function () {
 | ---- | ----------- |
 | open | Opens the lightbox with a given Element |
 | openPosition | Opens the lightbox to specific position |
-| close | Closes current openend Lightbox |
+| close | Closes current opened Lightbox |
 | next | Go to next image |
 | prev | Go to previous image |
 | destroy | Destroys the instance of the lightbox |
@@ -220,7 +220,7 @@ $add-vendor-prefixes: true !default;
 
 ### Contributing
 **using gulp**  
-Run `gulp watch` to enable continous watching of both src/simple-lightbox.js and src/simple-lightbox.scss. Both files will be compiled to dist/simple-lightbox.js and dist/simple-lightbox.css respectively. Open dist/index.html in your browser to inspect your changes...
+Run `gulp watch` to enable continuous watching of both src/simple-lightbox.js and src/simple-lightbox.scss. Both files will be compiled to dist/simple-lightbox.js and dist/simple-lightbox.css respectively. Open dist/index.html in your browser to inspect your changes...
 
 **Building**  
 Just call `gulp build` to have all files and variants created inside dist!
