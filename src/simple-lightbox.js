@@ -627,6 +627,10 @@ class SimpleLightbox {
                 imageHeight /= ratio;
             }
 
+            const imageStyle = window.getComputedStyle(this.domNodes.image);
+            imageWidth += parseFloat(imageStyle.borderLeftWidth) + parseFloat(imageStyle.borderRightWidth);
+            imageHeight += parseFloat(imageStyle.borderTopWidth) + parseFloat(imageStyle.borderBottomWidth);
+
             this.domNodes.image.style.top = (window.innerHeight - imageHeight) / 2 + 'px';
             this.domNodes.image.style.left = (window.innerWidth - imageWidth - this.globalScrollbarWidth) / 2 + 'px';
             this.domNodes.image.style.width = imageWidth + 'px';
